@@ -43,17 +43,54 @@ entre bilinguisme, SEO et dispositif agent revient à parier.
    build servi est antérieur à l'activation, aucun beacon n'apparaît dans le HTML.
 4. Ouvrir la CSP (diff ci-dessous) et vérifier que le beacon charge réellement.
 
-## Journal
+## Journal — 2026-07-28 : mis en pause, diagnostic établi
 
-**2026-07-28 — activé au dashboard.** Vérification du HTML servi juste après :
-aucune trace de `cloudflareinsights`, `beacon` ni `insights` dans les 61 800
-octets de `https://cv.drouet.io`. Attendu : Pages injecte au déploiement, et
-l'ETag servi correspondait au build antérieur. Ce commit déclenche un nouveau
-déploiement pour lever le doute.
+**Web Analytics activé au dashboard, mais le beacon ne s'injecte jamais.**
+Trois tentatives, toutes vérifiées sur le HTML réellement servi :
 
-Si le beacon n'apparaît toujours pas après ce déploiement, c'est que le mode
-retenu est le Web Analytics *standalone* (**Add a site**), qui ne fait aucune
-injection et fournit un extrait `<script>` à poser soi-même dans le layout.
+| Tentative | Résultat |
+|---|---|
+| Activation *Analytics & Logs → Add a site*, puis déploiement | aucun beacon |
+| Activation dans **Settings du projet Pages** | `build_config.web_analytics_tag` reste **`null`** |
+| Déploiement neuf forcé par API (`ad209165`, commit `dddf189`) | aucun beacon, `tag WA: null` |
+
+Contrôles faits sur `https://cv.drouet.io` **et** sur l'URL de déploiement
+directe (`*.pages.dev`), pour écarter le cache.
+
+**Conclusion : l'auto-injection Pages ne fonctionne pas ici.** La cause exacte
+n'a pas pu être établie — l'API RUM (`/rum/site_info/list`) répond 403 avec le
+token disponible, qui porte Pages et comptes mais pas `Account Analytics`.
+
+## Reprise — la voie fiable
+
+Ne pas repartir sur l'auto-injection : poser le script soi-même fonctionne quel
+que soit l'état de l'intégration Pages.
+
+1. Récupérer le **site token** : *Analytics & Logs → Web Analytics → le site →
+   Manage site*. C'est une valeur **publique** de 32 caractères hexadécimaux,
+   destinée au HTML — à ne pas confondre avec un token API (préfixe `cfut_`).
+2. Poser le script dans `BaseLayout.astro` :
+   ```html
+   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+           data-cf-beacon='{"token": "<site-token>"}'></script>
+   ```
+3. Ouvrir la CSP **aux deux endroits** (`BaseLayout.astro` et `public/_headers`,
+   qui doivent rester identiques) — voir le diff plus bas.
+4. Vérifier que le beacon charge sans erreur console avant de clore la carte.
+
+> Pas de `integrity` (SRI) sur ce script : Cloudflare publie `beacon.min.js`
+> sans empreinte figée et le met à jour, donc un SRI casserait à la première
+> version. C'est un arbitrage assumé — une origine tierce de plus, non
+> vérifiable, en échange de la seule mesure d'audience du site. Le seul autre
+> script externe du projet (`code.iconify.design`) est dans le même cas.
+
+Alternative : un token portant `Account → Account Analytics → Edit` permet de
+créer le site RUM et de renseigner la config du projet entièrement par API,
+sans passer par le dashboard.
+
+> Trace : un déploiement supplémentaire (`ad209165`) a été créé pendant ce
+> diagnostic. Sans conséquence — même commit que la production, contenu
+> identique.
 
 ## ⚠️ Correction du 2026-07-28 — la note initiale était fausse
 
