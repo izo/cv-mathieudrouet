@@ -7,8 +7,9 @@ Allow: /
 # ai-input=yes:  may use content as live grounding for AI answers
 Content-Signal: search=yes, ai-train=no, ai-input=yes
 
-# Sitemap
-Sitemap: https://cv.drouet.io/sitemap.xml
+# Sitemap — URL canonique. /sitemap.xml existe encore en redirection 301 pour
+# les liens externes, mais un robot ne devrait pas avoir à la suivre.
+Sitemap: https://cv.drouet.io/sitemap-index.xml
 
 # Optimization
 Crawl-delay: 1

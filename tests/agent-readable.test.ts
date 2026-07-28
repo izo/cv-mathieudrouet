@@ -97,6 +97,15 @@ describe('Contrat agent-readable', () => {
       );
       expect(missing).toEqual([]);
     });
+
+    it('le sitemap déclaré dans robots.txt existe dans le build', () => {
+      // C'est par là que les moteurs découvrent le sitemap : il doit pointer sur
+      // la ressource canonique, pas sur une redirection.
+      const missing = localPaths(read('public', 'robots.txt')).filter(
+        (p) => !existsSync(join(distDir, p))
+      );
+      expect(missing).toEqual([]);
+    });
   });
 
   describe('Agent skills — empreintes vérifiables', () => {
