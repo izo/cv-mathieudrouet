@@ -24,13 +24,27 @@ Le troisième signal d'outcome — position sur « mathieu drouet », présence 
 - [ ] Aucune erreur de couverture bloquante sur les 3 pages (`/`, `/about`, `/404`)
 - [ ] Relevé initial archivé : position sur le nom, impressions sur les requêtes métier — c'est le point zéro auquel comparer les trimestres suivants
 
-## Notes
+## Procédure
 
-Le point zéro compte autant que l'outil : sans lui, une progression ultérieure
-ne sera pas démontrable.
+1. [search.google.com/search-console](https://search.google.com/search-console) → *Ajouter une propriété* → **Préfixe d'URL** : `https://cv.drouet.io`
+2. Vérification par **enregistrement TXT** — le DNS est chez Cloudflare, c'est le chemin le plus court. Google donne la valeur, à créer dans Cloudflare DNS.
+3. *Sitemaps* → soumettre **`sitemap-index.xml`** (et non `sitemap.xml`, voir ci-dessous).
+4. Relever le point zéro : position sur « mathieu drouet », impressions sur les requêtes métier. Sans lui, aucune progression ultérieure ne sera démontrable.
 
-Vérifier au passage que `robots.txt` et les Content Signals (`search=yes`,
-`ai-train=no`, `ai-input=yes`) ne bloquent rien involontairement pour les
-crawlers de recherche.
+## Prérequis vérifiés le 2026-07-28
 
-Action d'infra : à exécuter depuis la Search Console.
+| Contrôle | État |
+|---|---|
+| `https://cv.drouet.io/sitemap-index.xml` | HTTP 200 |
+| `https://cv.drouet.io/robots.txt` | HTTP 200 |
+| Content Signals (`search=yes`) | n'entrave pas l'indexation |
+| `Allow: /` | aucun blocage |
+
+**Un défaut corrigé au passage.** `robots.txt` déclarait
+`Sitemap: https://cv.drouet.io/sitemap.xml` — un fichier qui n'existe pas :
+c'est une redirection 301 vers `/sitemap-index.xml`, Astro 7 ne générant plus ce
+nom. C'est par là que les moteurs découvrent le sitemap ; les faire passer par
+une redirection avant la première URL était un détour inutile. Corrigé, et
+couvert par un test (`tests/agent-readable.test.ts`).
+
+Action d'infra : la déclaration se fait depuis la Search Console.
