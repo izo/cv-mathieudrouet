@@ -1,7 +1,8 @@
 ---
 title: Faire échouer le build si une section du CV est absente
 type: task
-status: todo
+status: done
+completed: 2026-07-28
 assignee: task-runner
 priority: high
 effort: M
@@ -35,17 +36,50 @@ pernicieux.
 
 ## Critères de done
 
-- [ ] Liste des sections obligatoires déclarée explicitement dans le code, pas devinée
-- [ ] Le build échoue avec un message nommant la section manquante ou vide
-- [ ] Une entrée d'expérience mal formée est signalée, pas ignorée
-- [ ] Test couvrant chaque cas : section absente, section vide, entrée mal formée
-- [ ] `bun run build` et `bun test` verts sur le `cv.md` actuel
+- [x] `REQUIRED_CV_SECTIONS` déclaré explicitement dans `cvParser.ts`
+- [x] Le build échoue en nommant chaque section manquante ou vide — **vérifié par mutation**
+- [x] Une entrée mal formée produit un avertissement nommant l'employeur concerné
+- [x] 17 tests dans `tests/cv-validation.test.ts` : section absente, vide, entrée incomplète, CV nul
+- [x] `bun run build` et `bun test` verts sur le `cv.md` actuel, **sans aucun avertissement**
 
-## Notes
+## Implémentation
 
-Distinguer deux gravités : une **section** manquante casse le build ; une
-**entrée** mal formée peut se contenter d'un avertissement bruyant — à
-condition qu'il soit visible, pas noyé.
+Deux fonctions ajoutées à `cvParser.ts`, appelées depuis `src/pages/index.astro` :
+
+- `validateCVData(data)` — inspecte sans interrompre, retourne les anomalies
+- `assertCVComplete(data)` — émet les avertissements puis lève si une section manque
+
+**Elles vivent délibérément hors du `try/catch` de `parseCVContent`.** Ce catch
+renvoie une structure entièrement vide en cas d'erreur : une validation placée
+dedans aurait vu ses propres exceptions avalées par le mécanisme même qu'elle
+doit surveiller.
+
+Deux gravités, comme prévu : une **section** absente ou vide casse le build ;
+une **entrée** incomplète est signalée par un `console.warn` qui nomme
+l'employeur, sans bloquer la publication.
+
+## Preuve par mutation
+
+```
+cv.md réduit à son frontmatter  →  build exit 1
+    [ERROR] CV amputé — le build est interrompu.
+      · Education : aucune formation reconnue
+      · Expériences : aucune expérience reconnue
+      · Compétences : aucune compétence reconnue
+état restauré                    →  build vert, aucun avertissement
+```
+
+## Correction factuelle de cette carte
+
+La description initiale affirmait qu'« un écart — un niveau de titre, une icône
+mal formée — fait disparaître silencieusement des entrées ». **Vérifié : c'est
+faux pour le niveau de titre.** Passer `## Expériences` en `### Expériences`
+laisse le parser retrouver ses 7 expériences — il s'accroche aux entrées
+elles-mêmes, pas au titre de section.
+
+Le risque R4 reste réel (le catch renvoie du vide, les entrées non conformes
+sont droppées), mais il est plus étroit qu'annoncé. Noté pour ne pas propager
+une croyance non testée.
 
 Attention à ne pas verrouiller le format au point de rendre l'édition du CV
 pénible : le but est d'attraper l'amputation accidentelle, pas d'imposer une
