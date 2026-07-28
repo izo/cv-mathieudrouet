@@ -3,36 +3,35 @@
 ---
 
 <!-- Contact Modal -->
-<div id="contact-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-  <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+<div id="contact-modal" class="contact-overlay fixed inset-0 flex items-center justify-center z-50 hidden">
+  <div class="contact-panel max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
     <!-- Modal Header -->
-    <div class="flex justify-between items-center p-6 border-b border-gray-200">
-      <h2 class="text-xl font-semibold text-gray-900">Me contacter</h2>
-      <button 
-        type="button" 
-        id="close-modal" 
-        class="text-gray-400 hover:text-gray-600 transition-colors"
-        aria-label="Fermer la modale"
+    <div class="flex justify-between items-center gap-4 p-6 contact-panel__header">
+      <h2 id="contact-modal-title" class="contact-title"><span class="contact-title__rule" aria-hidden="true"></span>Me contacter</h2>
+      <button
+        type="button"
+        id="close-modal"
+        class="contact-close"
+        aria-label="Fermer la fenêtre de contact"
       >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
 
     <!-- Modal Body -->
     <div class="p-6">
-      <!-- Success Message (hidden by default) -->
-      <div id="success-message" class="hidden mb-4 p-4 bg-green-50 border border-green-200 rounded-md">
-        <div class="flex">
-          <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-          </svg>
-          <div class="ml-3">
-            <p class="text-sm font-medium text-green-800">Message envoyé avec succès !</p>
-            <p class="text-sm text-green-700 mt-1">Je vous répondrai dans les plus brefs délais.</p>
-          </div>
-        </div>
+      <!-- Message envoyé -->
+      <div id="success-message" class="hidden contact-notice contact-notice--ok" role="status">
+        <p class="contact-notice__title">Message envoyé</p>
+        <p class="contact-notice__body">Je vous réponds sous quelques jours, à l'adresse que vous avez indiquée.</p>
+      </div>
+
+      <!-- Échec de l'envoi -->
+      <div id="error-message" class="hidden contact-notice contact-notice--ko" role="alert">
+        <p class="contact-notice__title">L'envoi a échoué</p>
+        <p class="contact-notice__body" id="error-detail">Le message n'est pas parti. Réessayez, ou écrivez directement à <a href="mailto:m@mdr.cool" class="no-min-size contact-notice__link">m@mdr.cool</a>.</p>
       </div>
 
       <!-- Contact Form -->
@@ -52,7 +51,7 @@
 
         <!-- Name Field -->
         <div>
-          <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+          <label for="name" class="contact-label">
             Nom complet *
           </label>
           <input 
@@ -60,14 +59,14 @@
             id="name" 
             name="name" 
             required
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cv-accent focus:border-cv-accent transition-colors"
+            class="contact-field"
             placeholder="Votre nom et prénom"
           />
         </div>
 
         <!-- Email Field -->
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+          <label for="email" class="contact-label">
             Email *
           </label>
           <input 
@@ -75,14 +74,14 @@
             id="email" 
             name="email" 
             required
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cv-accent focus:border-cv-accent transition-colors"
+            class="contact-field"
             placeholder="votre.email@exemple.com"
           />
         </div>
 
         <!-- Subject Field -->
         <div>
-          <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">
+          <label for="subject" class="contact-label">
             Sujet *
           </label>
           <input 
@@ -90,14 +89,14 @@
             id="subject" 
             name="subject" 
             required
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cv-accent focus:border-cv-accent transition-colors"
+            class="contact-field"
             placeholder="Objet de votre message"
           />
         </div>
 
         <!-- Message Field -->
         <div>
-          <label for="message" class="block text-sm font-medium text-gray-700 mb-1">
+          <label for="message" class="contact-label">
             Message *
           </label>
           <textarea 
@@ -105,7 +104,7 @@
             name="message" 
             rows="4" 
             required
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cv-accent focus:border-cv-accent transition-colors resize-vertical"
+            class="contact-field contact-field--area"
             placeholder="Votre message..."
           ></textarea>
         </div>
@@ -115,14 +114,14 @@
           <button 
             type="button" 
             id="cancel-btn"
-            class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cv-accent transition-colors"
+            class="contact-btn contact-btn--ghost"
           >
             Annuler
           </button>
           <button 
             type="submit" 
             id="submit-btn"
-            class="px-4 py-2 text-sm font-medium text-white bg-cv-accent border border-transparent rounded-md hover:bg-cv-accent/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cv-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            class="contact-btn contact-btn--primary"
           >
             <span id="submit-text">Envoyer</span>
             <span id="submit-loading" class="hidden">
@@ -139,6 +138,246 @@
   </div>
 </div>
 
+<style>
+  /* Modale de contact — alignée sur DESIGN.md, « Le Bureau du Futur Antérieur ».
+     Angles vifs, palette du système, ombre d'encre en réponse au geste.
+     Voir docs/backlog/2026-07-28-spec-cv-humains-et-agents/ */
+
+  /* Pas de noir pur (Règle du Noir Absent) : le voile est de l'Encre de Service. */
+  .contact-overlay {
+    background: rgba(22, 63, 56, 0.55);
+  }
+
+  /* Une fiche posée sur le bureau : la trame du monde la traverse, et l'ombre
+     d'encre la décale franchement — même geste que les fiches au survol, à
+     l'échelle d'un document qu'on vient de poser sur la table. */
+  .contact-panel {
+    background: var(--cv-card);
+    background-image:
+      linear-gradient(to right, var(--cv-border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--cv-border) 1px, transparent 1px);
+    background-size: 12.5px 12.5px;
+    background-repeat: repeat;
+    border: 2px solid var(--cv-content);
+    border-radius: 0;
+    box-shadow: 8px 8px 0 var(--cv-content);
+  }
+
+  .contact-panel__header {
+    background: var(--cv-section);
+    border-bottom: 2px solid var(--cv-content);
+  }
+
+  .contact-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-lora);
+    font-weight: 700;
+    font-size: 1.35rem;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    color: var(--cv-content);
+    margin: 0;
+  }
+
+  /* Le même filet que les titres de section — la modale entre dans la grammaire. */
+  .contact-title__rule {
+    display: inline-block;
+    flex: none;
+    width: 4px;
+    height: 1.5rem;
+    background: var(--cv-accent);
+    border-radius: 3px;
+  }
+
+  .contact-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    min-width: 44px;
+    min-height: 44px;
+    color: var(--cv-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all var(--default-transition-duration) var(--ease-out);
+  }
+  .contact-close:hover {
+    color: var(--cv-accent);
+    border-color: var(--cv-accent);
+  }
+  .contact-close:focus-visible {
+    outline: 2px solid var(--cv-focus);
+    outline-offset: 2px;
+  }
+
+  /* — Retours d'envoi —
+     Bordure franche de 1 px : le filet gauche de 3 px reste réservé au marqueur
+     « en cours » des fiches, seul état du système. */
+  .contact-notice {
+    margin-bottom: 1.25rem;
+    padding: 0.9rem 1rem;
+    border-radius: 0;
+    border: 1px solid var(--cv-content);
+  }
+  .contact-notice--ok {
+    background: var(--cv-section);
+    border-color: var(--cv-accent);
+    box-shadow: 2px 2px 0 var(--cv-accent);
+  }
+  .contact-notice--ko {
+    background: var(--cv-card);
+    border-color: var(--cv-error);
+    box-shadow: 2px 2px 0 var(--cv-error);
+  }
+  .contact-notice__title {
+    font-family: var(--font-ibm-plex-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--cv-content);
+    margin: 0 0 0.35rem;
+  }
+  .contact-notice--ko .contact-notice__title {
+    color: var(--cv-error);
+  }
+  .contact-notice__body {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--cv-content);
+    margin: 0;
+  }
+  /* `p a` reçoit un padding de 2px 4px pour élargir la zone de clic. Utile
+     verticalement, mais l'horizontal décolle la ponctuation qui suit le lien. */
+  .contact-notice__link {
+    color: var(--cv-content);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    padding: 2px 0;
+    min-width: 0;
+    min-height: 0;
+  }
+  .contact-notice__link:hover {
+    color: var(--cv-accent);
+  }
+
+  /* — Champs — */
+  .contact-label {
+    display: block;
+    font-family: var(--font-ibm-plex-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--cv-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  /* Les champs sont opaques : ils creusent la trame plutôt que de la laisser
+     courir sous le texte qu'on saisit. */
+  .contact-field {
+    width: 100%;
+    font-family: var(--font-ibm-plex);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--cv-content);
+    background: var(--cv-bg);
+    border: 1px solid var(--cv-content);
+    border-radius: 0;
+    padding: 0.65rem 0.75rem;
+    min-height: 44px;
+    transition: all var(--default-transition-duration) var(--ease-out);
+  }
+  /* Contraste AA tenu jusque sur l'indication : un placeholder pâle serait illisible. */
+  .contact-field::placeholder {
+    color: var(--cv-muted);
+    opacity: 1;
+  }
+  .contact-field:hover {
+    border-color: var(--cv-muted);
+  }
+  /* Un seul geste de focus : la bordure passe à l'accent et l'ombre d'encre se
+     décale. Un outline par-dessus recouvrait les deux et ramenait un cadre
+     générique — la forme change autant que la couleur, l'indication tient. */
+  .contact-field:focus,
+  .contact-field:focus-visible {
+    outline: none;
+    border-color: var(--cv-accent);
+    box-shadow: 2px 2px 0 var(--cv-accent);
+  }
+  .contact-field:invalid:not(:placeholder-shown) {
+    border-color: var(--cv-error);
+  }
+  .contact-field--area {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  /* — Boutons —
+     Le primaire est en Encre de Service, pas en accent : un aplat de Vert
+     Terminal violerait la Règle de l'Accent Rare, et le texte clair n'y
+     atteindrait pas le contraste AA. L'accent reste au geste (ombre, bordure). */
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-ibm-plex-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.85rem 1.5rem;
+    min-height: 44px;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all var(--default-transition-duration) var(--ease-out);
+  }
+  .contact-btn:focus-visible {
+    outline: 2px solid var(--cv-focus);
+    outline-offset: 2px;
+  }
+
+  .contact-btn--primary {
+    background: var(--cv-content);
+    color: var(--cv-card);
+    border: 1px solid var(--cv-content);
+  }
+  .contact-btn--primary:hover:not(:disabled) {
+    box-shadow: 2px 2px 0 var(--cv-accent);
+    border-color: var(--cv-accent);
+  }
+  .contact-btn--primary:active:not(:disabled) {
+    box-shadow: none;
+    transform: translate(1px, 1px);
+  }
+  .contact-btn--primary:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .contact-btn--ghost {
+    background: var(--cv-card);
+    color: var(--cv-content);
+    border: 1px solid var(--cv-border);
+  }
+  .contact-btn--ghost:hover {
+    border-color: var(--cv-accent);
+    box-shadow: 2px 2px 0 var(--cv-accent);
+  }
+  .contact-btn--ghost:active {
+    box-shadow: none;
+    transform: translate(1px, 1px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-btn:active,
+    .contact-btn--ghost:active {
+      transform: none;
+    }
+  }
+</style>
+
 <script>
   // Contact Modal JavaScript
   document.addEventListener('DOMContentLoaded', function() {
@@ -150,6 +389,7 @@
     const submitText = document.getElementById('submit-text') as HTMLElement;
     const submitLoading = document.getElementById('submit-loading') as HTMLElement;
     const successMessage = document.getElementById('success-message') as HTMLElement;
+    const errorMessage = document.getElementById('error-message') as HTMLElement;
 
     // Declare global function for opening modal
     (window as any).openContactModal = function() {
@@ -175,6 +415,7 @@
       // Reset form and messages
       form?.reset();
       successMessage?.classList.add('hidden');
+      errorMessage?.classList.add('hidden');
       form?.classList.remove('hidden');
     }
 
@@ -199,7 +440,10 @@
     // Form submission
     form?.addEventListener('submit', async function(e) {
       e.preventDefault();
-      
+
+      // Un échec précédent ne doit pas survivre à la nouvelle tentative.
+      errorMessage?.classList.add('hidden');
+
       // Show loading state
       if (submitBtn) submitBtn.disabled = true;
       submitText?.classList.add('hidden');
@@ -236,7 +480,10 @@
         }
       } catch (error) {
         console.error('Error:', error);
-        alert('Une erreur est survenue lors de l\'envoi du message. Veuillez réessayer.');
+        // Le message d'échec vit dans la modale : un alert() natif sort du
+        // système, bloque la page et ne dit pas comment s'en sortir.
+        errorMessage?.classList.remove('hidden');
+        errorMessage?.scrollIntoView({ block: 'nearest' });
       } finally {
         // Reset loading state
         if (submitBtn) submitBtn.disabled = false;

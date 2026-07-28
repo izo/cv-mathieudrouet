@@ -302,7 +302,9 @@
     /* Accessibility colors */
     --cv-focus: var(--color-dark);
     --cv-focus-bg: rgba(22, 63, 56, 0.1);
-    --cv-error: #dc2626;
+    /* #dc2626 ne donnait que 4.49:1 sur le papier — sous le seuil AA de 4.5 exigé
+       par PRODUCT.md. Assombri à 6.01:1 sans cesser d'être un rouge d'erreur. */
+    --cv-error: #b91c1c;
     --cv-success: var(--color-accent-green);
     
     /* Lumon Font Families */
