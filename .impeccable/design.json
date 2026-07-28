@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-28T08:00:00Z",
+  "title": "Design System: CV Mathieu Drouet",
+  "extensions": {
+    "colorMeta": {
+      "vert-terminal": {
+        "role": "primary",
+        "displayName": "Vert Terminal",
+        "canonical": "#7da17e",
+        "tonalRamp": ["#2a3b2c", "#3a513c", "#4a674c", "#5a7d5c", "#6a8f6c", "#7da17e", "#98b6b0", "#c9dccb"]
+      },
+      "encre-de-service": {
+        "role": "neutral",
+        "displayName": "Encre de Service",
+        "canonical": "#163f38",
+        "tonalRamp": ["#0a1f1b", "#0f2f2a", "#163f38", "#1e5148", "#2a6459", "#3d7a6d", "#6ba396", "#b8d4cc"]
+      },
+      "papier-de-bureau": {
+        "role": "neutral",
+        "displayName": "Papier de Bureau",
+        "canonical": "#f7f6f9",
+        "tonalRamp": ["#1a1a1e", "#2e2e34", "#46464e", "#626269", "#8a8a90", "#b5b5ba", "#dcdcdf", "#f7f6f9"]
+      },
+      "papier-de-fiche": {
+        "role": "neutral",
+        "displayName": "Papier de Fiche",
+        "canonical": "#f7f9f7",
+        "tonalRamp": ["#1b1f1b", "#2a3b2c", "#3a513c", "#5a7d5c", "#98b6b0", "#c9dccb", "#e8f0e9", "#f7f9f7"]
+      },
+      "gris-cloison": {
+        "role": "neutral",
+        "displayName": "Gris Cloison",
+        "canonical": "#d6e0e2",
+        "tonalRamp": ["#1c2426", "#2f3c3f", "#455659", "#5d7175", "#7d9296", "#a3b7ba", "#c3d3d6", "#d6e0e2"]
+      },
+      "gris-legende": {
+        "role": "neutral",
+        "displayName": "Gris de Légende",
+        "canonical": "#4a674c",
+        "tonalRamp": ["#1a2b1c", "#2a3b2c", "#3a513c", "#4a674c", "#5a7d5c", "#6a8f6c", "#7da17e", "#c9dccb"]
+      },
+      "vert-de-classement": {
+        "role": "secondary",
+        "displayName": "Vert de Classement",
+        "canonical": "#e8f0e9",
+        "tonalRamp": ["#22301f", "#33452f", "#496345", "#63805e", "#8aa686", "#b4c9b1", "#d3e2d4", "#e8f0e9"]
+      },
+      "vert-pale-secondaire": {
+        "role": "secondary",
+        "displayName": "Vert Pâle Secondaire",
+        "canonical": "#98b6b0",
+        "tonalRamp": ["#1e2f2c", "#2d4541", "#3f5d58", "#547771", "#6f918b", "#98b6b0", "#c0d4d0", "#e2ecea"]
+      },
+      "rouge-de-refus": {
+        "role": "tertiary",
+        "displayName": "Rouge de Refus",
+        "canonical": "#dc2626",
+        "tonalRamp": ["#3b0a0a", "#5c1111", "#7f1818", "#a11f1f", "#dc2626", "#e85c5c", "#f19494", "#fad0d0"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Le nom, une seule fois par page. Lora 700." },
+      "headline": { "displayName": "Headline", "purpose": "Grandes sections du CV : Expériences, Compétences, Education." },
+      "title": { "displayName": "Title", "purpose": "Entrées individuelles : employeur, intitulé de compétence." },
+      "body": { "displayName": "Body", "purpose": "Descriptions et listes. IBM Plex Sans, jamais en serif." },
+      "label": { "displayName": "Label", "purpose": "Sur-titres et métadonnées. Mono, capitales, interlettrage 0.15em, une ligne maximum." }
+    },
+    "shadows": [
+      {
+        "name": "ombre-d-encre",
+        "value": "2px 2px 0 #7da17e",
+        "purpose": "Survol d'une fiche. Décalage net sans flou, comme un défaut de calage à l'impression. La seule ombre expressive du système."
+      },
+      {
+        "name": "trait-de-repos",
+        "value": "0 1px 3px 0 rgba(0,0,0,0.1)",
+        "purpose": "Ombre minimale des fiches au repos. Assoit la fiche sur le papier, ne la soulève pas."
+      }
+    ],
+    "motion": [
+      {
+        "name": "transition-standard",
+        "value": "0.15s cubic-bezier(0, 0, 0.2, 1)",
+        "purpose": "Durée et courbe uniques du système. Toute transition d'état l'emploie ; il n'existe pas de durée longue."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "Sous prefers-reduced-motion, animations et transitions sont ramenées à l'imperceptible."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "container-max", "value": "80rem" }
+    ],
+    "surfaces": [
+      {
+        "name": "papier-millimetre",
+        "value": "url('/graph-paper.svg') 100px 100px",
+        "purpose": "Fond de page. Le matériau fondateur du monde, pas une texture décorative."
+      },
+      {
+        "name": "grille-revelee",
+        "value": "linear-gradient(to right, #d6e0e2 1px, transparent 1px), linear-gradient(to bottom, #d6e0e2 1px, transparent 1px) / 12.5px 12.5px",
+        "purpose": "Quadrillage fin qui affleure à l'intérieur d'une fiche au survol. Seconde échelle du même matériau."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Fiche",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "L'unité du système. Une carte posée sur le papier, franche, qui ne s'anime qu'au contact.",
+      "html": "<article class=\"ds-fiche\"><h3 class=\"ds-fiche-titre\">Fluidra</h3><p class=\"ds-fiche-meta\">LILLE — 2021</p><p class=\"ds-fiche-corps\">Modernisation d'un système legacy et mise en production d'agents IA.</p></article>",
+      "css": ".ds-fiche { background: var(--cv-card, #f7f9f7); color: var(--cv-content, #163f38); border: 1px solid var(--cv-border, #d6e0e2); border-radius: 0; padding: 1.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); transition: all 0.15s cubic-bezier(0,0,0.2,1); max-width: 22rem; } .ds-fiche:hover { border-color: var(--cv-accent, #7da17e); box-shadow: 2px 2px 0 var(--cv-accent, #7da17e); background-image: linear-gradient(to right, #d6e0e2 1px, transparent 1px), linear-gradient(to bottom, #d6e0e2 1px, transparent 1px); background-size: 12.5px 12.5px; background-repeat: repeat; } .ds-fiche-titre { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: 1.25rem; line-height: 1.3; letter-spacing: -0.005em; margin: 0 0 0.35rem; } .ds-fiche-meta { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--cv-muted, #4a674c); margin: 0 0 0.75rem; } .ds-fiche-corps { font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 0.9375rem; line-height: 1.6; margin: 0; }"
+    },
+    {
+      "name": "Fiche en cours",
+      "kind": "card",
+      "refersTo": "card-current",
+      "description": "Variante marquant un poste ou une compétence en cours. Le filet gauche est le seul marqueur d'état du système.",
+      "html": "<article class=\"ds-fiche-active\"><h3 class=\"ds-fiche-active-titre\">Head of Product</h3><p class=\"ds-fiche-active-meta\">2024 — EN COURS</p></article>",
+      "css": ".ds-fiche-active { background: var(--cv-card, #f7f9f7); color: var(--cv-content, #163f38); border: 1px solid var(--cv-border, #d6e0e2); border-left: 3px solid var(--cv-accent, #7da17e); border-radius: 0; padding: 1.5rem; transition: all 0.15s cubic-bezier(0,0,0.2,1); max-width: 22rem; } .ds-fiche-active:hover { box-shadow: 2px 2px 0 var(--cv-accent, #7da17e); } .ds-fiche-active-titre { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: 1.25rem; margin: 0 0 0.35rem; } .ds-fiche-active-meta { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--cv-accent, #7da17e); margin: 0; }"
+    },
+    {
+      "name": "Bloc d'ouverture",
+      "kind": "custom",
+      "refersTo": "eyebrow",
+      "description": "Le hero. Démonstration condensée des trois familles typographiques et de leur partage des rôles.",
+      "html": "<header class=\"ds-hero\"><p class=\"ds-hero-eyebrow\">CV · Lille, France</p><h1 class=\"ds-hero-nom\">Mathieu Drouet</h1><p class=\"ds-hero-tagline\">Head of Product &amp; Product Builder</p><div class=\"ds-hero-rule\"></div></header>",
+      "css": ".ds-hero { padding-bottom: 2rem; border-bottom: 2px solid var(--cv-border, #d6e0e2); max-width: 30rem; } .ds-hero-eyebrow { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--cv-muted, #4a674c); margin: 0 0 0.75rem; } .ds-hero-nom { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: clamp(1.85rem, 1.3rem + 2.5vw, 2.15rem); line-height: 1.2; letter-spacing: -0.02em; color: var(--cv-content, #163f38); margin: 0 0 0.5rem; } .ds-hero-tagline { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: clamp(0.8rem, 1.5vw, 1rem); letter-spacing: 0.04em; color: var(--cv-accent, #7da17e); margin: 0 0 1.5rem; } .ds-hero-rule { width: 2.5rem; height: 3px; background: var(--cv-accent, #7da17e); }"
+    },
+    {
+      "name": "Titre de section",
+      "kind": "custom",
+      "refersTo": "headline",
+      "description": "Titre de grande section, précédé du petit filet vertical en accent — l'une des rares courbes du système (3px).",
+      "html": "<h2 class=\"ds-section-titre\"><span class=\"ds-section-filet\"></span>Expériences</h2>",
+      "css": ".ds-section-titre { display: flex; align-items: center; gap: 0.75rem; font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: clamp(1.5rem, 1.2rem + 1vw, 1.7rem); line-height: 1.25; letter-spacing: -0.005em; color: var(--cv-content, #163f38); margin: 0; } .ds-section-filet { display: inline-block; width: 4px; height: 1.5rem; background: var(--cv-accent, #7da17e); border-radius: 3px; flex: none; }"
+    },
+    {
+      "name": "Bouton primaire (normatif)",
+      "kind": "button",
+      "refersTo": "card",
+      "description": "Bouton conforme au système. NOTE : l'implémentation actuelle du formulaire de contact est hors système (rounded-md, palette gray-*) ; ce composant est la cible d'alignement, pas l'existant.",
+      "html": "<button class=\"ds-btn-primaire\" type=\"button\">Envoyer</button>",
+      "css": ".ds-btn-primaire { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.15em; background: var(--cv-accent, #7da17e); color: #f7f9f7; border: 1px solid var(--cv-accent, #7da17e); border-radius: 0; padding: 0.85rem 1.75rem; min-height: 44px; cursor: pointer; transition: all 0.15s cubic-bezier(0,0,0.2,1); } .ds-btn-primaire:hover { background: var(--cv-content, #163f38); border-color: var(--cv-content, #163f38); box-shadow: 2px 2px 0 var(--cv-accent, #7da17e); } .ds-btn-primaire:focus-visible { outline: 2px solid var(--cv-content, #163f38); outline-offset: 2px; } .ds-btn-primaire:active { box-shadow: none; transform: translate(1px, 1px); }"
+    },
+    {
+      "name": "Champ de saisie (normatif)",
+      "kind": "input",
+      "refersTo": "card",
+      "description": "Champ conforme au système : angle vif, bordure Gris Cloison, focus en accent. Cible d'alignement du formulaire de contact actuel.",
+      "html": "<label class=\"ds-champ-label\" for=\"ds-x\">Email</label><input class=\"ds-champ\" id=\"ds-x\" type=\"email\" placeholder=\"nom@exemple.fr\">",
+      "css": ".ds-champ-label { display: block; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--cv-muted, #4a674c); margin-bottom: 0.4rem; } .ds-champ { font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 0.9375rem; width: 100%; max-width: 20rem; background: var(--cv-card, #f7f9f7); color: var(--cv-content, #163f38); border: 1px solid var(--cv-border, #d6e0e2); border-radius: 0; padding: 0.65rem 0.75rem; min-height: 44px; transition: all 0.15s cubic-bezier(0,0,0.2,1); } .ds-champ::placeholder { color: #98b6b0; } .ds-champ:focus { outline: none; border-color: var(--cv-accent, #7da17e); box-shadow: 2px 2px 0 var(--cv-accent, #7da17e); } .ds-champ:focus-visible { outline: 2px solid var(--cv-content, #163f38); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le Bureau du Futur Antérieur",
+    "overview": "Un futur imaginé depuis les années soixante-dix, et jamais advenu. Mobilier institutionnel impeccable, papier quadrillé, vert de service, ordre absolu. L'élégance y naît de la tenue, pas de l'ornement : rien ne s'arrondit pour paraître aimable, rien ne flotte pour paraître moderne. Le monde est plat, orthogonal, et parfaitement rangé — et c'est précisément cette rigueur tenue qui produit l'étrangeté et le charme.\n\nLe fond du site est un papier millimétré. Ce n'est pas une texture décorative : c'est le support sur lequel tout repose, et le système s'y aligne. Les surfaces sont des fiches posées dessus, franches, bordées d'un trait fin. Au survol, une grille plus serrée affleure à l'intérieur de la fiche et une ombre d'encre se décale de deux pixels — le document réagit sans jamais s'animer.\n\nLa voix est éditoriale, pas technique. Les titres sont en serif, avec le poids et le contraste d'un imprimé soigné ; le monospace est cantonné aux étiquettes et aux mesures, jamais promu au rang de voix principale. C'est un document d'auteur mis en page par une institution, pas une sortie de terminal.",
+    "keyCharacteristics": [
+      "Papier millimétré comme matériau fondateur, à deux échelles (100 px au fond, 12,5 px révélée au survol)",
+      "Angles vifs absolus sur les surfaces (rayon 0) ; l'arrondi n'existe qu'en accent de 2–3 px",
+      "Aucune profondeur simulée : plat au repos, ombre d'encre dure en réponse",
+      "Trois familles, trois rôles inflexibles : serif pour la voix, sans-serif pour le corps, mono pour l'étiquette",
+      "Palette verte institutionnelle sur papier froid, accent employé avec parcimonie",
+      "Le document imprimé est un livrable de premier rang, pas une retombée"
+    ],
+    "rules": [
+      { "name": "La Règle de l'Accent Rare", "body": "Le Vert Terminal ne colore jamais une surface entière ni un bloc de texte. Il n'apparaît qu'en trait, en filet, en bordure ou en ombre — et seulement pour signaler ce qui est actif, présent ou touché. S'il occupe plus d'un dixième de l'écran, c'est qu'il a cessé de signifier.", "section": "colors" },
+      { "name": "La Règle du Noir Absent", "body": "Aucun #000 dans le système. Le texte est en Encre de Service ; le seul noir autorisé est celui qu'impose le mode contraste renforcé.", "section": "colors" },
+      { "name": "La Règle des Trois Places", "body": "Serif pour la voix, sans-serif pour le corps, mono pour l'étiquette. Un titre en monospace, une étiquette en serif : c'est le monde qui se défait. Les trois familles ne permutent jamais.", "section": "typography" },
+      { "name": "La Règle du Mono Bref", "body": "Le monospace ne dépasse jamais une ligne. Il nomme, il date, il classe — il ne raconte pas.", "section": "typography" },
+      { "name": "La Règle de la Colonne Unique", "body": "Aucune mise en page à deux colonnes de contenu. Le CV se lit de haut en bas, dans un ordre voulu ; une colonne latérale rendrait cet ordre négociable.", "section": "layout" },
+      { "name": "La Règle du Plat au Repos", "body": "Au repos, toute surface est plate. L'ombre est une réponse à une intention — survol, focus — jamais un état par défaut. La profondeur signale l'interaction ; elle ne décore rien.", "section": "elevation" },
+      { "name": "La Règle du Flou Interdit", "body": "Aucun blur, aucun backdrop-filter, aucune ombre diffuse colorée. Une ombre est un décalage net ou n'est pas. Des tokens de glassmorphisme subsistent dans la configuration (glass-gradient, aurora, light-leak, backdrop-blur-*) : ils ne sont utilisés nulle part et ne doivent pas l'être.", "section": "elevation" },
+      { "name": "La Règle de l'Angle Vif", "body": "Aucune surface n'a de coin arrondi. Un border-radius supérieur à 3 px sur un conteneur est une erreur, pas un choix de style.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do garder le rayon à 0 sur toute surface. L'arrondi est réservé aux accents de 2–3 px et à la puce circulaire de 5 px.",
+      "Do réserver le Vert Terminal au signalement de ce qui est actif, présent ou survolé — en trait, filet, bordure ou ombre.",
+      "Do respecter la Règle des Trois Places : serif pour la voix, sans-serif pour le corps, mono pour l'étiquette.",
+      "Do conserver l'alignement sur la trame : le quadrillage de fond est le repère, pas un décor.",
+      "Do traiter l'ombre comme une réponse à une intention, et la garder dure (2px 2px 0).",
+      "Do vérifier chaque nouvelle paire couleur/fond en WCAG 2.1 AA. Le contraste est une exigence tenue, pas une intention.",
+      "Do traiter la feuille d'impression comme un livrable : tout composant nouveau doit s'imprimer proprement."
+    ],
+    "donts": [
+      "Don't introduire de flou : ni backdrop-filter, ni ombre diffuse, ni transparence empilée. Les tokens de glassmorphisme restés dans la configuration sont morts et le restent.",
+      "Don't dériver vers le SaaS arrondi contemporain — coins doux, dégradés violets, ombres tendres, illustrations vectorielles enjouées.",
+      "Don't employer d'orange, ni aucun dégradé multicolore : c'est la signature visuelle des sorties génératives par défaut, et ce site vend précisément le contraire.",
+      "Don't graphiser les faits : ni barres de compétence, ni notes sur cinq, ni camemberts de langues, ni icônes surdimensionnées. Un CV se lit.",
+      "Don't ajouter d'effets de démonstration : animations d'entrée spectaculaires, curseur personnalisé, scroll détourné, transitions de page. Le document prime sur la performance.",
+      "Don't introduire de noir pur. Le texte est en Encre de Service ; le noir n'apparaît qu'en mode contraste renforcé.",
+      "Don't prendre la modale de contact pour référence : elle est hors système et attend d'être alignée."
+    ]
+  }
+}
