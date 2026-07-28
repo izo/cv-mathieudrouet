@@ -1,7 +1,15 @@
-# Todo — cv-mathieudrouet-2025
+# Todo — cv-mathieudrouet-2025 · CLOS
 
-> Audit Tony · 2026-04-27 · Stack : Astro 6.1.9 / TS 6 / Tailwind 4 / Netlify
+> ⚠️ **Ce fichier est clos et conservé pour l'historique.** Ses 17 items sont
+> tous réalisés. Le suivi est passé en mode `faru` le 2026-07-28 :
+> les tâches vivent désormais dans `docs/backlog/`, une par dossier.
+>
+> Spec de référence : [`docs/backlog/2026-07-28-spec-cv-humains-et-agents/CARD.md`](backlog/2026-07-28-spec-cv-humains-et-agents/CARD.md)
+
+> Audit Tony · 2026-04-27 · Stack de l'époque : Astro 6.1.9 / TS 6 / Tailwind 4 / **Netlify**
 > Audit Agathe (DA) · 2026-04-27
+>
+> Cette stack n'est plus celle du projet : Astro 7.1.4 / TS 7 / Tailwind 4 / **Cloudflare Pages**.
 
 ## Backlog
 
