@@ -55,8 +55,8 @@
       "rouge-de-refus": {
         "role": "tertiary",
         "displayName": "Rouge de Refus",
-        "canonical": "#dc2626",
-        "tonalRamp": ["#3b0a0a", "#5c1111", "#7f1818", "#a11f1f", "#dc2626", "#e85c5c", "#f19494", "#fad0d0"]
+        "canonical": "#b91c1c",
+        "tonalRamp": ["#3b0a0a", "#5c1111", "#7f1818", "#a11616", "#b91c1c", "#dc2626", "#ea8080", "#f8cfcf"]
       }
     },
     "typographyMeta": {

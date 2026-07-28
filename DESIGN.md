@@ -10,7 +10,7 @@ colors:
   gris-legende: "#4a674c"
   vert-de-classement: "#e8f0e9"
   vert-pale-secondaire: "#98b6b0"
-  rouge-de-refus: "#dc2626"
+  rouge-de-refus: "#b91c1c"
 typography:
   display:
     fontFamily: "Lora, Georgia, serif"
@@ -113,7 +113,7 @@ Une palette d'institution : verts de service sur papier froid, où l'accent ne s
 - **Gris de Légende** (`#4a674c`): le texte secondaire, dates et mentions. Retenu pour son contraste conforme AA (5,85:1), après qu'un ton plus clair eut été écarté.
 - **Vert de Classement** (`#e8f0e9`): les fonds de section, pour regrouper sans encadrer.
 - **Vert Pâle Secondaire** (`#98b6b0`): badges et texte tertiaire.
-- **Rouge de Refus** (`#dc2626`): la seule couleur étrangère à la palette. Erreurs de formulaire uniquement.
+- **Rouge de Refus** (`#b91c1c`): la seule couleur étrangère à la palette. Erreurs de formulaire uniquement. Assombri depuis `#dc2626`, qui ne tenait que 4,49:1 sur le papier — sous le seuil AA.
 
 ### Named Rules
 
