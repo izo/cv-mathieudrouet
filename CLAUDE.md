@@ -37,8 +37,7 @@ Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Const
   - `cv/CVSection.astro`: Section headers with icons
   - `about.astro` + `src/content/about/about.md`: Page /about avec rendu Markdown via Content Collections (styles dans `.prose-cv`)
 - **Styling Architecture**: Tailwind CSS with Lumon Design System configuration in `tailwind.config.mjs`:
-  - **Lumon Theme** (default): Green-based color system with square design aesthetic
-  - **Atari Theme**: Blue/beige palette, retro CRT style — set via `theme: "atari"` in `cv.md` frontmatter
+  - **Lumon Theme** (unique): Green-based color system with square design aesthetic. C'est le seul thème — le thème alternatif « Atari » a été supprimé le 2026-07-28. Voir `DESIGN.md` pour le système visuel complet.
   - **Typography**: IBM Plex Sans/Mono + Lora — polices **auto-hébergées** dans `public/fonts/*.woff2` (déclarées en `@font-face` dans `global.css`, preload dans `BaseLayout.astro`). Aucun appel à Google Fonts : la CSP impose `font-src 'self'`
   - **Legacy CV Colors**: Mapped for backward compatibility (`cv-bg`, `cv-paper`, `cv-content`, etc.)
 - **Icons**: Iconify icons via CDN with proper CSP configuration for external APIs
@@ -110,7 +109,7 @@ name: "Mathieu Drouet"
 title: "Head of Product | AI-Augmented Delivery"
 description: "CV description"
 iconSet: "carbon"           # Icon set to use (carbon, tabler, lucide, heroicons)
-theme: "lumon"              # Theme variant (lumon, atari)
+theme: "lumon"              # Seule valeur acceptée par le schéma
 ---
 
 # Mathieu Drouet

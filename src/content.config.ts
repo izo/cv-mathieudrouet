@@ -8,7 +8,7 @@ const cvCollection = defineCollection({
     title: z.string().optional(),
     description: z.string().optional(),
     iconSet: z.enum(['carbon', 'tabler', 'lucide', 'heroicons', 'feather']).optional().default('carbon'),
-    theme: z.enum(['lumon', 'atari']).optional().default('lumon'),
+    theme: z.enum(['lumon']).optional().default('lumon'),
   }),
 });
 
