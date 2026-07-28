@@ -29,15 +29,45 @@ entre bilinguisme, SEO et dispositif agent revient à parier.
 ## Critères de done
 
 - [ ] Web Analytics activé sur le projet `cv-mathieudrouet-2025` (dashboard Cloudflare)
+- [ ] CSP ouverte vers `static.cloudflareinsights.com` dans `BaseLayout.astro` **et** `public/_headers` — les deux doivent rester alignées (§9.1)
+- [ ] Beacon effectivement chargé : aucune erreur CSP dans la console du navigateur
 - [ ] Données visibles après 48 h : pages vues, référents, pays
-- [ ] Si l'activation injecte un beacon script : CSP de `BaseLayout.astro` **et** `public/_headers` mises à jour de façon cohérente (les deux doivent rester alignées — §9.1)
-- [ ] `bun run build` et `bun test` toujours verts
+- [ ] `bun run build` et `bun test` verts
 
-## Notes
+## Procédure
 
-Cloudflare propose deux modes : automatique (injection par la plateforme, aucun
-changement de code) ou manuel (balise `<script>`). **Préférer l'automatique** —
-il évite de toucher à la CSP, donc de rouvrir un point de sécurité pour une
-mesure de confort.
+1. Dashboard Cloudflare → **Pages** → `cv-mathieudrouet-2025` → onglet **Metrics**, ou
+   **Analytics & Logs → Web Analytics** → *Add a site* sur `cv.drouet.io`.
+2. Choisir l'activation automatique (Pages l'injecte au edge).
+3. Me le dire : j'ouvre la CSP et je vérifie que le beacon charge réellement.
 
-Action d'infra : à exécuter depuis le dashboard, pas depuis le dépôt.
+## ⚠️ Correction du 2026-07-28 — la note initiale était fausse
+
+Elle affirmait : « préférer l'automatique, il évite de toucher à la CSP ».
+**C'est faux.** Même injecté par la plateforme, le beacon est chargé depuis
+`https://static.cloudflareinsights.com/beacon.min.js` et envoie ses données vers
+ce même domaine. La CSP du projet le bloquera dans les deux modes :
+
+```
+script-src      'self' 'unsafe-inline' https://code.iconify.design
+script-src-elem 'self' 'unsafe-inline' https://code.iconify.design
+connect-src     'self' https://api.iconify.design …
+```
+
+Modification nécessaire, à appliquer **aux deux endroits** (`BaseLayout.astro`
+et `public/_headers`, qui doivent rester identiques) :
+
+```diff
+- script-src 'self' 'unsafe-inline' https://code.iconify.design
++ script-src 'self' 'unsafe-inline' https://code.iconify.design https://static.cloudflareinsights.com
+- script-src-elem 'self' 'unsafe-inline' https://code.iconify.design
++ script-src-elem 'self' 'unsafe-inline' https://code.iconify.design https://static.cloudflareinsights.com
+- connect-src 'self' https://api.iconify.design …
++ connect-src 'self' https://api.iconify.design … https://static.cloudflareinsights.com
+```
+
+C'est un arbitrage assumé : une origine tierce de plus dans la CSP, en échange
+de la seule mesure de trafic du site. Elle n'est pas ouverte d'avance — inutile
+d'affaiblir la politique pour un script qui n'est pas encore là.
+
+Action d'infra : l'activation se fait au dashboard, pas depuis le dépôt.
