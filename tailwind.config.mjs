@@ -50,46 +50,17 @@ export default {
         'cv-shadow': 'var(--cv-shadow)',
         'cv-focus': 'var(--cv-focus)'
       },
-      backdropBlur: {
-        'xs': '2px',
-        'sm': '4px',
-        'glass': '12px',
-        'heavy': '24px',
-        'ultra': '48px'
-      },
-      backgroundImage: {
-        // Gradients de surface pour l'effet verre
-        'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-        'glass-radial': 'radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.15) 0%, transparent 50%)',
-        'glass-shine': 'linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.7) 50%, transparent 60%)',
-        // Reflets et lumière
-        'light-leak': 'radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%)',
-        'aurora': 'linear-gradient(45deg, rgba(255, 119, 181, 0.1) 0%, rgba(255, 185, 120, 0.1) 50%, rgba(120, 255, 214, 0.1) 100%)',
-        // Square gradient background
-        'square-gradient': 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%)'
-      },
+      // Échelle d'ombres. Voir DESIGN.md § Elevation & Depth : le système est plat
+      // au repos ; l'ombre expressive est le décalage dur `2px 2px 0` en accent,
+      // appliqué directement en CSS. Aucune ombre floue ni backdrop-filter.
       boxShadow: {
-        // Zed Shadow System
         '2xs': 'var(--shadow-2xs)',
         'xs': 'var(--shadow-xs)',
         'sm': 'var(--shadow-sm)',
         'md': 'var(--shadow-md)',
         'lg': 'var(--shadow-lg)',
         'xl': 'var(--shadow-xl)',
-        '2xl': 'var(--shadow-2xl)',
-        
-        // Zed Specific Shadows
-        'zed-default': 'var(--sh-default)',
-        'zed-alt': 'var(--sh-alt)',
-        'zed-alt-opposite': 'var(--sh-alt-opposite)',
-        
-        // Legacy compatibility
-        'glass-sm': 'var(--shadow-sm)',
-        'glass': 'var(--shadow-md)',
-        'glass-lg': 'var(--shadow-lg)',
-        'zed': 'var(--shadow-md)',
-        'zed-lg': 'var(--shadow-lg)',
-        'zed-hover': 'var(--shadow-sm)'
+        '2xl': 'var(--shadow-2xl)'
       },
       fontFamily: {
         // Lumon Font Families
