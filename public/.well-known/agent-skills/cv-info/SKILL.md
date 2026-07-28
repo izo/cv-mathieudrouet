@@ -1,6 +1,6 @@
 ---
 name: cv-info
-description: Retrieve CV, biography, experience, skills, and contact information for Mathieu Drouet, Head of Product based in Lille, France.
+description: Retrieve CV, biography, experience, skills, and contact information for Mathieu Drouet, Head of Product & Product Builder based in Lille, France.
 version: 1.0.0
 license: CC-BY-4.0
 ---

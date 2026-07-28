@@ -1,7 +1,7 @@
 ---
 name: "Mathieu Drouet"
-title: "Head of Product | AI-Augmented Delivery"
-description: "Product leader avec 10+ ans d'expérience en produits numériques B2B complexes. Spécialisé en discovery terrain, transformation de systèmes legacy et intégration IA dans des produits existants."
+title: "Head of Product & Product Builder | AI-Augmented Delivery"
+description: "Product leader qui conçoit ET livre le produit. 10+ ans en B2B complexe : de la discovery terrain au prototype testable en quelques jours grâce à l'IA. Builder autant que manager d'équipes cross-fonctionnelles."
 iconSet: "carbon"
 theme: "lumon"
 
@@ -32,16 +32,16 @@ theme: "lumon"
 **carbon:location-heart-filled** Full remote – 2025
 **Fondateur** | 2025 – en cours | [Company Link](https://regrets.app/)
 
-- Conception, développement et publication d'applications iOS, macOS et SaaS
-- Ulk — framework d'agents IA pour Claude Code (59+ agents, skills, rules)
+- Product Builder en solo : de l'idée au produit publié (App Store / SaaS) en autonomie complète — discovery, design, code et release
+- Ulk — framework d'agents IA pour Claude Code (59+ agents, skills, rules) qui industrialise le cycle idée → prototype → livraison
 - Stack : Next.js, Astro, SwiftUI, TypeScript, Tailwind CSS, Bun
 
 ### HEYA (Here You Art)
 **carbon:location-heart-filled** Bruxelles / full remote – 2025
 **Head of Product** | 2025 | [Company Link](https://hereyouart.com/)
 
-- Discovery complète : audit technique, analyse concurrentielle (12 plateformes), entretiens parties prenantes
-- Conception, architecture et développement en solo du MVP complet (profils, réseau, messagerie, offres, multilingue fr/nl/en) via Claude Code et [Ulk](https://izo.github.io/Ulk/), framework d'agents IA développé en propre — stack Next.js 15, TypeScript, Tailwind CSS, Drizzle ORM
+- De la discovery au MVP livré en solo : audit technique, analyse concurrentielle (12 plateformes), entretiens parties prenantes, puis conception, architecture et développement complet
+- MVP complet (profils, réseau, messagerie, offres, multilingue fr/nl/en) buildé via Claude Code et [Ulk](https://izo.github.io/Ulk/), framework d'agents IA développé en propre — stack Next.js 15, TypeScript, Tailwind CSS, Drizzle ORM
 - Roadmap stratégique 24 mois (acquisition, rétention, monétisation)
 - Prototypage d'intégrations LLM (Llama, Mistral) pour enrichissement de profils et modération, conformité RGPD
 
@@ -59,6 +59,7 @@ theme: "lumon"
 - Conception et lancement d'un microservice de gestion des comptes épargne-temps pour 500+ entreprises — automatisation via API Urssaf/MSA
 - Transformation digitale d'une application DAF legacy (15 ans) vers architecture cloud-native — discovery auprès des DAF et RH terrain
 - Management d'équipes cross-fonctionnelles de 12 personnes, Agile/Scrum
+- Premiers usages de LLM dans le delivery produit : accélération de la discovery, de la documentation et du prototypage
 - Delivery de 8 releases majeures, priorisation par valeur business
 
 ### Bookr.fm (Music Data Studio)
@@ -74,6 +75,7 @@ theme: "lumon"
 **Senior Product Manager, IoT** | 2018 – 2021 | [Company Link](https://www.fluidra.com/)
 
 - Migration de l'application principale vers Flutter — développement cross-platform iOS/Android
+- Premières intégrations d'IA / machine learning dans le produit IoT : exploitation des données capteurs (analyse de la qualité de l'eau, recommandations de traitement)
 - Discovery terrain auprès des installateurs, techniciens de maintenance et distributeurs
 - Refonte UX complète, réduction du churn mesurée
 - Lancement sur le marché américain, management d'une équipe internationale de 8 personnes / 3 fuseaux horaires
@@ -97,7 +99,8 @@ theme: "lumon"
 
 - Discovery terrain, roadmap produit, go-to-market
 - OKR, priorisation par impact business
-- Delivery management, équipes cross-fonctionnelles
+- Delivery management, équipes cross-fonctionnelles jusqu'à 12 personnes
+- Product Builder : capable de prototyper et livrer soi-même, sans dépendre d'une équipe pour valider une intuition
 
 ### IA appliquée au produit **carbon:ai-generate**
 **AI Product** | **carbon:task-star** Avancé
