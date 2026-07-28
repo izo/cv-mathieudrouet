@@ -554,3 +554,110 @@ export function parseCVContent(content: string, frontmatterData?: any): CVData {
     };
   }
 }
+/**
+ * Validation structurelle du CV parsé.
+ *
+ * Risque R4 de la spec : `parseCVContent` échoue en silence. Un écart de format
+ * dans `cv.md` fait disparaître des entrées sans lever d'erreur, et son
+ * `catch` renvoie une structure entièrement vide — le build reste vert et le
+ * CV publié est amputé, voire vide.
+ *
+ * Ces fonctions vivent délibérément HORS du try/catch de `parseCVContent` :
+ * placées dedans, leurs erreurs seraient avalées par ce même catch.
+ */
+
+/** Sections dont l'absence rend le CV publié inutilisable. */
+export const REQUIRED_CV_SECTIONS = ['education', 'experience', 'skills', 'contact'] as const;
+
+export interface CVValidationIssue {
+  severity: 'error' | 'warning';
+  section: string;
+  message: string;
+}
+
+/**
+ * Inspecte un CV parsé et retourne ses anomalies, sans rien interrompre.
+ *
+ * Deux gravités, comme le veut la carte DATA-1 :
+ * - `error`   : une section obligatoire est absente ou vide → le build doit échouer
+ * - `warning` : une entrée est incomplète → signalé bruyamment, mais publiable
+ */
+export function validateCVData(data: CVData): CVValidationIssue[] {
+  const issues: CVValidationIssue[] = [];
+
+  if (!data || typeof data !== 'object') {
+    return [{ severity: 'error', section: 'cv', message: 'Aucune donnée de CV n’a été produite par le parser.' }];
+  }
+
+  // — Sections obligatoires : présentes ET non vides —
+  if (!Array.isArray(data.education) || data.education.length === 0) {
+    issues.push({ severity: 'error', section: 'Education', message: 'aucune formation reconnue' });
+  }
+  if (!Array.isArray(data.experience) || data.experience.length === 0) {
+    issues.push({ severity: 'error', section: 'Expériences', message: 'aucune expérience reconnue' });
+  }
+  if (!Array.isArray(data.skills) || data.skills.length === 0) {
+    issues.push({ severity: 'error', section: 'Compétences', message: 'aucune compétence reconnue' });
+  }
+  if (!data.contact?.email) {
+    issues.push({ severity: 'error', section: 'Coordonnées', message: 'email de contact absent' });
+  }
+
+  // — Entrées incomplètes : publiables, mais anormales —
+  data.experience?.forEach((xp, i) => {
+    const missing = (['company', 'role', 'period'] as const).filter((f) => !xp?.[f]);
+    if (missing.length > 0) {
+      issues.push({
+        severity: 'warning',
+        section: 'Expériences',
+        message: `entrée ${i + 1} (${xp?.company || 'sans employeur'}) — champ(s) manquant(s) : ${missing.join(', ')}`,
+      });
+    }
+    if (!xp?.achievements?.length) {
+      issues.push({
+        severity: 'warning',
+        section: 'Expériences',
+        message: `entrée ${i + 1} (${xp?.company || 'sans employeur'}) — aucune réalisation listée`,
+      });
+    }
+  });
+
+  data.skills?.forEach((skill, i) => {
+    if (!skill?.title) {
+      issues.push({ severity: 'warning', section: 'Compétences', message: `entrée ${i + 1} sans titre` });
+    }
+    if (!skill?.items?.length) {
+      issues.push({
+        severity: 'warning',
+        section: 'Compétences',
+        message: `entrée ${i + 1} (${skill?.title || 'sans titre'}) — aucun élément listé`,
+      });
+    }
+  });
+
+  return issues;
+}
+
+/**
+ * Interrompt le build si le CV est amputé, après avoir signalé les anomalies mineures.
+ *
+ * À appeler depuis la page, jamais depuis `parseCVContent`.
+ */
+export function assertCVComplete(data: CVData, source = 'src/content/cv/cv.md'): void {
+  const issues = validateCVData(data);
+
+  for (const w of issues.filter((i) => i.severity === 'warning')) {
+    console.warn(`⚠️  CV — ${w.section} : ${w.message}`);
+  }
+
+  const errors = issues.filter((i) => i.severity === 'error');
+  if (errors.length === 0) return;
+
+  throw new Error(
+    `CV amputé — le build est interrompu.\n` +
+      errors.map((e) => `  · ${e.section} : ${e.message}`).join('\n') +
+      `\n\nVérifier le format de ${source} (voir CLAUDE.md § Content Structure).\n` +
+      `Le parser ignore silencieusement ce qu'il ne reconnaît pas : un titre au mauvais\n` +
+      `niveau ou une icône mal formée suffit à faire disparaître une section entière.`
+  );
+}

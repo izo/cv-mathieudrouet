@@ -6,7 +6,7 @@ import CVGrid from '../components/cv/CVGrid.astro';
 import CVCard from '../components/cv/CVCard.astro';
 import { getEntry } from 'astro:content';
 import { siteConfig } from '../config/site.ts';
-import { parseCVContent } from '../utils/cvParser.ts';
+import { parseCVContent, assertCVComplete } from '../utils/cvParser.ts';
 
 // Get CV content from Markdown
 const cvEntry = await getEntry('cv', 'cv');
@@ -20,6 +20,10 @@ const { title, description } = siteConfig;
 
 // Parse structured data from Markdown content
 const cvContent = parseCVContent(cvEntry.body, cvEntry.data);
+
+// Le parser ignore en silence ce qu'il ne reconnaît pas, et son catch renvoie
+// une structure vide : sans ce contrôle, un CV amputé se publierait sans erreur.
+assertCVComplete(cvContent);
 ---
 
 <BaseLayout title={title} description={description} theme={cvEntry.data.theme}>
