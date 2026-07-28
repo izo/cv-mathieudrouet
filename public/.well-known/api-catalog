@@ -41,7 +41,7 @@
       ],
       "sitemap": [
         {
-          "href": "https://cv.drouet.io/sitemap.xml",
+          "href": "https://cv.drouet.io/sitemap-index.xml",
           "type": "application/xml"
         }
       ]
