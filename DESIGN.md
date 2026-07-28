@@ -234,15 +234,20 @@ franc : contour de 2 px avec 2 px de décalage. Toutes les cibles tactiles font
 au moins 44 px ; les liens en ligne dans le texte courant portent une classe
 d'exemption pour ne pas être étirés.
 
-### Formulaire de contact — **hors système**
+### Modale de contact
 
-La modale de contact n'applique pas ce design system. Elle utilise les valeurs
-par défaut de Tailwind : coins arrondis (`rounded-md`), palette `gray-*`
-neutre, ombres douces. Elle contredit sur trois points la Règle de l'Angle Vif,
-la palette et la Règle du Plat au Repos.
+Alignée sur le système le 2026-07-28. C'est **une fiche posée sur le bureau**,
+et le traitement le dit : la trame millimétrée de 12,5 px la traverse — la même
+que révèlent les fiches au survol — et une ombre d'encre franche de 8 px la
+décale, comme un document qu'on vient de poser sur la table.
 
-**Ce n'est pas la référence.** Toute reprise doit l'aligner : angles vifs,
-bordure Gris Cloison, focus en Vert Terminal, fond Papier de Fiche.
+- **Panneau :** angle vif, bordure 2 px en Encre de Service, ombre `8px 8px 0` en Encre
+- **En-tête :** fond Vert de Classement, filet d'accent de 4 px devant le titre — le même que les titres de section, qui fait entrer la modale dans la grammaire
+- **Champs :** opaques sur fond Papier de Bureau, bordure Encre. Ils creusent la trame plutôt que de la laisser courir sous la saisie
+- **Focus :** un seul geste — la bordure passe à l'accent, l'ombre d'encre se décale de 2 px. Pas d'outline par-dessus, qui recouvrirait les deux
+- **Bouton primaire :** Encre de Service, pas accent. Un aplat de Vert Terminal violerait la Règle de l'Accent Rare et n'atteindrait pas le contraste AA (2,89:1)
+- **Voile :** Encre de Service à 55 %, jamais de noir pur
+- **États :** repos, survol, focus, envoi, échec. L'échec vit dans la modale — il nomme le problème et donne l'adresse directe en recours
 
 ### Document imprimé
 
@@ -270,4 +275,4 @@ disparaît : sur du vrai papier, il serait redondant.
 - **Don't** graphiser les faits : ni barres de compétence, ni notes sur cinq, ni camemberts de langues, ni icônes surdimensionnées. Un CV se lit.
 - **Don't** ajouter d'effets de démonstration : animations d'entrée spectaculaires, curseur personnalisé, scroll détourné, transitions de page. Le document prime sur la performance.
 - **Don't** introduire de noir pur. Le texte est en Encre de Service ; le noir n'apparaît qu'en mode contraste renforcé.
-- **Don't** prendre la modale de contact pour référence : elle est hors système et attend d'être alignée.
+- **Don't** livrer une surface « conforme mais muette » : appliquer la palette et les rayons ne suffit pas. Une surface qui n'exprime ni la trame, ni l'ombre d'encre, ni le filet d'accent n'appartient pas encore au monde — elle l'évite poliment.

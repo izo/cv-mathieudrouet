@@ -7,7 +7,7 @@
   <div class="contact-panel max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
     <!-- Modal Header -->
     <div class="flex justify-between items-center gap-4 p-6 contact-panel__header">
-      <h2 id="contact-modal-title" class="contact-title">Me contacter</h2>
+      <h2 id="contact-modal-title" class="contact-title"><span class="contact-title__rule" aria-hidden="true"></span>Me contacter</h2>
       <button
         type="button"
         id="close-modal"
@@ -148,17 +148,30 @@
     background: rgba(22, 63, 56, 0.55);
   }
 
+  /* Une fiche posée sur le bureau : la trame du monde la traverse, et l'ombre
+     d'encre la décale franchement — même geste que les fiches au survol, à
+     l'échelle d'un document qu'on vient de poser sur la table. */
   .contact-panel {
     background: var(--cv-card);
+    background-image:
+      linear-gradient(to right, var(--cv-border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--cv-border) 1px, transparent 1px);
+    background-size: 12.5px 12.5px;
+    background-repeat: repeat;
     border: 2px solid var(--cv-content);
     border-radius: 0;
+    box-shadow: 8px 8px 0 var(--cv-content);
   }
 
   .contact-panel__header {
-    border-bottom: 2px solid var(--cv-border);
+    background: var(--cv-section);
+    border-bottom: 2px solid var(--cv-content);
   }
 
   .contact-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     font-family: var(--font-lora);
     font-weight: 700;
     font-size: 1.35rem;
@@ -166,6 +179,16 @@
     letter-spacing: -0.005em;
     color: var(--cv-content);
     margin: 0;
+  }
+
+  /* Le même filet que les titres de section — la modale entre dans la grammaire. */
+  .contact-title__rule {
+    display: inline-block;
+    flex: none;
+    width: 4px;
+    height: 1.5rem;
+    background: var(--cv-accent);
+    border-radius: 3px;
   }
 
   .contact-close {
@@ -198,15 +221,17 @@
     margin-bottom: 1.25rem;
     padding: 0.9rem 1rem;
     border-radius: 0;
-    border: 1px solid var(--cv-border);
+    border: 1px solid var(--cv-content);
   }
   .contact-notice--ok {
     background: var(--cv-section);
     border-color: var(--cv-accent);
+    box-shadow: 2px 2px 0 var(--cv-accent);
   }
   .contact-notice--ko {
-    background: var(--cv-paper);
+    background: var(--cv-card);
     border-color: var(--cv-error);
+    box-shadow: 2px 2px 0 var(--cv-error);
   }
   .contact-notice__title {
     font-family: var(--font-ibm-plex-mono);
@@ -250,14 +275,16 @@
     margin-bottom: 0.4rem;
   }
 
+  /* Les champs sont opaques : ils creusent la trame plutôt que de la laisser
+     courir sous le texte qu'on saisit. */
   .contact-field {
     width: 100%;
     font-family: var(--font-ibm-plex);
     font-size: 0.9375rem;
     line-height: 1.5;
     color: var(--cv-content);
-    background: var(--cv-paper);
-    border: 1px solid var(--cv-border);
+    background: var(--cv-bg);
+    border: 1px solid var(--cv-content);
     border-radius: 0;
     padding: 0.65rem 0.75rem;
     min-height: 44px;
