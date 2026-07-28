@@ -13,6 +13,9 @@ const cvEntry = await getEntry('cv', 'cv');
 if (!cvEntry) {
   throw new Error('CV content not found');
 }
+if (!cvEntry.body) {
+  throw new Error('CV content is empty: src/content/cv/cv.md has no body');
+}
 const { title, description } = siteConfig;
 
 // Parse structured data from Markdown content

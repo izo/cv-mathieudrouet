@@ -10,7 +10,7 @@ Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Const
 - Development: `bun run dev` or `bun start` (starts server at localhost:4321)
 - Build: `bun run build` (detects content changes and builds to ./dist/)
 - Preview: `bun run preview` (preview build locally)
-- Type-check: `bun run astro check` (validate TypeScript)
+- Type-check: **indisponible** — `astro check` est incompatible avec TypeScript 7 (le compilateur natif n'expose plus l'API programmatique dont dépend le language-server). Suivi : [withastro/roadmap#1321](https://github.com/withastro/roadmap/discussions/1321). Filet de sécurité actuel : `bun run build` + `bun test`
 - Content Check: `bun run content:check` (check for CV content changes)
 - Content Watch: `bun run content:watch` (watch CV content for changes)
 - Build with Watch: `bun run build:watch` (starts dev server with content watching)
@@ -31,7 +31,7 @@ Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Const
 - **Styling Architecture**: Tailwind CSS with Lumon Design System configuration in `tailwind.config.mjs`:
   - **Lumon Theme** (default): Green-based color system with square design aesthetic
   - **Atari Theme**: Blue/beige palette, retro CRT style — set via `theme: "atari"` in `cv.md` frontmatter
-  - **Typography**: IBM Plex Sans/Mono + Lora fonts via Google Fonts (async loaded)
+  - **Typography**: IBM Plex Sans/Mono + Lora — polices **auto-hébergées** dans `public/fonts/*.woff2` (déclarées en `@font-face` dans `global.css`, preload dans `BaseLayout.astro`). Aucun appel à Google Fonts : la CSP impose `font-src 'self'`
   - **Legacy CV Colors**: Mapped for backward compatibility (`cv-bg`, `cv-paper`, `cv-content`, etc.)
 - **Icons**: Iconify icons via CDN with proper CSP configuration for external APIs
 - **Security**: Content Security Policy configured in BaseLayout with proper directives for all external resources
@@ -42,10 +42,10 @@ Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Const
 - **Pages Functions (Cloudflare)** : `functions/_middleware.ts` gère la négociation Markdown (`Accept: text/markdown`) et `functions/api/contact.ts` le formulaire. Le répertoire `functions/` n'est pas analysé par `astro check`
 - **Format Markdown strict** : `cvParser.ts` attend un format précis dans `cv.md` (icônes, rôles, périodes). Un écart de format drop silencieusement les entrées sans erreur
 - **Détection poste actuel** : `current: true` si la période contient l'année en cours (`new Date().getFullYear()`)
-- **Package manager : bun** — `bun install`, `bun run build`, `bun test`. Lock file : `bun.lockb`. Cloudflare Pages détecte bun automatiquement via `bun.lockb`.
+- **Package manager : bun** — `bun install`, `bun run build`, `bun test`. Lock file : `bun.lock` (format texte, pas `bun.lockb`). Cloudflare Pages détecte bun automatiquement via ce lockfile.
 - **Styles markdown custom** : les pages qui rendent du Markdown via `<Content />` doivent avoir leurs styles définis dans `global.css` (ex: `.prose-cv`). Aucun warning au build si la classe est absente — le rendu est juste brut.
 - **Touch target override** : le CSS impose `min-height: 44px` sur tous les `<a>`. Les liens inline (dans `.prose-cv` par ex.) doivent avoir `class="no-min-size"` pour éviter le `display: inline-flex` forcé.
-- **Astro v6 Content Layer API** : config des collections dans `src/content.config.ts` (racine de `src/`, pas `src/content/config.ts`). Utiliser `loader: glob({ pattern, base })` à la place de `type: 'content'`. `render()` est importé depuis `astro:content` — `entry.render()` n'existe plus.
+- **Astro v7 Content Layer API** : config des collections dans `src/content.config.ts` (racine de `src/`, pas `src/content/config.ts`). Utiliser `loader: glob({ pattern, base })` à la place de `type: 'content'`. `render()` est importé depuis `astro:content` — `entry.render()` n'existe plus.
 
 ## Key Configuration Files
 - `astro.config.mjs`: Configures integrations, build optimizations, and Vite plugins
@@ -56,11 +56,12 @@ Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Const
 - `src/config/env.ts`: Environment-specific configuration with type safety and security settings
 - `src/config/images.ts`: Mapping company name → logo file in `public/logos/`
 - `public/sw.js`: Service worker kill-switch — auto-unregisters any cached SW and clears all caches on next browser visit (replaces old caching SW)
-- `public/_headers`: Netlify cache control and security headers
+- `public/_headers`: Cloudflare Pages cache control and security headers (même syntaxe qu'à l'époque Netlify)
+- `wrangler.toml`: configuration Cloudflare Pages (build command, compatibilité)
 
 ## Performance Architecture
 - **Bundle Optimization**: 31KB CSS bundle, minimal JavaScript footprint
-- **Font Loading**: Asynchronous Google Fonts loading with fallback handling
+- **Font Loading**: Polices auto-hébergées (`public/fonts/*.woff2`), preload sur la graisse critique — aucune requête tierce
 - **Service Worker**: Kill-switch — dés-installe les anciens SW et vide les caches au prochain chargement (voir `public/sw.js`)
 - **Build Pipeline**: Content change detection (SHA-256) to avoid unnecessary rebuilds
 - **Core Web Vitals**: Optimized for LCP, FID, and CLS metrics
@@ -68,9 +69,9 @@ Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Const
 ## Implementation Guidelines
 
 ### Development Workflow
-- Always run `pnpm run build` before committing to ensure no build errors
-- Use `pnpm run astro check` for TypeScript validation
-- Run `pnpm run test` to execute the full test suite (38 tests : 20 unit + 18 integration)
+- Always run `bun run build` before committing to ensure no build errors
+- Run `bun test` to execute the full test suite (38 tests : 20 unit + 18 integration)
+- La validation TypeScript via `astro check` est hors service (voir § Commands) — le build et les tests sont le seul filet
 
 ### Code Quality Standards
 - All components must have TypeScript interfaces for props
@@ -155,15 +156,15 @@ Institution, City – YYYY–YYYY
 
 ### Change Detection System
 - **Cache File**: `.content-cache.json` - Stores content hash and modification timestamp
-- **Build Integration**: `pnpm run build` automatically checks for content changes
+- **Build Integration**: `bun run build` automatically checks for content changes
 - **Hash Comparison**: SHA256 hashing detects even minor content modifications
 
 ### Editing Workflow
 1. Edit `src/content/cv/cv.md` directly
-2. Run `pnpm run build` to detect changes and rebuild
+2. Run `bun run build` to detect changes and rebuild
 3. Content is automatically parsed and integrated into the design system
 
 ## Testing Architecture
 - **Vitest**: Testing framework with UI mode and coverage reporting
-- **Test Commands**: `pnpm run test`, `pnpm run test:watch`, `pnpm run test:ui`, `pnpm run test:coverage`
+- **Test Commands**: `bun test`, `bun run test:watch`, `bun run test:ui`, `bun run test:coverage`
 - **Coverage**: @vitest/coverage-v8 — seuil minimum 80% (branches, functions, lines, statements)
