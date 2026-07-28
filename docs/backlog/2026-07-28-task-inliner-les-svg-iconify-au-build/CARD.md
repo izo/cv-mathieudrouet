@@ -1,7 +1,8 @@
 ---
 title: Inliner les SVG Iconify au build
 type: task
-status: todo
+status: done
+completed: 2026-07-28
 assignee: task-runner
 priority: medium
 effort: M
@@ -42,12 +43,50 @@ archivée avant de repartir de zéro.
 
 ## Critères de done
 
-- [ ] Aucun `fetch` réseau pendant `bun run build` — vérifiable en coupant le réseau
-- [ ] Icônes résolues depuis `@iconify-json/carbon`
-- [ ] Script `code.iconify.design` retiré de `BaseLayout.astro` si plus nécessaire
-- [ ] CSP resserrée en conséquence dans `BaseLayout.astro` **et** `public/_headers` (les deux doivent rester alignées)
-- [ ] Rendu visuel inchangé sur `/` et `/about`
-- [ ] `bun run build` et `bun test` verts
+- [x] Aucun `fetch` réseau pendant `bun run build` — les trois appels supprimés, aucun `fetch` vers iconify dans les sources
+- [x] Icônes résolues depuis `@iconify-json/carbon` via `src/utils/iconSvg.ts`
+- [x] Script `code.iconify.design` **retiré** — le web component n'était plus nécessaire une fois toutes les balises converties
+- [x] CSP resserrée aux deux endroits : `connect-src 'self'`, `script-src 'self' 'unsafe-inline'` — plus aucune origine tierce
+- [x] Rendu visuel inchangé, vérifié par capture Playwright
+- [x] `bun run build` et `bun test` verts — **69 tests**
+
+## Portée réelle
+
+La carte n'envisageait que les trois `fetch` du build. Une fois ceux-ci
+supprimés, le web component `<iconify-icon>` restait — et avec lui le script
+CDN et les appels réseau **côté client**. Tout a été converti :
+
+| Emplacement | Avant | Après |
+|---|---|---|
+| `CVCard.astro` | `fetch` API au build | `renderIconSVG` |
+| `ExperienceCard.astro` | 2 × `fetch` API au build | `renderIconSVG` |
+| `iconEngine.renderIcon()` | balise `<iconify-icon>` | SVG inline, repli sur la balise si introuvable |
+| `BaseLayout.astro` | 6 balises + script CDN | 6 SVG inline, script supprimé |
+| `about.astro` | 1 balise | SVG inline |
+
+## Mesure
+
+```
+erreurs / avertissements console : 0
+requêtes échouées                : 0
+origines tierces contactées      : 0
+```
+
+Relevé au chargement de `/` et `/about` dans Chrome via Playwright, en lisant
+`performance.getEntriesByType('resource')`. **Le site ne contacte plus aucun
+domaine externe** — ni au build, ni au rendu.
+
+36 SVG inline dans la page d'accueil ; `dist/index.html` passe à ~69 Ko. C'est
+l'échange assumé : quelques kilo-octets de HTML contre la suppression du seul
+point de défaillance réseau du build et de la dernière origine tierce de la CSP.
+
+## Deux tests périmés corrigés
+
+Ils exigeaient ce que ce travail supprime — comme celui des Google Fonts plus
+tôt dans la journée :
+
+- `cvParser.test.ts` attendait `iconify-icon` dans le contenu rendu → vérifie désormais le SVG inline **et** l'absence de balise (un repli signifierait le retour d'une dépendance réseau)
+- `integration.test.ts` exigeait le script CDN → retourné en garde anti-régression, doublé d'un test qui vérifie que la CSP reste sans origine tierce
 
 ## Notes
 

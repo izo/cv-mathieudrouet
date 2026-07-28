@@ -64,8 +64,19 @@ describe('Build Integration Tests', () => {
       expect(indexContent).toContain('Content-Security-Policy');
     });
 
-    it('should contain Iconify script', () => {
-      expect(indexContent).toContain('code.iconify.design');
+    it('should inline icons without any third-party origin', () => {
+      // Les icônes viennent de @iconify-json/carbon, résolues au build.
+      // Le retour du script CDN ou d'une balise <iconify-icon> signifierait
+      // le retour d'une dépendance réseau au rendu.
+      expect(indexContent).not.toContain('code.iconify.design');
+      expect(indexContent).not.toContain('<iconify-icon');
+      expect(indexContent).toContain('<svg');
+    });
+
+    it('should keep the CSP free of third-party origins', () => {
+      const csp = indexContent.match(/Content-Security-Policy" content="([^"]*)"/)?.[1] ?? '';
+      expect(csp).not.toContain('iconify');
+      expect(csp).toContain("connect-src 'self';");
     });
 
     it('should preload self-hosted fonts and never hit Google Fonts', () => {

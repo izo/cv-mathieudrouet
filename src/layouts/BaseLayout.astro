@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { siteConfig } from '../config/site.ts';
 import { securityConfig, isDevelopment } from '../config/env.ts';
 import ContactModal from '../components/ContactModal.astro';
+import { renderIconSVG } from '../utils/iconSvg.ts';
 
 export interface Props {
   title: string;
@@ -134,12 +135,11 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
     <!-- Performance optimizations -->
     <!-- Image preload removed as profile.jpg is not used on main page -->
     
-    <!-- Iconify Icons -->
-    <script defer src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
-    
-    <!-- Security Headers - Note: 'unsafe-inline' required for Astro's is:inline scripts and critical CSS -->
+    <!-- Security Headers - Note: 'unsafe-inline' required for Astro's is:inline scripts and critical CSS.
+         Les icônes sont résolues au build depuis @iconify-json/carbon : plus aucune origine
+         tierce dans la politique. Doit rester identique à public/_headers. -->
     {securityConfig.enableCSP && (
-      <meta http-equiv="Content-Security-Policy" content={`default-src 'self'; script-src 'self' 'unsafe-inline' https://code.iconify.design; script-src-elem 'self' 'unsafe-inline' https://code.iconify.design; style-src 'self' 'unsafe-inline'; style-src-elem 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';${isDevelopment() ? '' : ' upgrade-insecure-requests;'}`} />
+      <meta http-equiv="Content-Security-Policy" content={`default-src 'self'; script-src 'self' 'unsafe-inline'; script-src-elem 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; style-src-elem 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';${isDevelopment() ? '' : ' upgrade-insecure-requests;'}`} />
     )}
     
     <title>{title}</title>
@@ -167,7 +167,7 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
                 <p class="text-xs text-cv-muted order-2 sm:order-1 font-ibm-plex-mono">&copy; {new Date().getFullYear()} {siteConfig.author.name}</p>
                 <div class="flex items-center gap-3 order-1 sm:order-2">
                   <a href="/about" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label="À propos">
-                    <iconify-icon icon="carbon:user-profile" width="16" height="16" class="inline-block"></iconify-icon>
+                    <Fragment set:html={renderIconSVG('carbon:user-profile', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
                   <a 
                     href="/cv_mathieu_drouet.pdf"
@@ -175,19 +175,19 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
                     class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" 
                     aria-label="Télécharger le CV en PDF"
                   >
-                    <iconify-icon icon="carbon:document-pdf" width="16" height="16" class="inline-block"></iconify-icon>
+                    <Fragment set:html={renderIconSVG('carbon:document-pdf', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
                   <a href={siteConfig.social.linkedin.url} target="_blank" rel="noopener noreferrer" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label="LinkedIn (ouvre dans un nouvel onglet)">
-                    <iconify-icon icon="carbon:logo-linkedin" width="16" height="16" class="inline-block"></iconify-icon>
+                    <Fragment set:html={renderIconSVG('carbon:logo-linkedin', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
                   <a href={siteConfig.social.github.url} target="_blank" rel="noopener noreferrer" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label="GitHub (ouvre dans un nouvel onglet)">
-                    <iconify-icon icon="carbon:logo-github" width="16" height="16" class="inline-block"></iconify-icon>
+                    <Fragment set:html={renderIconSVG('carbon:logo-github', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
                   <a href={siteConfig.social.portfolio.url} target="_blank" rel="noopener noreferrer" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label="Portfolio (ouvre dans un nouvel onglet)">
-                    <iconify-icon icon="carbon:ibm-cloud-vpc-images" width="16" height="16" class="inline-block"></iconify-icon>
+                    <Fragment set:html={renderIconSVG('carbon:ibm-cloud-vpc-images', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
                   <button onclick="openContactModal()" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label="Ouvrir le formulaire de contact">
-                    <iconify-icon icon="carbon:email" width="16" height="16" class="inline-block"></iconify-icon>
+                    <Fragment set:html={renderIconSVG('carbon:email', { width: 16, height: 16, class: 'inline-block' })} />
                   </button>
                 </div>
               </div>

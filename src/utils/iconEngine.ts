@@ -4,6 +4,7 @@
 
 import type { IconSet, IconConfig, ParsedIcon, IconParseResult } from '../types/icons';
 import { DEFAULT_ICON_CONFIG } from '../types/icons';
+import { renderIconSVG } from './iconSvg';
 
 export class IconEngine {
   private config: IconConfig;
@@ -110,7 +111,14 @@ export class IconEngine {
   }
 
   /**
-   * Génère le HTML Iconify pour une icône
+   * Rend une icône en SVG inline, résolu au build.
+   *
+   * Produisait auparavant une balise `<iconify-icon>`, qui exigeait le script
+   * CDN et un appel réseau côté client pour chaque icône. Le SVG inline
+   * supprime les deux (risque R3 de la spec).
+   *
+   * Repli sur la balise si l'icône est introuvable localement : mieux vaut un
+   * rendu différé qu'un trou.
    */
   renderIcon(parsedIcon: ParsedIcon, options: {
     width?: number;
@@ -122,6 +130,9 @@ export class IconEngine {
       height = 16,
       className = 'inline-block mr-2'
     } = options;
+
+    const svg = renderIconSVG(parsedIcon.mapped, { width, height, class: className });
+    if (svg) return svg;
 
     return `<iconify-icon icon="${parsedIcon.mapped}" width="${width}" height="${height}" class="${className}"></iconify-icon>`;
   }

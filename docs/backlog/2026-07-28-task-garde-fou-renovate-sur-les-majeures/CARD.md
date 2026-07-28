@@ -1,7 +1,8 @@
 ---
 title: Garde-fou Renovate sur les montées majeures
 type: task
-status: todo
+status: done
+completed: 2026-07-28
 assignee: task-runner
 priority: medium
 effort: XS
@@ -39,9 +40,26 @@ La seconde est plus légère à vivre ; la première est plus sûre.
 
 ## Critères de done
 
-- [ ] `renovate.json` configuré, avec un commentaire expliquant **pourquoi** (citer l'épisode TS 7)
-- [ ] Comportement vérifié sur le Dependency Dashboard après le prochain passage
-- [ ] Les patches et mineures continuent de passer sans friction
+- [x] `renovate.json` configuré — `dependencyDashboardApproval: true` sur `matchUpdateTypes: ["major"]`, avec le motif complet en `description`
+- [ ] Comportement vérifié sur le Dependency Dashboard **après le prochain passage de Renovate** — non vérifiable immédiatement
+- [x] Les patches et mineures ne sont pas touchés : la règle ne cible que les majeures
+
+## Décision
+
+La carte laissait le choix entre le Dependency Dashboard pour **toutes** les
+majeures, et une liste ciblée sur les paquets structurants. **Retenu : toutes
+les majeures.**
+
+Motif : sur ce projet, les majeures qui font mal sont précisément les
+structurantes (`typescript`, `astro`, `tailwindcss`), et le volume total reste
+faible — une quinzaine de dépendances. La friction supplémentaire est donc
+négligeable, alors que la liste ciblée aurait demandé d'anticiper *quels*
+paquets peuvent casser, ce que l'épisode TS 7 montre justement impossible à
+prévoir.
+
+Le motif est inscrit dans le champ `description` de la règle plutôt qu'en
+commentaire : `renovate.json` est du JSON strict, et Renovate lit ce champ.
+Quiconque ouvre le fichier voit pourquoi la règle existe.
 
 ## Notes
 

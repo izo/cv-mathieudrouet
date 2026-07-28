@@ -1,4 +1,6 @@
 ---
+import { renderIconSVG } from '../utils/iconSvg.ts';
+
 export interface Props {
   company: string;
   companyUrl?: string;
@@ -18,29 +20,13 @@ const getInitials = (name: string) => {
   return name.split(' ').map(word => word.charAt(0)).join('').toUpperCase().slice(0, 2);
 };
 
-// Get icon SVG from Iconify API
-const getIconifySVG = async (iconName: string) => {
-  try {
-    const response = await fetch(`https://api.iconify.design/${iconName}.svg?color=%23d6e0e2&width=60%25&height=60%25`);
-    return await response.text();
-  } catch {
-    return null;
-  }
-};
-
-// Get level icon SVG from Iconify API (24x24 size, white color)
-const getLevelIconSVG = async (iconName: string) => {
-  try {
-    const response = await fetch(`https://api.iconify.design/${iconName}.svg?color=white&width=24&height=24`);
-    return await response.text();
-  } catch {
-    return null;
-  }
-};
-
-// Get icons for component
-const iconSVG = icon ? await getIconifySVG(icon) : null;
-const levelIconSVG = levelIcon ? await getLevelIconSVG(levelIcon) : null;
+// Résolus localement au build — aucun appel réseau (risque R3 de la spec).
+const iconSVG = icon
+  ? renderIconSVG(icon, { width: '60%', height: '60%', color: '#d6e0e2' })
+  : null;
+const levelIconSVG = levelIcon
+  ? renderIconSVG(levelIcon, { width: 24, height: 24, color: 'white' })
+  : null;
 ---
 
 <div class={`glass-card mb-4 sm:mb-6 lg:mb-section${current ? ' glass-card--current' : ''}`}>

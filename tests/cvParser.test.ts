@@ -181,12 +181,15 @@ No proper format here`;
       expect(result.interests).toHaveLength(0);
     });
 
-    it('should convert carbon icons to HTML elements', () => {
+    it('should inline carbon icons as SVG, without a network dependency', () => {
       const result = parseCVContent(mockContent, mockFrontmatter);
 
-      // Check that interests contain iconify-icon HTML
+      // Les icônes sont résolues au build depuis @iconify-json/carbon.
+      // Une balise <iconify-icon> signifierait un repli, donc une icône
+      // introuvable localement — et le retour d'une dépendance réseau.
       if (result.interests.length > 0) {
-        expect(result.interests[0]).toContain('iconify-icon');
+        expect(result.interests[0]).toContain('<svg');
+        expect(result.interests[0]).not.toContain('iconify-icon');
       }
     });
 

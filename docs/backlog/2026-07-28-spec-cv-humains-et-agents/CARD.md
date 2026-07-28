@@ -114,7 +114,7 @@ s'opposent pas. Quand ils s'opposent, l'ordre est le suivant :
 | Parsing | `src/utils/cvParser.ts` | Markdown structuré → données typées |
 | Styles | Tailwind 4 (`@tailwindcss/vite`), design system « Lumon » | Thème unique après suppression d'Atari (§12) |
 | Polices | Auto-hébergées, `public/fonts/*.woff2` | CSP `font-src 'self'`, aucune requête tierce |
-| Icônes | Iconify via CDN + fetch au build | **Point faible assumé, voir §10** |
+| Icônes | SVG inline depuis `@iconify-json/carbon`, résolus au build | Aucun réseau — R3 levé le 28/07 |
 | Hébergement | Cloudflare Pages | `wrangler.toml`, `functions/` |
 | Edge | `functions/_middleware.ts`, `functions/api/contact.ts` | Négociation Markdown, formulaire |
 | Tests | Vitest — 38 tests (20 parser, 18 intégration) | Seul filet automatisé, voir §9.2 |
@@ -162,8 +162,9 @@ parallèles, non mesurables depuis le site.
 
 CSP stricte définie dans `BaseLayout.astro` et `public/_headers` — les deux
 doivent rester alignées. `font-src 'self'`, `frame-src 'none'`,
-`object-src 'none'`. Seule exception réseau : `code.iconify.design` et les API
-Iconify. Le formulaire valide et tronque ses champs côté edge.
+`object-src 'none'`, et depuis le 28/07 **`connect-src 'self'` sans aucune
+exception** : plus une seule origine tierce dans la politique. Le formulaire
+valide et tronque ses champs côté edge.
 
 ### 9.2 Tests et validation
 
@@ -198,7 +199,7 @@ Le site n'a **aucune instrumentation** à ce jour. Les trois signaux de succès
 |---|---|---|---|
 | R1 | **Divergence des formats** — le HTML évolue, le `.md` ou le PDF non | Un agent restitue un profil périmé. Panne silencieuse. | Source unique obligatoire ; à couvrir par un test (§12, AGENT-1) |
 | R2 | **Le bilinguisme double la surface** — 2 langues × 3 formats = 6 artefacts | Divergence quasi certaine à moyen terme | Décider d'une langue maîtresse ; générer plutôt que dupliquer |
-| R3 | **Fetch réseau au build** vers `api.iconify.design` | Un timeout réseau casse le build et le déploiement | Inliner les SVG au build (§12, PERF-1) |
+| ~~R3~~ | ~~Fetch réseau au build vers `api.iconify.design`~~ | ~~Un timeout réseau casse le build~~ | **Levé le 28/07** (PERF-1) — SVG inline, CSP sans origine tierce, 0 requête externe mesurée |
 | R4 | **Parser silencieux** — un écart de format ampute le CV sans erreur | CV publié incomplet, sans alerte | Faire échouer le build sur section manquante |
 | R5 | **Pas de type-check** depuis TS 7 | Erreurs de type non détectées | Assumé ; compensé par les tests |
 | R6 | **Renovate monte les majeures sans garde-fou** | A déjà désactivé le type-check en silence (TS 7, PR #150) | Restreindre les majeures dans `renovate.json` |

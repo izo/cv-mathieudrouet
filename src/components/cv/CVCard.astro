@@ -5,19 +5,14 @@ export interface Props {
   icon?: string;
 }
 
+import { renderIconSVG } from '../../utils/iconSvg.ts';
+
 const { title, id, icon } = Astro.props;
 
-// Get icon SVG from Iconify API
-const getIconSVG = async (iconName: string) => {
-  try {
-    const response = await fetch(`https://api.iconify.design/${iconName}.svg?color=%23163f38&width=20&height=20`);
-    return await response.text();
-  } catch {
-    return null;
-  }
-};
-
-const iconSVG = icon ? await getIconSVG(icon) : null;
+// Résolu localement au build — aucun appel réseau (risque R3 de la spec).
+const iconSVG = icon
+  ? renderIconSVG(icon, { width: 20, height: 20, color: '#163f38' })
+  : null;
 ---
 
 <div class="glass-card">

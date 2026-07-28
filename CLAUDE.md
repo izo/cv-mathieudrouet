@@ -40,11 +40,11 @@ Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Const
   - **Lumon Theme** (unique): Green-based color system with square design aesthetic. C'est le seul thème — le thème alternatif « Atari » a été supprimé le 2026-07-28. Voir `DESIGN.md` pour le système visuel complet.
   - **Typography**: IBM Plex Sans/Mono + Lora — polices **auto-hébergées** dans `public/fonts/*.woff2` (déclarées en `@font-face` dans `global.css`, preload dans `BaseLayout.astro`). Aucun appel à Google Fonts : la CSP impose `font-src 'self'`
   - **Legacy CV Colors**: Mapped for backward compatibility (`cv-bg`, `cv-paper`, `cv-content`, etc.)
-- **Icons**: Iconify icons via CDN with proper CSP configuration for external APIs
+- **Icons**: SVG **inline, résolus au build** depuis `@iconify-json/carbon` via `src/utils/iconSvg.ts`. Aucun CDN, aucun appel réseau — ni au build, ni au runtime. Seul le jeu `carbon` est embarqué : un autre préfixe déclenche un avertissement de build et rend `null`
 - **Security**: Content Security Policy configured in BaseLayout with proper directives for all external resources
 
 ## Gotchas
-- **Fetch réseau au build** : `ExperienceCard.astro` et `CVCard.astro` fetchent des SVG depuis `api.iconify.design` pendant le build SSG — un timeout réseau fait échouer le build
+- **Aucun appel réseau, ni au build ni au runtime** — depuis le 2026-07-28. Les icônes venaient de `api.iconify.design` par `fetch` pendant le build SSG (un timeout faisait échouer le déploiement) et d'un script CDN côté client. Tout est résolu localement. La CSP n'autorise plus aucune origine tierce : `connect-src 'self'`, `script-src 'self' 'unsafe-inline'`. **Réintroduire une origine externe, c'est rouvrir la CSP aux deux endroits** (`BaseLayout.astro` et `public/_headers`, qui doivent rester identiques)
 - **Formulaire de contact** : `ContactModal.astro` poste vers la Pages Function `functions/api/contact.ts` (envoi email via Resend). Nécessite les secrets `RESEND_API_KEY` / `CONTACT_TO` côté Cloudflare ; ne fonctionne pas avec `astro dev` seul (utiliser `wrangler pages dev`)
 - **Pages Functions (Cloudflare)** : `functions/_middleware.ts` gère la négociation Markdown (`Accept: text/markdown`) et `functions/api/contact.ts` le formulaire. Le répertoire `functions/` n'est pas analysé par `astro check`
 - **Format Markdown strict** : `cvParser.ts` attend un format précis dans `cv.md` (icônes, rôles, périodes). Un écart de format drop silencieusement les entrées sans erreur

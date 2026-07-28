@@ -33,3 +33,9 @@ windsurf_deployment.yaml
 package-lock.json
 pnpm-lock.yaml
 pnpm-workspace.yaml
+
+# Télémétrie de l'outillage ulk — journal local, jamais du code projet.
+# A déjà contenu une clé API Resend, bloquée au push par GitHub Secret Scanning
+# le 2026-07-28 : ce fichier ne doit pas être suivi.
+.ulk-reports/
+.ulk/

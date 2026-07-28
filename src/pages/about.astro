@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getEntry, render } from 'astro:content';
 import { siteConfig } from '../config/site.ts';
+import { renderIconSVG } from '../utils/iconSvg.ts';
 
 // Get about content from Markdown
 const aboutEntry = await getEntry('about', 'about');
@@ -36,7 +37,7 @@ const { title, description } = siteConfig;
           class="inline-flex items-center gap-2 text-cv-accent font-lora font-semibold hover:opacity-70 transition-opacity no-min-size"
           aria-label="Retour au CV"
         >
-          <iconify-icon icon="carbon:arrow-left" width="20" height="20"></iconify-icon>
+          <Fragment set:html={renderIconSVG('carbon:arrow-left', { width: 20, height: 20 })} />
           <span>Retour au CV</span>
         </a>
       </div>

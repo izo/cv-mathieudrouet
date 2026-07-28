@@ -2,5 +2,14 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "description": "Les montées MAJEURES attendent une approbation explicite depuis le Dependency Dashboard. Motif : le 2026-07-14, la PR #150 a monté TypeScript en v7 et rendu `astro check` inopérant — le compilateur natif n'expose plus l'API programmatique dont dépend le language-server. L'échec se présentait comme un crash illisible plutôt que comme une capacité perdue, si bien que le projet a passé deux semaines sans validation de types, et qu'une erreur de type réelle est passée dans index.astro. Les patches et les mineures continuent de se merger sans friction.",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "dependencyDashboardApproval": true
+    }
   ]
 }
