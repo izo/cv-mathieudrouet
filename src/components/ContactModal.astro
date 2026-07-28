@@ -7,10 +7,7 @@
   <div class="contact-panel max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
     <!-- Modal Header -->
     <div class="flex justify-between items-center gap-4 p-6 contact-panel__header">
-      <div>
-        <p class="contact-eyebrow">Formulaire</p>
-        <h2 id="contact-modal-title" class="contact-title">Me contacter</h2>
-      </div>
+      <h2 id="contact-modal-title" class="contact-title">Me contacter</h2>
       <button
         type="button"
         id="close-modal"
@@ -161,15 +158,6 @@
     border-bottom: 2px solid var(--cv-border);
   }
 
-  .contact-eyebrow {
-    font-family: var(--font-ibm-plex-mono);
-    font-size: 0.6875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--cv-muted);
-    margin: 0 0 0.3rem;
-  }
-
   .contact-title {
     font-family: var(--font-lora);
     font-weight: 700;
@@ -237,10 +225,15 @@
     color: var(--cv-content);
     margin: 0;
   }
+  /* `p a` reçoit un padding de 2px 4px pour élargir la zone de clic. Utile
+     verticalement, mais l'horizontal décolle la ponctuation qui suit le lien. */
   .contact-notice__link {
     color: var(--cv-content);
     text-decoration: underline;
     text-underline-offset: 2px;
+    padding: 2px 0;
+    min-width: 0;
+    min-height: 0;
   }
   .contact-notice__link:hover {
     color: var(--cv-accent);
@@ -278,14 +271,14 @@
   .contact-field:hover {
     border-color: var(--cv-muted);
   }
-  .contact-field:focus {
+  /* Un seul geste de focus : la bordure passe à l'accent et l'ombre d'encre se
+     décale. Un outline par-dessus recouvrait les deux et ramenait un cadre
+     générique — la forme change autant que la couleur, l'indication tient. */
+  .contact-field:focus,
+  .contact-field:focus-visible {
     outline: none;
     border-color: var(--cv-accent);
     box-shadow: 2px 2px 0 var(--cv-accent);
-  }
-  .contact-field:focus-visible {
-    outline: 2px solid var(--cv-focus);
-    outline-offset: 2px;
   }
   .contact-field:invalid:not(:placeholder-shown) {
     border-color: var(--cv-error);
