@@ -38,8 +38,22 @@ entre bilinguisme, SEO et dispositif agent revient à parier.
 
 1. Dashboard Cloudflare → **Pages** → `cv-mathieudrouet-2025` → onglet **Metrics**, ou
    **Analytics & Logs → Web Analytics** → *Add a site* sur `cv.drouet.io`.
-2. Choisir l'activation automatique (Pages l'injecte au edge).
-3. Me le dire : j'ouvre la CSP et je vérifie que le beacon charge réellement.
+2. Choisir l'activation automatique.
+3. **Redéployer** — l'injection se fait au déploiement, pas au edge : tant que le
+   build servi est antérieur à l'activation, aucun beacon n'apparaît dans le HTML.
+4. Ouvrir la CSP (diff ci-dessous) et vérifier que le beacon charge réellement.
+
+## Journal
+
+**2026-07-28 — activé au dashboard.** Vérification du HTML servi juste après :
+aucune trace de `cloudflareinsights`, `beacon` ni `insights` dans les 61 800
+octets de `https://cv.drouet.io`. Attendu : Pages injecte au déploiement, et
+l'ETag servi correspondait au build antérieur. Ce commit déclenche un nouveau
+déploiement pour lever le doute.
+
+Si le beacon n'apparaît toujours pas après ce déploiement, c'est que le mode
+retenu est le Web Analytics *standalone* (**Add a site**), qui ne fait aucune
+injection et fournit un extrait `<script>` à poser soi-même dans le layout.
 
 ## ⚠️ Correction du 2026-07-28 — la note initiale était fausse
 
