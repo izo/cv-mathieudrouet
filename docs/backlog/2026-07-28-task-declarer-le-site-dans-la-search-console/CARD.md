@@ -27,9 +27,37 @@ Le troisième signal d'outcome — position sur « mathieu drouet », présence 
 ## Procédure
 
 1. [search.google.com/search-console](https://search.google.com/search-console) → *Ajouter une propriété* → **Préfixe d'URL** : `https://cv.drouet.io`
-2. Vérification par **enregistrement TXT** — le DNS est chez Cloudflare, c'est le chemin le plus court. Google donne la valeur, à créer dans Cloudflare DNS.
-3. *Sitemaps* → soumettre **`sitemap-index.xml`** (et non `sitemap.xml`, voir ci-dessous).
-4. Relever le point zéro : position sur « mathieu drouet », impressions sur les requêtes métier. Sans lui, aucune progression ultérieure ne sera démontrable.
+2. Choisir la vérification par **balise HTML** (`<meta name="google-site-verification" …>`) et me donner la valeur du `content` — je la pose dans `BaseLayout.astro`, elle part au déploiement suivant. **Ne pas prendre la voie DNS** (voir ci-dessous).
+3. *Sitemaps* → soumettre **`sitemap-index.xml`** (et non `sitemap.xml`).
+4. **Demander une réindexation** de `https://cv.drouet.io/` — l'index sert un titre périmé (voir plus bas).
+5. Relever le point zéro : position sur « mathieu drouet », impressions sur les requêtes métier. Sans lui, aucune progression ultérieure ne sera démontrable.
+
+## ⚠️ Correction du 2026-07-28 — le DNS n'est pas chez Cloudflare
+
+La procédure initiale prescrivait la vérification par enregistrement TXT « le
+DNS est chez Cloudflare, c'est le chemin le plus court ». **C'est faux.**
+
+```
+NS de drouet.io → ns-161-c.gandi.net · ns-165-a.gandi.net · ns-232-b.gandi.net
+```
+
+Le domaine est géré **chez Gandi** ; seul `cv.drouet.io` est délégué à
+Cloudflare (CNAME vers `cv-mathieudrouet-2025.pages.dev`). Les quatre zones du
+compte Cloudflare sont `mathieu-drouet.com`, `regrets.app`, `ulk.me` et
+`youpiyoupi.fr` — pas `drouet.io`.
+
+La voie TXT obligerait donc à passer par Gandi. La **balise meta** évite tout
+cela : elle vit dans le dépôt, elle se versionne, et elle part au déploiement.
+
+## Urgence remontée par le relevé du 28/07
+
+Le point zéro (`docs/audits/releve-agent-2026-07-28.md`) montre que **l'index
+sert un titre périmé** : les moteurs affichent « Mathieu Drouet - Senior Product
+Manager » alors que le `<title>` en production dit « Head of Product & Product
+Builder | AI-Augmented Delivery ».
+
+Cette carte n'est donc plus une formalité d'instrumentation : c'est le moyen de
+demander la réindexation qui corrigera l'intitulé affiché dans les résultats.
 
 ## Prérequis vérifiés le 2026-07-28
 
