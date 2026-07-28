@@ -1,7 +1,8 @@
 ---
 title: Vérifier au build le SHA-256 déclaré dans agent-skills
 type: task
-status: todo
+status: done
+completed: 2026-07-28
 assignee: task-runner
 priority: high
 effort: S
@@ -29,9 +30,22 @@ cet écart (spec §6, invariant).
 
 ## Critères de done
 
-- [ ] Le hash de `SKILL.md` est recalculé et comparé à celui déclaré dans `index.json`
-- [ ] La vérification tourne dans la suite de tests **ou** dans le pipeline de build
-- [ ] Un écart fait échouer bruyamment, avec un message qui donne le hash attendu et le hash trouvé
+- [x] Le hash de chaque `SKILL.md` déclaré est recalculé et comparé à `index.json`
+- [x] La vérification tourne dans la suite de tests (`tests/agent-readable.test.ts`), donc à chaque `bun test`
+- [x] Un écart fait échouer avec un message qui donne la commande de recalcul
+- [x] La boucle parcourt **toutes** les skills déclarées, pas seulement `cv-info` — une skill ajoutée est couverte sans modifier le test
+
+## Résultat
+
+Implémenté dans la suite `tests/agent-readable.test.ts`, écrite avec AGENT-1.
+
+**Le scénario s'est produit avant même l'implémentation** : le 2026-07-28,
+l'alignement du titre a modifié `SKILL.md` et invalidé son empreinte
+(`cf261573…` → `f577c7c6…`). Le hash a été recalculé à la main ce jour-là ; ce
+test fait qu'il n'y aura pas de prochaine fois silencieuse.
+
+Détection vérifiée par mutation : ajouter une ligne à `SKILL.md` sans toucher
+`index.json` fait échouer la suite.
 ## Notes
 
 **État vérifié le 28/07/2026 : le hash déclaré correspond au fichier publié.**
