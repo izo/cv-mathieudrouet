@@ -1,7 +1,8 @@
 ---
 title: Écrire le protocole de relevé agent
 type: task
-status: todo
+status: done
+completed: 2026-07-28
 assignee: task-runner
 priority: high
 effort: S
