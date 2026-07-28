@@ -185,7 +185,7 @@ Le site n'a **aucune instrumentation** à ce jour. Les trois signaux de succès
 | Présence dans les recherches | Google Search Console | à mettre en place |
 | Trafic et provenance | Cloudflare Web Analytics | à activer |
 | Contacts entrants | Emails Resend + mentions LinkedIn | comptage manuel |
-| Restitution par les agents | **Relevé manuel trimestriel** | protocole à écrire |
+| Restitution par les agents | **Relevé manuel trimestriel** | protocole écrit ([`PROTOCOLE.md`](../2026-07-28-task-protocole-de-releve-agent/PROTOCOLE.md)) · point zéro partiel du 28/07 dans `docs/audits/` |
 
 > Aucun outil ne mesure la restitution par les agents. C'est la métrique la plus
 > proche du pari fondateur, et la seule qui restera manuelle : interroger

@@ -33,9 +33,29 @@ Un document court dans ce dossier (`PROTOCOLE.md`) définissant :
 
 ## Critères de done
 
-- [ ] `PROTOCOLE.md` écrit dans ce dossier, exécutable par quelqu'un d'autre sans explication orale
-- [ ] Premier relevé effectué et archivé — il fait office de point zéro
-- [ ] Cadence inscrite dans la spec (§9.3) : trimestrielle
+- [x] `PROTOCOLE.md` écrit dans ce dossier — 8 requêtes, 3 agents, grille de cotation, gabarit d'archivage, seuils de réaction
+- [~] Premier relevé **partiel** archivé : `docs/audits/releve-agent-2026-07-28.md`. Couvre la couche recherche web ; les trois agents en session neuve restent à interroger — je n'ai pas accès à ChatGPT ni Perplexity
+- [x] Cadence trimestrielle inscrite dans la spec (§9.3), avec lien vers le protocole
+
+## Ce que le point zéro partiel a montré
+
+**Le pari n'est pas gagné aujourd'hui**, et le relevé le chiffre :
+
+| Requête | Résultat |
+|---|---|
+| Nominative | `cv.drouet.io` remonte **2ᵉ**, derrière LinkedIn — mais sous le titre **périmé** « Senior Product Manager » |
+| Par besoin (le scénario de sourcing) | **absent** — des profils comparables occupent la place, dont un lillois au positionnement voisin |
+
+Le résumé généré comportait deux erreurs factuelles (« plus de vingt ans » au
+lieu de 10+, « CPO » au lieu de Head of Product & Product Builder). Elles ne
+viennent pas du site mais d'agrégations tierces — exactement le mode de
+défaillance que le dispositif agent-readable doit prévenir : quand la source
+canonique n'est pas lue, une autre parle à sa place.
+
+**Deux actions désignées par ce relevé :** faire remonter `OBS-2` en priorité
+(l'index sert un titre périmé, la Search Console permet d'en demander la
+réindexation), et aligner LinkedIn sur l'intitulé qui fait foi — c'est la source
+que les moteurs citent en premier, et elle contredit le site.
 
 ## Notes
 
