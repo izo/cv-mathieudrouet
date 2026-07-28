@@ -1,7 +1,8 @@
 /// <reference types="@cloudflare/workers-types" />
 
 // Pages Function middleware — Markdown content negotiation for AI agents.
-// Ported from netlify/edge-functions/markdown-negotiation.ts (iso-comportement).
+// Porté à l'identique depuis l'edge function Netlify d'origine, supprimée lors
+// de la migration vers Cloudflare Pages (voir docs/07-migration-cloudflare-pages-2026-05-29.md).
 // When a request to a mapped route sends `Accept: text/markdown` (with a quality
 // at least equal to text/html), the Markdown source is returned instead of the
 // HTML rendering. Browsers keep getting HTML because their default Accept prefers

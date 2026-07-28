@@ -68,9 +68,10 @@ describe('Build Integration Tests', () => {
       expect(indexContent).toContain('code.iconify.design');
     });
 
-    it('should contain Google Fonts preconnect', () => {
-      expect(indexContent).toContain('fonts.googleapis.com');
-      expect(indexContent).toContain('fonts.gstatic.com');
+    it('should preload self-hosted fonts and never hit Google Fonts', () => {
+      expect(indexContent).toContain('/fonts/ibm-plex-sans-latin-400.woff2');
+      expect(indexContent).not.toContain('fonts.googleapis.com');
+      expect(indexContent).not.toContain('fonts.gstatic.com');
     });
 
     it('should contain CV sections', () => {
