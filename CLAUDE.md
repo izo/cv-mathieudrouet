@@ -1,6 +1,14 @@
+---
+doc-mode: faru
+# gate: spec-required  # opt-in — spec obligatoire avant code. Activer si : projet critique / équipe > 1 / édition ad-hoc hors pipeline fréquente.
+---
+
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+> **Spec de référence** : [`docs/backlog/2026-07-28-spec-cv-humains-et-agents/CARD.md`](docs/backlog/2026-07-28-spec-cv-humains-et-agents/CARD.md).
+> La reverse doc `docs/00→06` date du 10 avril 2026 et décrit un état abandonné (Netlify, Astro 6) — ne pas s'y fier.
 
 ## Project Overview
 Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Construit avec Astro (SSG), TypeScript et Tailwind CSS. Déployé sur https://cv.drouet.io via **Cloudflare Pages**.
