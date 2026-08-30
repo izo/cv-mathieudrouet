@@ -5,9 +5,9 @@
     {
       "name": "cv-info",
       "type": "instructions",
-      "description": "Retrieve CV, biography, experience, skills, and contact information for Mathieu Drouet, Head of Product & Product Builder based in Lille, France.",
+      "description": "Retrieve CV, biography, experience, skills, and contact information for Mathieu Drouet, Head of Product & Product Builder based in Lille, France. Available in French and English.",
       "url": "https://cv.drouet.io/.well-known/agent-skills/cv-info/SKILL.md",
-      "sha256": "f577c7c66ad5010e8839d8f12eca29bc6d0159a6dd9a4520719758a6f02ad078"
+      "sha256": "9e3c6b9b5a3133aab228a5de4a7befa5ccf9432520f4500cfbc0f7b405e426b0"
     }
   ]
 }

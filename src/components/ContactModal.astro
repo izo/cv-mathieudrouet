@@ -1,5 +1,13 @@
 ---
 // Contact Modal Component — submits to the Cloudflare Pages Function /api/contact
+import { ui, DEFAULT_LOCALE, type Locale } from '../config/i18n.ts';
+
+export interface Props {
+  lang?: Locale;
+}
+
+const { lang = DEFAULT_LOCALE } = Astro.props;
+const t = ui[lang].contactModal;
 ---
 
 <!-- Contact Modal -->
@@ -7,12 +15,12 @@
   <div class="contact-panel max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
     <!-- Modal Header -->
     <div class="flex justify-between items-center gap-4 p-6 contact-panel__header">
-      <h2 id="contact-modal-title" class="contact-title"><span class="contact-title__rule" aria-hidden="true"></span>Me contacter</h2>
+      <h2 id="contact-modal-title" class="contact-title"><span class="contact-title__rule" aria-hidden="true"></span>{t.title}</h2>
       <button
         type="button"
         id="close-modal"
         class="contact-close"
-        aria-label="Fermer la fenêtre de contact"
+        aria-label={t.close}
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -24,14 +32,14 @@
     <div class="p-6">
       <!-- Message envoyé -->
       <div id="success-message" class="hidden contact-notice contact-notice--ok" role="status">
-        <p class="contact-notice__title">Message envoyé</p>
-        <p class="contact-notice__body">Je vous réponds sous quelques jours, à l'adresse que vous avez indiquée.</p>
+        <p class="contact-notice__title">{t.successTitle}</p>
+        <p class="contact-notice__body">{t.successBody}</p>
       </div>
 
       <!-- Échec de l'envoi -->
       <div id="error-message" class="hidden contact-notice contact-notice--ko" role="alert">
-        <p class="contact-notice__title">L'envoi a échoué</p>
-        <p class="contact-notice__body" id="error-detail">Le message n'est pas parti. Réessayez, ou écrivez directement à <a href="mailto:m@mdr.cool" class="no-min-size contact-notice__link">m@mdr.cool</a>.</p>
+        <p class="contact-notice__title">{t.errorTitle}</p>
+        <p class="contact-notice__body" id="error-detail">{t.errorBodyBefore}<a href="mailto:m@mdr.cool" class="no-min-size contact-notice__link">m@mdr.cool</a>{t.errorBodyAfter}</p>
       </div>
 
       <!-- Contact Form -->
@@ -44,7 +52,7 @@
       >
         <!-- Honeypot classique -->
         <div class="hidden">
-          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+          <label>{t.honeypot} <input name="bot-field" /></label>
         </div>
         <!-- Honeypot temporel : injecté par JS à l'ouverture de la modal -->
         <input type="hidden" name="_t" value="0" />
@@ -52,7 +60,7 @@
         <!-- Name Field -->
         <div>
           <label for="name" class="contact-label">
-            Nom complet *
+            {t.nameLabel}
           </label>
           <input 
             type="text" 
@@ -60,14 +68,14 @@
             name="name" 
             required
             class="contact-field"
-            placeholder="Votre nom et prénom"
+            placeholder={t.namePlaceholder}
           />
         </div>
 
         <!-- Email Field -->
         <div>
           <label for="email" class="contact-label">
-            Email *
+            {t.emailLabel}
           </label>
           <input 
             type="email" 
@@ -75,14 +83,14 @@
             name="email" 
             required
             class="contact-field"
-            placeholder="votre.email@exemple.com"
+            placeholder={t.emailPlaceholder}
           />
         </div>
 
         <!-- Subject Field -->
         <div>
           <label for="subject" class="contact-label">
-            Sujet *
+            {t.subjectLabel}
           </label>
           <input 
             type="text" 
@@ -90,14 +98,14 @@
             name="subject" 
             required
             class="contact-field"
-            placeholder="Objet de votre message"
+            placeholder={t.subjectPlaceholder}
           />
         </div>
 
         <!-- Message Field -->
         <div>
           <label for="message" class="contact-label">
-            Message *
+            {t.messageLabel}
           </label>
           <textarea 
             id="message" 
@@ -105,7 +113,7 @@
             rows="4" 
             required
             class="contact-field contact-field--area"
-            placeholder="Votre message..."
+            placeholder={t.messagePlaceholder}
           ></textarea>
         </div>
 
@@ -116,20 +124,20 @@
             id="cancel-btn"
             class="contact-btn contact-btn--ghost"
           >
-            Annuler
+            {t.cancel}
           </button>
           <button 
             type="submit" 
             id="submit-btn"
             class="contact-btn contact-btn--primary"
           >
-            <span id="submit-text">Envoyer</span>
+            <span id="submit-text">{t.submit}</span>
             <span id="submit-loading" class="hidden">
               <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Envoi...
+              {t.submitting}
             </span>
           </button>
         </div>

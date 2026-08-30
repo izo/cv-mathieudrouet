@@ -46,6 +46,18 @@ describe('Contrat agent-readable', () => {
     it('le cv.md servi est identique à la source', () => {
       expect(read('dist', 'cv.md')).toBe(read('src', 'content', 'cv', 'cv.md'));
     });
+
+    it('public/en/cv.md est identique à src/content/cv/en/cv.md', () => {
+      expect(read('public', 'en', 'cv.md')).toBe(read('src', 'content', 'cv', 'en', 'cv.md'));
+    });
+
+    it('public/en/about.md est identique à src/content/about/en/about.md', () => {
+      expect(read('public', 'en', 'about.md')).toBe(read('src', 'content', 'about', 'en', 'about.md'));
+    });
+
+    it('le cv.md anglais servi est identique à sa source', () => {
+      expect(read('dist', 'en', 'cv.md')).toBe(read('src', 'content', 'cv', 'en', 'cv.md'));
+    });
   });
 
   describe('Invariants de profil — mêmes faits partout', () => {
@@ -55,6 +67,12 @@ describe('Contrat agent-readable', () => {
       expect(read('src', 'content', 'cv', 'cv.md')).toContain(ROLE);
       expect(read('public', 'llms.txt')).toContain(ROLE);
       expect(read('dist', 'index.html')).toContain(ROLE.replace('&', '&amp;'));
+    });
+
+    it("l'intitulé de poste complet est présent dans les sources anglaises", () => {
+      // Le positionnement ne doit pas se perdre à la traduction.
+      expect(read('src', 'content', 'cv', 'en', 'cv.md')).toContain(ROLE);
+      expect(read('dist', 'en', 'index.html')).toContain(ROLE.replace('&', '&amp;'));
     });
 
     it('le nom est identique dans le HTML, le CV Markdown et llms.txt', () => {
@@ -67,7 +85,17 @@ describe('Contrat agent-readable', () => {
     it("l'email de contact est identique partout", () => {
       const email = siteConfig.author.email;
       expect(read('src', 'content', 'cv', 'cv.md')).toContain(email);
+      expect(read('src', 'content', 'cv', 'en', 'cv.md')).toContain(email);
       expect(read('public', 'llms.txt')).toContain(email);
+    });
+
+    it('les deux langues listent le même nombre d’expériences', () => {
+      // Une expérience ajoutée d'un seul côté publierait deux profils
+      // différents selon la langue lue.
+      const entries = (md: string) => md.match(/^### /gm)?.length ?? 0;
+      expect(entries(read('src', 'content', 'cv', 'en', 'cv.md'))).toBe(
+        entries(read('src', 'content', 'cv', 'cv.md'))
+      );
     });
 
     it('la localisation annoncée est cohérente', () => {

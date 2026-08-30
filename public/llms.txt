@@ -8,9 +8,22 @@ Site : https://cv.drouet.io
 
 - [CV (Markdown)](https://cv.drouet.io/cv.md): CV complet en Markdown, mis à jour à chaque build.
 - [About (Markdown)](https://cv.drouet.io/about.md): Présentation longue : approche produit, AI-Augmented Delivery, ce que je cherche.
+- [CV (Markdown, English)](https://cv.drouet.io/en/cv.md): Same CV, English version.
+- [About (Markdown, English)](https://cv.drouet.io/en/about.md): Same long-form positioning, English version.
 - [CV (PDF)](https://cv.drouet.io/cv_mathieu_drouet.pdf): Version PDF imprimable du CV.
 - [API Catalog](https://cv.drouet.io/.well-known/api-catalog): Index machine-lisible des ressources publiées (RFC 9727).
 - [Agent Skills Index](https://cv.drouet.io/.well-known/agent-skills/index.json): Skills exposées pour les agents IA.
+
+## Langues / Languages
+
+Le site est publié en deux langues, depuis deux sources Markdown distinctes.
+The site is published in two languages, from two separate Markdown sources.
+
+- Français (par défaut) : https://cv.drouet.io/ et https://cv.drouet.io/about/
+- English: https://cv.drouet.io/en/ and https://cv.drouet.io/en/about/
+
+Les deux versions décrivent le même profil. En cas d'écart, la version
+française fait foi. Both describe the same profile; the French version prevails.
 
 ## Profils externes
 

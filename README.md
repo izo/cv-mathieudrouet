@@ -17,7 +17,9 @@
 
 ## Architecture
 
-Le contenu du CV est géré via un unique fichier Markdown (`src/content/cv/cv.md`) parsé dynamiquement au build. Le résultat est un site statique déployé sur Cloudflare Pages.
+Le contenu du CV est géré via un fichier Markdown par langue, parsé dynamiquement au build. Le résultat est un site statique déployé sur Cloudflare Pages.
+
+Le site est publié en deux langues : français sur `/` et `/about`, anglais sur `/en/` et `/en/about`. Chaque langue a sa source Markdown ; les libellés d'interface vivent dans `src/config/i18n.ts`.
 
 ```
 src/
@@ -26,11 +28,14 @@ src/
 │   ├── ContactModal.astro       # Modal contact (Cloudflare Pages Function)
 │   └── cv/                      # CVCard, CVGrid, CVSection
 ├── content/
-│   ├── cv/cv.md                 # Contenu du CV (source de vérité)
-│   └── about/about.md           # Page À propos
-├── layouts/BaseLayout.astro     # HTML, meta, CSP, footer
-├── pages/                       # index.astro, about.astro
-├── config/                      # site.ts, env.ts, images.ts
+│   ├── cv/cv.md                 # Contenu du CV, fr (source de vérité)
+│   ├── cv/en/cv.md              # Contenu du CV, en
+│   ├── about/about.md           # Page À propos, fr
+│   └── about/en/about.md        # Page À propos, en
+├── layouts/BaseLayout.astro     # HTML, meta, CSP, footer, hreflang
+├── pages/                       # index.astro, about.astro, en/*
+├── components/pages/            # CVPage, AboutPage — rendus par langue
+├── config/                      # site.ts, env.ts, images.ts, i18n.ts
 ├── utils/                       # cvParser.ts, iconEngine.ts, debug.ts
 └── styles/global.css            # Design system (thèmes Lumon + Atari)
 ```
@@ -55,7 +60,9 @@ bun run test:ui            # Interface web Vitest
 
 ## Contenu
 
-Pour modifier le CV, éditer `src/content/cv/cv.md`. Le format Markdown est documenté dans `docs/03-doc-utilisateur-2026-04-10.md`.
+Pour modifier le CV, éditer `src/content/cv/cv.md` (français) et `src/content/cv/en/cv.md` (anglais). Le format Markdown est documenté dans `docs/03-doc-utilisateur-2026-04-10.md` ; seuls les intitulés de section changent d'une langue à l'autre (`Coordonnées`/`Contact`, `Expériences`/`Experience`, `Compétences`/`Skills`, `Centres d'intérêt`/`Interests`).
+
+Les copies servies aux agents (`public/cv.md`, `public/about.md`, `public/en/cv.md`, `public/en/about.md`) sont maintenues à la main et verrouillées par `tests/agent-readable.test.ts` : toute modification d'une source doit être reportée dans sa copie.
 
 ```bash
 pnpm run content:check     # Vérifier les changements de contenu

@@ -12,6 +12,11 @@ const ROUTE_TO_MARKDOWN: Record<string, string> = {
   "/": "/cv.md",
   "/about": "/about.md",
   "/about/": "/about.md",
+  // Version anglaise — même contrat, une source par langue.
+  "/en": "/en/cv.md",
+  "/en/": "/en/cv.md",
+  "/en/about": "/en/about.md",
+  "/en/about/": "/en/about.md",
 };
 
 // CF Pages ignores X-Frame-Options and Permissions-Policy set via _headers —

@@ -2,6 +2,16 @@
 import '../styles/global.css';
 import { siteConfig } from '../config/site.ts';
 import { securityConfig, isDevelopment } from '../config/env.ts';
+import {
+  ui,
+  routes,
+  markdownRoutes,
+  alternatesFor,
+  otherLocale,
+  DEFAULT_LOCALE,
+  type Locale,
+  type PageId,
+} from '../config/i18n.ts';
 import ContactModal from '../components/ContactModal.astro';
 import { renderIconSVG } from '../utils/iconSvg.ts';
 
@@ -13,6 +23,10 @@ export interface Props {
   url?: string;
   enableDebugMode?: boolean;
   theme?: string;
+  /** Langue de la page — pilote `<html lang>`, les libellés et les alternates. */
+  lang?: Locale;
+  /** Page traduite rendue ici. `other` = pas d'équivalent dans l'autre langue. */
+  page?: PageId;
 }
 
 const { 
@@ -22,15 +36,36 @@ const {
   image = siteConfig.author.image, 
   url,
   enableDebugMode = isDevelopment(),
-  theme = "lumon"
+  theme = "lumon",
+  lang = DEFAULT_LOCALE,
+  page = 'other'
 } = Astro.props;
 
 const canonicalUrl = url || Astro.url.href;
 const fullImageUrl = new URL(image, siteConfig.url).href;
+
+const t = ui[lang];
+
+// Les alternates viennent de l'identité de la page, pas de son URL : en
+// `build.format: 'directory'`, `Astro.url.pathname` porte un slash final que
+// les comparaisons de chemin rataient (le /about servait le cv.md).
+const alternates = alternatesFor(page);
+const markdownHref = page === 'other' ? null : markdownRoutes[page][lang];
+const xDefaultHref =
+  page === 'other' ? null : new URL(routes[page][DEFAULT_LOCALE], siteConfig.url).href;
+
+// Le site n'a que deux langues : le sélecteur est un aller-retour. Une page
+// sans équivalent traduit (404) renvoie vers le CV de l'autre langue.
+const switchLocale = otherLocale(lang);
+const switchHref = page === 'other' ? routes.cv[switchLocale] : routes[page][switchLocale];
+
+// Les outils WebMCP servent la langue de la page où ils sont enregistrés.
+const cvMarkdownHref = markdownRoutes.cv[lang];
+const aboutMarkdownHref = markdownRoutes.about[lang];
 ---
 
 <!doctype html>
-<html lang="fr" class="h-full" data-theme={theme} dir="ltr">
+<html lang={t.htmlLang} class="h-full" data-theme={theme} dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -42,8 +77,16 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
     <!-- Agent discovery (RFC 8288 link relations) -->
     <link rel="api-catalog" type="application/linkset+json" href="/.well-known/api-catalog" />
     <link rel="describedby" type="text/markdown" href="/llms.txt" />
-    <link rel="alternate" type="text/markdown" href={Astro.url.pathname === '/about' ? '/about.md' : '/cv.md'} title="Markdown version" />
+    {markdownHref && (
+      <link rel="alternate" type="text/markdown" href={markdownHref} title="Markdown version" />
+    )}
     <link rel="alternate" type="application/pdf" href="/cv_mathieu_drouet.pdf" title="CV (PDF)" />
+
+    <!-- Versions linguistiques (hreflang) — mêmes URL que les canoniques -->
+    {alternates.map(({ locale, path }) => (
+      <link rel="alternate" hreflang={locale} href={new URL(path, siteConfig.url).href} />
+    ))}
+    {xDefaultHref && <link rel="alternate" hreflang="x-default" href={xDefaultHref} />}
 
     <!-- SEO Meta Tags -->
     <meta name="author" content={siteConfig.author.name} />
@@ -57,7 +100,10 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
     <meta property="og:image" content={fullImageUrl} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={siteConfig.name} />
-    <meta property="og:locale" content={siteConfig.seo.locale} />
+    <meta property="og:locale" content={t.ogLocale} />
+    {alternates.length > 0 && (
+      <meta property="og:locale:alternate" content={ui[switchLocale].ogLocale} />
+    )}
     <meta property="profile:first_name" content="Mathieu" />
     <meta property="profile:last_name" content="Drouet" />
     
@@ -146,7 +192,7 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
   </head>
   <body class="min-h-full font-sans text-cv-content antialiased" itemscope itemtype="https://schema.org/ProfilePage">
     <!-- Skip Links for Accessibility -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-cv-accent focus:text-white focus:rounded focus:no-underline focus:shadow-lg">Aller au contenu principal</a>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-cv-accent focus:text-white focus:rounded focus:no-underline focus:shadow-lg">{t.skipToContent}</a>
     
     <!-- Main content container -->
     <div class="lumon-container">
@@ -166,29 +212,36 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
               <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
                 <p class="text-xs text-cv-muted order-2 sm:order-1 font-ibm-plex-mono">&copy; {new Date().getFullYear()} {siteConfig.author.name}</p>
                 <div class="flex items-center gap-3 order-1 sm:order-2">
-                  <a href="/about" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label="À propos">
+                  <a href={routes.about[lang]} class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label={t.footer.about}>
                     <Fragment set:html={renderIconSVG('carbon:user-profile', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
                   <a 
                     href="/cv_mathieu_drouet.pdf"
                     download="CV-Mathieu-Drouet.pdf"
                     class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" 
-                    aria-label="Télécharger le CV en PDF"
+                    aria-label={t.footer.downloadPdf}
                   >
                     <Fragment set:html={renderIconSVG('carbon:document-pdf', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
-                  <a href={siteConfig.social.linkedin.url} target="_blank" rel="noopener noreferrer" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label="LinkedIn (ouvre dans un nouvel onglet)">
+                  <a href={siteConfig.social.linkedin.url} target="_blank" rel="noopener noreferrer" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label={t.footer.linkedin}>
                     <Fragment set:html={renderIconSVG('carbon:logo-linkedin', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
-                  <a href={siteConfig.social.github.url} target="_blank" rel="noopener noreferrer" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label="GitHub (ouvre dans un nouvel onglet)">
+                  <a href={siteConfig.social.github.url} target="_blank" rel="noopener noreferrer" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label={t.footer.github}>
                     <Fragment set:html={renderIconSVG('carbon:logo-github', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
-                  <a href={siteConfig.social.portfolio.url} target="_blank" rel="noopener noreferrer" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label="Portfolio (ouvre dans un nouvel onglet)">
+                  <a href={siteConfig.social.portfolio.url} target="_blank" rel="noopener noreferrer" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label={t.footer.portfolio}>
                     <Fragment set:html={renderIconSVG('carbon:ibm-cloud-vpc-images', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
-                  <button onclick="openContactModal()" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label="Ouvrir le formulaire de contact">
+                  <button onclick="openContactModal()" class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" aria-label={t.footer.contact}>
                     <Fragment set:html={renderIconSVG('carbon:email', { width: 16, height: 16, class: 'inline-block' })} />
                   </button>
+                  <a
+                    href={switchHref}
+                    hreflang={switchLocale}
+                    lang={switchLocale}
+                    class="lang-switch text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded font-ibm-plex-mono"
+                    aria-label={t.languageSwitch.ariaLabel}
+                  >{t.languageSwitch.label}</a>
                 </div>
               </div>
             </footer>
@@ -210,7 +263,7 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
     </script>
 
     <!-- WebMCP: expose site tools to AI agents (https://webmachinelearning.github.io/webmcp/) -->
-    <script is:inline>
+    <script is:inline define:vars={{ cvMarkdownHref, aboutMarkdownHref }}>
       (function registerWebMCPTools() {
         if (typeof navigator === 'undefined') return;
         var mc = navigator.modelContext;
@@ -224,7 +277,7 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
                 description: "Fetch Mathieu Drouet's full CV (Head of Product, Lille, France) as Markdown.",
                 inputSchema: { type: 'object', properties: {}, additionalProperties: false },
                 execute: async function () {
-                  var res = await fetch('/cv.md', { headers: { 'Accept': 'text/markdown' } });
+                  var res = await fetch(cvMarkdownHref, { headers: { 'Accept': 'text/markdown' } });
                   if (!res.ok) throw new Error('CV markdown unavailable (HTTP ' + res.status + ')');
                   var markdown = await res.text();
                   return { content: [{ type: 'text', text: markdown }] };
@@ -235,7 +288,7 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
                 description: "Fetch Mathieu Drouet's long-form about page (AI-Augmented Delivery, what he does and looks for) as Markdown.",
                 inputSchema: { type: 'object', properties: {}, additionalProperties: false },
                 execute: async function () {
-                  var res = await fetch('/about.md', { headers: { 'Accept': 'text/markdown' } });
+                  var res = await fetch(aboutMarkdownHref, { headers: { 'Accept': 'text/markdown' } });
                   if (!res.ok) throw new Error('About markdown unavailable (HTTP ' + res.status + ')');
                   var markdown = await res.text();
                   return { content: [{ type: 'text', text: markdown }] };
@@ -280,6 +333,6 @@ const fullImageUrl = new URL(image, siteConfig.url).href;
 
     
     <!-- Contact Modal -->
-    <ContactModal />
+    <ContactModal lang={lang} />
   </body>
 </html>

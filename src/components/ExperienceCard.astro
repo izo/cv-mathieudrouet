@@ -1,5 +1,6 @@
 ---
 import { renderIconSVG } from '../utils/iconSvg.ts';
+import { ui, DEFAULT_LOCALE, type Locale } from '../config/i18n.ts';
 
 export interface Props {
   company: string;
@@ -11,9 +12,11 @@ export interface Props {
   description?: string[];
   icon?: string;
   levelIcon?: string;
+  lang?: Locale;
 }
 
-const { company, companyUrl, role, period, current, logo, description, icon, levelIcon } = Astro.props;
+const { company, companyUrl, role, period, current, logo, description, icon, levelIcon, lang = DEFAULT_LOCALE } = Astro.props;
+const t = ui[lang].card;
 
 // Generate initials as fallback for missing logos
 const getInitials = (name: string) => {
@@ -36,7 +39,7 @@ const levelIconSVG = levelIcon
       {logo ? (
         <img 
           src={logo} 
-          alt={`Logo de ${company}`} 
+          alt={t.logoAlt(company)} 
           class="w-full h-full object-contain"
           loading="lazy"
           decoding="async"
@@ -46,7 +49,7 @@ const levelIconSVG = levelIcon
       ) : (
         <div 
           class="w-full h-full bg-cv-accent text-white flex items-center justify-center text-sm font-semibold"
-          aria-label={icon ? `Icône de ${company}` : `Initiales de ${company}`}
+          aria-label={icon ? t.iconAlt(company) : t.initialsAlt(company)}
         >
           {icon && iconSVG ? (
             <div class="flex items-center justify-center w-full h-full" set:html={iconSVG} />
@@ -68,7 +71,7 @@ const levelIconSVG = levelIcon
                 target="_blank" 
                 rel="noopener noreferrer" 
                 class="hover:text-cv-accent transition-colors hover:underline focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded"
-                aria-label={`Voir le projet chez ${company} (ouvre dans un nouvel onglet)`}
+                aria-label={t.companyLink(company)}
               >
                 <span set:html={company}></span>
               </a>
@@ -82,7 +85,7 @@ const levelIconSVG = levelIcon
         <!-- Level Badge -->
         <div class="flex flex-col items-center sm:items-end gap-1.5">
           {current && (
-            <span class="badge-current">En cours</span>
+            <span class="badge-current">{t.currentBadge}</span>
           )}
           <span class="badge-lumon">
             {levelIcon && levelIconSVG ? (
