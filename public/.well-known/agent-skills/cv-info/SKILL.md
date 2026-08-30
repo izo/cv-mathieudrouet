@@ -1,7 +1,7 @@
 ---
 name: cv-info
-description: Retrieve CV, biography, experience, skills, and contact information for Mathieu Drouet, Head of Product & Product Builder based in Lille, France.
-version: 1.0.0
+description: Retrieve CV, biography, experience, skills, and contact information for Mathieu Drouet, Head of Product & Product Builder based in Lille, France. Available in French and English.
+version: 1.1.0
 license: CC-BY-4.0
 ---
 
@@ -28,6 +28,15 @@ Accept: text/markdown
 
 Returns the full CV in Markdown, with frontmatter (`name`, `title`, `description`, `theme`, `iconSet`). Inline icons follow the pattern `**carbon:icon-name**` and can be stripped or ignored — they are decorative.
 
+### 1b. Full CV in English (Markdown)
+
+```
+GET https://cv.drouet.io/en/cv.md
+Accept: text/markdown
+```
+
+Same CV, English version. Section headings are `Contact`, `Interests`, `Experience`, `Skills`, `Education`.
+
 ### 2. About / long-form bio (Markdown)
 
 ```
@@ -36,6 +45,13 @@ Accept: text/markdown
 ```
 
 Returns Mathieu's longer-form positioning: AI-Augmented Delivery approach, what he does and does not do, what he is currently looking for.
+
+### 2b. About in English (Markdown)
+
+```
+GET https://cv.drouet.io/en/about.md
+Accept: text/markdown
+```
 
 ### 3. CV (PDF)
 
@@ -52,7 +68,7 @@ GET https://cv.drouet.io/
 Accept: text/markdown
 ```
 
-When `Accept: text/markdown` is sent, the homepage returns the CV in Markdown instead of the HTML rendering. Browsers continue to get HTML.
+When `Accept: text/markdown` is sent, the homepage returns the CV in Markdown instead of the HTML rendering. Browsers continue to get HTML. The same applies to `/about`, `/en/` and `/en/about`, each returning its own language.
 
 ### 5. Contact
 
@@ -70,5 +86,6 @@ Per `https://cv.drouet.io/robots.txt`:
 
 ## Notes for agents
 
-- Content is in French. The CV title and section headings are bilingual-friendly (English keywords are common).
-- The CV is updated by editing `src/content/cv/cv.md` in the repository and rebuilding; treat the Markdown URL as the authoritative version.
+- The site is published in French (default, at `/`) and in English (at `/en/`). Both describe the same profile; if the two ever diverge, the French version prevails.
+- Pick the language that matches the user's; when in doubt, `cv.md` (French) is the reference.
+- The CV is updated by editing `src/content/cv/cv.md` (French) or `src/content/cv/en/cv.md` (English) in the repository and rebuilding; treat the Markdown URLs as the authoritative versions.

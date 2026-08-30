@@ -12,7 +12,13 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(__dirname, '..');
-const contentPath = join(projectRoot, 'src/content/cv/cv.md');
+// Une source par langue — voir src/config/i18n.ts. Une traduction modifiée
+// seule doit être détectée comme un changement de contenu.
+const contentPaths = [
+  join(projectRoot, 'src/content/cv/cv.md'),
+  join(projectRoot, 'src/content/cv/en/cv.md'),
+];
+const [contentPath] = contentPaths;
 const cacheFile = join(projectRoot, '.content-cache.json');
 
 // Load or create cache
@@ -24,7 +30,7 @@ function loadCache() {
       console.warn('Failed to load content cache:', error.message);
     }
   }
-  return { lastHash: null, lastModified: null };
+  return { files: {} };
 }
 
 // Save cache
@@ -43,52 +49,60 @@ function getContentHash(content) {
 
 // Check for changes
 function checkContentChanges() {
-  if (!existsSync(contentPath)) {
-    console.warn('CV content file not found:', contentPath);
-    return false;
-  }
-
   const cache = loadCache();
-  const content = readFileSync(contentPath, 'utf8');
-  const currentHash = getContentHash(content);
-  const stats = statSync(contentPath);
-  const currentModified = stats.mtime.toISOString();
+  // Un cache au format d'avant l'anglais n'a pas de `files` : tout est vu
+  // comme nouveau une fois, puis le format courant prend le relais.
+  const previous = cache.files || {};
+  const current = {};
+  let hasChanged = false;
 
-  const hasChanged = cache.lastHash !== currentHash || cache.lastModified !== currentModified;
-  
-  if (hasChanged) {
-    console.log('📝 CV content changes detected');
-    console.log(`   Hash: ${cache.lastHash} → ${currentHash}`);
-    console.log(`   Modified: ${cache.lastModified} → ${currentModified}`);
-    
-    saveCache({
-      lastHash: currentHash,
-      lastModified: currentModified
-    });
-    
-    return true;
+  for (const path of contentPaths) {
+    if (!existsSync(path)) {
+      console.warn('CV content file not found:', path);
+      continue;
+    }
+
+    const hash = getContentHash(readFileSync(path, 'utf8'));
+    const modified = statSync(path).mtime.toISOString();
+    const key = path.slice(projectRoot.length + 1);
+    current[key] = { hash, modified };
+
+    const before = previous[key];
+    if (!before || before.hash !== hash || before.modified !== modified) {
+      hasChanged = true;
+      console.log(`📝 CV content changes detected — ${key}`);
+      console.log(`   Hash: ${before?.hash ?? null} → ${hash}`);
+      console.log(`   Modified: ${before?.modified ?? null} → ${modified}`);
+    }
   }
 
-  return false;
+  if (hasChanged) {
+    saveCache({ files: current });
+  }
+
+  return hasChanged;
 }
 
 // Watch mode
 function watchContent() {
   console.log('👀 Watching CV content for changes...');
-  
+
   // Initial check
   checkContentChanges();
-  
-  // Watch for file changes
-  watch(contentPath, (eventType, _filename) => {
-    if (eventType === 'change') {
-      setTimeout(() => {
-        if (checkContentChanges()) {
-          console.log('🔄 Content updated - build will pick up changes');
-        }
-      }, 100); // Debounce
-    }
-  });
+
+  // Watch for file changes — une langue par fichier surveillé
+  for (const path of contentPaths) {
+    if (!existsSync(path)) continue;
+    watch(path, (eventType, _filename) => {
+      if (eventType === 'change') {
+        setTimeout(() => {
+          if (checkContentChanges()) {
+            console.log('🔄 Content updated - build will pick up changes');
+          }
+        }, 100); // Debounce
+      }
+    });
+  }
 }
 
 // CLI interface

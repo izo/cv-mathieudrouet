@@ -11,6 +11,12 @@ export default defineConfig({
       changefreq: 'monthly',
       priority: 0.7,
       lastmod: new Date(),
+      // Deux langues : le sitemap déclare les équivalences hreflang entre
+      // / et /en/. Doit rester aligné sur src/config/i18n.ts.
+      i18n: {
+        defaultLocale: 'fr',
+        locales: { fr: 'fr-FR', en: 'en-US' },
+      },
     })
   ],
   

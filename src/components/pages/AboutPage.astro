@@ -1,0 +1,63 @@
+---
+/**
+ * Page « À propos », rendue à l'identique dans chaque langue.
+ *
+ * Le contenu vient de la collection `about` (fr : `about`, en : `en/about`),
+ * les libellés d'interface de `src/config/i18n.ts`.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getEntry, render } from 'astro:content';
+import { contentIds, routes, ui, type Locale } from '../../config/i18n.ts';
+import { renderIconSVG } from '../../utils/iconSvg.ts';
+
+export interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const entryId = contentIds.about[lang];
+
+const aboutEntry = await getEntry('about', entryId);
+if (!aboutEntry) {
+  throw new Error(`About content not found for locale « ${lang} » (entrée « ${entryId} »)`);
+}
+
+const { Content } = await render(aboutEntry);
+---
+
+<BaseLayout
+  title={t.about.meta.title}
+  description={t.about.meta.description}
+  lang={lang}
+  page="about"
+>
+  <div class="pl-4 pr-4 sm:pl-6 sm:pr-6 lg:pl-page lg:pr-8 pt-6 sm:pt-8 pb-2 sm:pb-4">
+    <header class="hero-section cv-animate" role="banner">
+      <p class="hero-eyebrow">{t.about.eyebrow}</p>
+      <h1 id="main-title">Mathieu Drouet</h1>
+      <p class="hero-tagline">{t.about.tagline}</p>
+      <div class="hero-rule"></div>
+      <p class="hero-description">{t.about.description}</p>
+    </header>
+
+    <section class="space-y-section cv-animate" style="animation-delay: 0.15s" aria-labelledby="main-title">
+      <div class="glass-card">
+        <div class="prose-cv max-w-none">
+          <Content />
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <a
+          href={routes.cv[lang]}
+          class="inline-flex items-center gap-2 text-cv-accent font-lora font-semibold hover:opacity-70 transition-opacity no-min-size"
+          aria-label={t.about.backToCV}
+        >
+          <Fragment set:html={renderIconSVG('carbon:arrow-left', { width: 20, height: 20 })} />
+          <span>{t.about.backToCV}</span>
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

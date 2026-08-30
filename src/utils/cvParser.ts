@@ -54,6 +54,46 @@ export interface Skill {
   levelIcon?: string;
 }
 
+/**
+ * Intitulés de section reconnus, par langue.
+ *
+ * Le parser travaille sur les titres du Markdown, pas sur un code de langue :
+ * `cv.md` (fr) et `en/cv.md` (en) passent par le même chemin de code. Ajouter
+ * une langue = ajouter ses intitulés ici.
+ */
+const SECTION_TITLES = {
+  education: ['Education', 'Formation'],
+  contact: ['Coordonnées', 'Contact'],
+  interests: ["Centres d'intérêt", 'Interests'],
+  experience: ['Expériences', 'Experience'],
+  skills: ['Compétences', 'Skills'],
+} as const;
+
+type SectionKey = keyof typeof SECTION_TITLES;
+
+const escapeForRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/** Alternative regex des intitulés d'une section : `Expériences|Experience`. */
+function titleAlternatives(section: SectionKey): string {
+  return SECTION_TITLES[section].map(escapeForRegex).join('|');
+}
+
+/**
+ * Un titre `## ` de la section demandée, icône optionnelle comprise.
+ * Capture l'icône en groupe 1 : `## **carbon:identification** Coordonnées`.
+ */
+function sectionHeadingRegex(section: SectionKey): RegExp {
+  return new RegExp(`^##\\s+(?:\\*\\*([a-zA-Z0-9:_-]+)\\*\\*\\s*)?(?:${titleAlternatives(section)})\\s*$`);
+}
+
+/** Corps d'une section, du titre jusqu'au prochain `## ` (ou la fin). */
+function sectionBodyRegex(section: SectionKey, toEndOfFile = false): RegExp {
+  const heading = `##\\s+(?:\\*\\*[a-zA-Z0-9:_-]+\\*\\*\\s*)?(?:${titleAlternatives(section)})`;
+  return toEndOfFile
+    ? new RegExp(`${heading}\\n\\n([\\s\\S]*?)$`)
+    : new RegExp(`${heading}[\\s\\S]*?(?=\\n## |$)`);
+}
+
 // Helper to transform a single icon string (for section headers)
 function transformSectionIcon(iconString: string, defaultIconSet: string = 'carbon'): string {
   if (!iconString) return iconString;
@@ -234,19 +274,23 @@ export function parseCVContent(content: string, frontmatterData?: any): CVData {
     cvDebug.section('name', { name, defaultIconSet });
   
   // Parse education section and extract icon (line-by-line approach)
-  const educationIconMatch = content.match(/## \*\*([a-zA-Z0-9:_-]+)\*\*\s*Education/);
-  const educationIcon = educationIconMatch ? transformSectionIcon(educationIconMatch[1], defaultIconSet) : undefined;
-  
+  let educationIcon: string | undefined = undefined;
+
   const education: Education[] = [];
   const lines = content.split('\n');
+  const educationHeading = sectionHeadingRegex('education');
   let inEducationSection = false;
   let currentEducation: Partial<Education> = {};
-  
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    
+
     // Start of education section (handle both formats: with and without icons)
-    if (line.startsWith('## Education') || (line.startsWith('## **') && line.includes('** Education'))) {
+    const educationHeadingMatch = line.match(educationHeading);
+    if (educationHeadingMatch) {
+      if (educationHeadingMatch[1]) {
+        educationIcon = transformSectionIcon(educationHeadingMatch[1], defaultIconSet);
+      }
       inEducationSection = true;
       continue;
     }
@@ -321,14 +365,15 @@ export function parseCVContent(content: string, frontmatterData?: any): CVData {
   };
   
   const contactLines = content.split('\n');
+  const contactHeading = sectionHeadingRegex('contact');
   let inContactSection = false;
-  
+
   for (const line of contactLines) {
     // Extract icon from section header (flexible icon support)
-    if (line.startsWith('## ') && line.includes('Coordonnées')) {
-      const iconMatch = line.match(/## \*\*([a-zA-Z0-9:_-]+)\*\*\s*Coordonnées/);
-      if (iconMatch) {
-        contactIcon = transformSectionIcon(iconMatch[1], defaultIconSet);
+    const contactHeadingMatch = line.match(contactHeading);
+    if (contactHeadingMatch) {
+      if (contactHeadingMatch[1]) {
+        contactIcon = transformSectionIcon(contactHeadingMatch[1], defaultIconSet);
       }
       inContactSection = true;
       continue;
@@ -349,14 +394,15 @@ export function parseCVContent(content: string, frontmatterData?: any): CVData {
   let interestsIcon: string | undefined = undefined;
   const interests: string[] = [];
   const interestLines = content.split('\n');
+  const interestsHeading = sectionHeadingRegex('interests');
   let inInterestsSection = false;
-  
+
   for (const line of interestLines) {
     // Extract icon from section header (flexible icon support)
-    if (line.includes('Centres d') && line.includes('intérêt')) {
-      const iconMatch = line.match(/## \*\*([a-zA-Z0-9:_-]+)\*\*\s*Centres d'intérêt/);
-      if (iconMatch) {
-        interestsIcon = transformSectionIcon(iconMatch[1], defaultIconSet);
+    const interestsHeadingMatch = line.match(interestsHeading);
+    if (interestsHeadingMatch) {
+      if (interestsHeadingMatch[1]) {
+        interestsIcon = transformSectionIcon(interestsHeadingMatch[1], defaultIconSet);
       }
       inInterestsSection = true;
       continue;
@@ -373,8 +419,8 @@ export function parseCVContent(content: string, frontmatterData?: any): CVData {
     }
   }
 
-  // Parse experience (French: Expériences)
-  const experienceMatch = content.match(/## Expériences[\s\S]*?(?=\n## |$)/);
+  // Parse experience (fr: Expériences — en: Experience)
+  const experienceMatch = content.match(sectionBodyRegex('experience'));
   const experience: Experience[] = [];
   if (experienceMatch) {
     const expBlocks = experienceMatch[0].split(/(?=### )/).filter(block => block.trim().startsWith('###'));
@@ -421,8 +467,8 @@ export function parseCVContent(content: string, frontmatterData?: any): CVData {
     });
   }
 
-  // Parse skills (French: Compétences)
-  const skillsMatch = content.match(/## Compétences\n\n([\s\S]*?)$/);
+  // Parse skills (fr: Compétences — en: Skills)
+  const skillsMatch = content.match(sectionBodyRegex('skills', true));
   const skills: Skill[] = [];
   if (skillsMatch) {
     const skillBlocks = skillsMatch[1].split(/(?=### )/);

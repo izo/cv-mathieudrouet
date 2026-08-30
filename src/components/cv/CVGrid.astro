@@ -1,9 +1,17 @@
 ---
 // Grid component for overview sections
+import { ui, DEFAULT_LOCALE, type Locale } from '../../config/i18n.ts';
+
+export interface Props {
+  lang?: Locale;
+}
+
+const { lang = DEFAULT_LOCALE } = Astro.props;
+const t = ui[lang].card;
 ---
 
 <section aria-labelledby="overview-heading">
-  <h2 id="overview-heading" class="sr-only">Informations générales</h2>
+  <h2 id="overview-heading" class="sr-only">{t.overviewHeading}</h2>
   <div class="w-full relative grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8 mb-section">
     <slot />
   </div>

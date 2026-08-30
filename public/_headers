@@ -36,6 +36,13 @@
   Cache-Control: public, max-age=3600, must-revalidate
   Vary: Accept
 
+# Version anglaise — règle explicite, pour ne pas dépendre de la portée du
+# joker sur les sous-répertoires.
+/en/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=3600, must-revalidate
+  Vary: Accept
+
 /llms.txt
   Content-Type: text/markdown; charset=utf-8
   Cache-Control: public, max-age=3600, must-revalidate

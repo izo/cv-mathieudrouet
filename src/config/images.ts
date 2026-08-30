@@ -7,7 +7,9 @@ export const companyLogoMap: Record<string, string> = {
   'Groupe Actual': 'actual.png',
   'Bookr.fm (Music Data Studio)': 'bookr.png',
   'Fluidra (Blueriiot / Riiot Labs)': 'fluidra.png',
-  'Agences, ESN & Freelance': 'agences.svg'
+  'Agences, ESN & Freelance': 'agences.svg',
+  // Le CV anglais nomme l'employeur autrement : même logo, autre clé.
+  'Agencies, IT services & Freelance': 'agences.svg'
 };
 
 export function getCompanyLogo(company: string): string | undefined {

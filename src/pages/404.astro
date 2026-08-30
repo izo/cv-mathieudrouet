@@ -1,11 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { ui, routes } from '../config/i18n.ts';
+
+// Une seule 404 sert les deux langues : Cloudflare Pages la renvoie pour
+// n'importe quel chemin, /en/ compris, sans savoir dans quelle langue le
+// visiteur naviguait. Elle s'affiche donc dans les deux.
+const fr = ui.fr.notFound;
+const en = ui.en.notFound;
 ---
 
-<BaseLayout title="Page non trouvée — Mathieu Drouet" description="Cette page n'existe pas." showFooter={false}>
+<BaseLayout
+  title={fr.title}
+  description={`${fr.description} — ${en.description}`}
+  showFooter={false}
+>
   <main class="flex flex-col items-center justify-center min-h-[60vh] text-center px-6">
     <p class="text-6xl font-mono font-bold text-cv-accent mb-4">404</p>
-    <h1 class="text-2xl font-semibold text-cv-content mb-6">Page non trouvée</h1>
-    <a href="/" class="text-cv-accent underline hover:no-underline">← Retour au CV</a>
+    <h1 class="text-2xl font-semibold text-cv-content mb-2">{fr.heading}</h1>
+    <p class="text-body text-cv-muted mb-6" lang="en">{en.heading}</p>
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a href={routes.cv.fr} class="text-cv-accent underline hover:no-underline">{fr.back}</a>
+      <a href={routes.cv.en} lang="en" class="text-cv-accent underline hover:no-underline">{en.back}</a>
+    </div>
   </main>
 </BaseLayout>

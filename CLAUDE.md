@@ -25,7 +25,8 @@ Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Const
 - Testing: `bun test` (run Vitest tests), `bun run test:watch` (watch mode), `bun run test:ui` (UI mode), `bun run test:coverage` (coverage report)
 
 ## Architecture & Structure
-- **Content Management**: CV content is stored in `src/content/cv/cv.md` using Markdown format with Astro Content Collections, parsed dynamically through `src/utils/cvParser.ts`
+- **Content Management**: CV content is stored in `src/content/cv/cv.md` (fr) and `src/content/cv/en/cv.md` (en) using Markdown format with Astro Content Collections, parsed dynamically through `src/utils/cvParser.ts`
+- **i18n**: le site est bilingue — français sur `/` et `/about`, anglais sur `/en/` et `/en/about`. Tout passe par `src/config/i18n.ts` : locales, routes canoniques (slash final compris), identifiants de collection (`cv` / `en/cv`), chemins Markdown et libellés d'interface. Les pages de `src/pages/` ne font que choisir une langue et déléguer à `src/components/pages/{CVPage,AboutPage}.astro`
 - **Layout System**: Single unified layout architecture:
   - `BaseLayout.astro`: Base layout with HTML structure, meta tags, CSP headers, and conditional footer
   - Responsive design with mobile-first approach
@@ -48,6 +49,9 @@ Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Const
 - **Formulaire de contact** : `ContactModal.astro` poste vers la Pages Function `functions/api/contact.ts` (envoi email via Resend). Nécessite les secrets `RESEND_API_KEY` / `CONTACT_TO` côté Cloudflare ; ne fonctionne pas avec `astro dev` seul (utiliser `wrangler pages dev`)
 - **Pages Functions (Cloudflare)** : `functions/_middleware.ts` gère la négociation Markdown (`Accept: text/markdown`) et `functions/api/contact.ts` le formulaire. Le répertoire `functions/` n'est pas analysé par `astro check`
 - **Format Markdown strict** : `cvParser.ts` attend un format précis dans `cv.md` (icônes, rôles, périodes). Un écart de format drop silencieusement les entrées sans erreur
+- **Intitulés de section bilingues** : le parser reconnaît les titres français ET anglais (`SECTION_TITLES` dans `cvParser.ts`). Traduire un titre de section sans l'ajouter à cette table fait disparaître la section en silence
+- **Nom d'employeur = clé de logo** : `src/config/images.ts` indexe les logos par nom d'employeur. Un employeur nommé différemment dans le CV anglais a besoin de sa propre entrée, sinon la fiche affiche des initiales
+- **Copies publiques par langue** : `public/cv.md`, `public/about.md`, `public/en/cv.md` et `public/en/about.md` sont maintenues à la main et verrouillées par `tests/agent-readable.test.ts`. Modifier une source sans sa copie fait échouer les tests (c'est le but)
 - **Détection poste actuel** : `current: true` si la période contient l'année en cours (`new Date().getFullYear()`)
 - **Package manager : bun** — `bun install`, `bun run build`, `bun test`. Lock file : `bun.lock` (format texte, pas `bun.lockb`). Cloudflare Pages détecte bun automatiquement via ce lockfile.
 - **Styles markdown custom** : les pages qui rendent du Markdown via `<Content />` doivent avoir leurs styles définis dans `global.css` (ex: `.prose-cv`). Aucun warning au build si la classe est absente — le rendu est juste brut.
@@ -97,7 +101,7 @@ Site web CV de Mathieu Drouet — Head of Product | AI-Augmented Delivery. Const
 - **Source**: `src/content/cv/cv.md` - Single source of truth for CV content
 - **Parser**: `src/utils/cvParser.ts` - Converts Markdown to structured TypeScript data
 - **Integration**: Astro Content Collections automatically handle frontmatter and content separation
-- **Change Detection**: `scripts/watch-content.js` - Detects content changes during build (SHA-256)
+- **Change Detection**: `scripts/watch-content.js` - Detects content changes during build (SHA-256), sur les deux sources CV (fr + en)
 
 ### Content Structure
 

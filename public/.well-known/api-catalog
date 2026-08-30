@@ -6,12 +6,26 @@
         {
           "href": "https://cv.drouet.io/cv.md",
           "type": "text/markdown",
-          "title": "CV of Mathieu Drouet — full content in Markdown"
+          "title": "CV of Mathieu Drouet \u2014 full content in Markdown",
+          "hreflang": "fr"
         },
         {
           "href": "https://cv.drouet.io/about.md",
           "type": "text/markdown",
-          "title": "About page in Markdown"
+          "title": "About page in Markdown",
+          "hreflang": "fr"
+        },
+        {
+          "href": "https://cv.drouet.io/en/cv.md",
+          "type": "text/markdown",
+          "title": "CV of Mathieu Drouet \u2014 full content in Markdown (English)",
+          "hreflang": "en"
+        },
+        {
+          "href": "https://cv.drouet.io/en/about.md",
+          "type": "text/markdown",
+          "title": "About page in Markdown (English)",
+          "hreflang": "en"
         },
         {
           "href": "https://cv.drouet.io/llms.txt",
@@ -30,6 +44,12 @@
           "href": "https://cv.drouet.io/cv_mathieu_drouet.pdf",
           "type": "application/pdf",
           "title": "CV in PDF format"
+        },
+        {
+          "href": "https://cv.drouet.io/en/",
+          "type": "text/html",
+          "title": "English version of the site",
+          "hreflang": "en"
         }
       ],
       "https://agentskills.io/rel/index": [

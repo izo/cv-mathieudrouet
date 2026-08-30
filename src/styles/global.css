@@ -950,6 +950,17 @@
     box-shadow: var(--sh-alt);
   }
 
+  /* Sélecteur de langue du pied de page — même grammaire que les autres
+     libellés mono du système : capitales, chasse fixe, interlettrage large.
+     Le filet gauche le sépare de la rangée d'icônes sans ajouter de bouton. */
+  .lang-switch {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    border-left: 1px solid var(--cv-border);
+    margin-left: 0.25rem;
+  }
+
   /* Touch target accessibility */
   button,
   a,
