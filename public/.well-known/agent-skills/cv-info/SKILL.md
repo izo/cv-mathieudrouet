@@ -1,7 +1,7 @@
 ---
 name: cv-info
-description: Retrieve CV, biography, experience, skills, and contact information for Mathieu Drouet, Head of Product & Product Builder based in Lille, France. Available in French and English.
-version: 1.1.0
+description: Retrieve CV, biography, experience, skills, and contact information for Mathieu Drouet, Chief AI, Technology & Product Officer (CATPO) based in Lille, France. Available in French and English.
+version: 1.2.0
 license: CC-BY-4.0
 ---
 
@@ -44,7 +44,7 @@ GET https://cv.drouet.io/about.md
 Accept: text/markdown
 ```
 
-Returns Mathieu's longer-form positioning: AI-Augmented Delivery approach, what he does and does not do, what he is currently looking for.
+Returns Mathieu's longer-form positioning across Product, Technology and AI, including AI architecture, agentic systems and hands-on delivery.
 
 ### 2b. About in English (Markdown)
 
@@ -55,11 +55,17 @@ Accept: text/markdown
 
 ### 3. CV (PDF)
 
+French:
 ```
-GET https://cv.drouet.io/cv_mathieu_drouet.pdf
+GET https://cv.drouet.io/CV-Mathieu-Drouet-FR.pdf
 ```
 
-Printable PDF version. Same content as `cv.md` but formatted.
+English:
+```
+GET https://cv.drouet.io/CV-Mathieu-Drouet-EN.pdf
+```
+
+The PDFs are generated automatically from the rendered bilingual CV after content changes.
 
 ### 4. Homepage content negotiation
 
