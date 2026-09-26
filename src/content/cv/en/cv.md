@@ -32,6 +32,9 @@ theme: "lumon"
 **carbon:location-heart-filled** France / full remote – 2026
 **Freelance Chief AI, Technology & Product Officer (CATPO)** | May 2026 – present | [Company Link](https://lilabs.xyz/)
 
+- Research & development at the intersection of **MusicTech** and **LiveTech**
+- Product strategy, technology architecture and exploration of AI solutions for the music and live industries
+
 ### regrets.app
 **carbon:location-heart-filled** Full remote – 2025
 **Founder** | 2025 – present | [Company Link](https://regrets.app/)
