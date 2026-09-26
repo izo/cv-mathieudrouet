@@ -5,9 +5,8 @@
     {
       "name": "cv-info",
       "type": "instructions",
-      "description": "Retrieve CV, biography, experience, skills, and contact information for Mathieu Drouet, Head of Product & Product Builder based in Lille, France. Available in French and English.",
-      "url": "https://cv.drouet.io/.well-known/agent-skills/cv-info/SKILL.md",
-      "sha256": "9e3c6b9b5a3133aab228a5de4a7befa5ccf9432520f4500cfbc0f7b405e426b0"
+      "description": "Retrieve CV, biography, experience, skills, and contact information for Mathieu Drouet, Chief AI, Technology & Product Officer (CATPO) based in Lille, France. Available in French and English.",
+      "url": "https://cv.drouet.io/.well-known/agent-skills/cv-info/SKILL.md"
     }
   ]
 }
