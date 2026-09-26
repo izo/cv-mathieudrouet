@@ -46,8 +46,8 @@ export interface Experience {
 
 export interface Skill {
   title: string;
-  subtitle: string;
-  level: string;
+  subtitle?: string;
+  level?: string;
   current?: boolean;
   items: string[];
   icon?: string;
@@ -468,88 +468,47 @@ export function parseCVContent(content: string, frontmatterData?: any): CVData {
   }
 
   // Parse skills (fr: Compétences — en: Skills)
+  // Supports both the legacy "subtitle | level" format and concise heading + bullets.
   const skillsMatch = content.match(sectionBodyRegex('skills', true));
   const skills: Skill[] = [];
   if (skillsMatch) {
     const skillBlocks = skillsMatch[1].split(/(?=### )/);
     skillBlocks.forEach(block => {
-      // Step 1: Extract title and main icon from title line
       const titleMatch = block.match(/### (.*)/);
-      const titleLine = titleMatch?.[1] || '';
+      if (!titleMatch) return;
+
+      const titleLine = titleMatch[1] || '';
       const titleIconMatch = titleLine.match(/\*\*([a-zA-Z0-9:_-]+)\*\*/);
       const icon = titleIconMatch ? transformSectionIcon(titleIconMatch[1], defaultIconSet) : undefined;
-      
-      // Step 2: Extract subtitle and level from the line after title
+      const cleanTitle = titleLine.replace(/\s*\*\*[a-zA-Z0-9:_-]+\*\*\s*/, '').trim();
+      const title = replaceFlexibleIcons(cleanTitle, defaultIconSet);
+
       const lines = block.split('\n').filter(line => line.trim());
-      let subtitleMatch: RegExpMatchArray | null = null;
-      let levelLine = '';
-      let levelIcon: string | undefined = undefined;
-      
-      // Find the subtitle/level line (format: **subtitle** | **icon** level)
-      for (const line of lines) {
-        if (line.includes('|') && line.includes('**')) {
-          const parts = line.split('|');
-          if (parts.length === 2) {
-            // Extract subtitle from first part
-            const subtitlePart = parts[0].trim();
-            const subtitleRegex = /\*\*([^*]+?)\*\*/;
-            subtitleMatch = subtitlePart.match(subtitleRegex);
-            
-            // Extract level and icon from second part
-            levelLine = parts[1].trim();
-            const levelIconMatch = levelLine.match(/\*\*([a-zA-Z0-9:_-]+)\*\*/);
-            levelIcon = levelIconMatch ? transformSectionIcon(levelIconMatch[1], defaultIconSet) : undefined;
-            break;
-          }
+      const metaLine = lines.find(line => line.includes('|') && line.includes('**'));
+      let subtitle: string | undefined;
+      let level: string | undefined;
+      let levelIcon: string | undefined;
+
+      if (metaLine) {
+        const parts = metaLine.split('|');
+        if (parts.length === 2) {
+          const subtitleMatch = parts[0].trim().match(/\*\*([^*]+?)\*\*/);
+          if (subtitleMatch) subtitle = replaceFlexibleIcons(subtitleMatch[1], defaultIconSet);
+          const levelLine = parts[1].trim();
+          const levelIconMatch = levelLine.match(/\*\*([a-zA-Z0-9:_-]+)\*\*/);
+          levelIcon = levelIconMatch ? transformSectionIcon(levelIconMatch[1], defaultIconSet) : undefined;
+          const cleanLevel = levelIcon ? levelLine.replace(/\*\*[a-zA-Z0-9:_-]+\*\*\s*/, '').trim() : levelLine;
+          if (cleanLevel) level = replaceFlexibleIcons(cleanLevel, defaultIconSet);
         }
       }
-      
-      // Step 4: Validate and clean extracted data
-      if (titleMatch && subtitleMatch) {
-        // Clean title (remove icon)
-        const cleanTitle = titleLine.replace(/\s*\*\*[a-zA-Z0-9:_-]+\*\*\s*/, '').trim();
-        const title = replaceFlexibleIcons(cleanTitle, defaultIconSet);
-        
-        // Clean subtitle
-        const subtitle = replaceFlexibleIcons(subtitleMatch[1], defaultIconSet);
-        
-        // Clean level (remove icon if present)
-        const cleanLevel = levelIcon ? levelLine.replace(/\*\*[a-zA-Z0-9:_-]+\*\*\s*/, '').trim() : levelLine;
-        const level = replaceFlexibleIcons(cleanLevel, defaultIconSet);
-        
-        // Determine if current (based on clean title)
-        const isCurrent = cleanTitle.startsWith('Product Management');
-        
-        // Step 5: Extract skill items (clean approach)
-        const itemLines = block.split('\n')
-          .filter(line => line.trim().startsWith('- '))
-          .filter(line => !line.match(/^\s*-\s*\*\*[a-zA-Z0-9:_-]+\*\*\s*$/)); // Exclude pure icon lines
-        const items = itemLines.map(line => {
-          const cleanLine = line.replace(/^\s*-\s*/, '').trim();
-          return replaceFlexibleIcons(cleanLine, defaultIconSet);
-        });
-        
-        // Step 6: Validate before adding
-        if (title && subtitle && items.length > 0) {
-          skills.push({
-            title,
-            subtitle,
-            level: level || 'Advanced',
-            current: isCurrent,
-            items,
-            icon,
-            levelIcon
-          });
-          
-          // Debug logging for validation
-          cvDebug.section(`skill-${cleanTitle}`, {
-            title: cleanTitle,
-            subtitle: subtitleMatch[1],
-            icon: icon || 'none',
-            levelIcon: levelIcon || 'none',
-            itemCount: items.length
-          });
-        }
+
+      const itemLines = block.split('\n')
+        .filter(line => line.trim().startsWith('- '))
+        .filter(line => !line.match(/^\s*-\s*\*\*[a-zA-Z0-9:_-]+\*\*\s*$/));
+      const items = itemLines.map(line => replaceFlexibleIcons(line.replace(/^\s*-\s*/, '').trim(), defaultIconSet));
+
+      if (title && items.length > 0) {
+        skills.push({ title, subtitle, level, items, icon, levelIcon });
       }
     });
   }
