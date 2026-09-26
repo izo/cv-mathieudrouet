@@ -4,7 +4,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue)](https://www.typescriptlang.org/)
 [![Astro](https://img.shields.io/badge/Astro-6.1.9+-orange)](https://astro.build/)
 
-> **Senior Product Manager** avec 10+ ans d'expérience en transformation digitale et gestion de produits numériques. Spécialisé dans l'architecture produit, l'UX/UI, et le leadership d'équipes techniques.
+> **Chief AI, Technology & Product Officer (CATPO)** — stratégie produit, architecture technologique, systèmes agentiques et delivery hands-on pour produits numériques B2B complexes.
 
 ## Stack technique
 
@@ -47,6 +47,7 @@ bun install
 bun run dev        # localhost:4321
 bun run build      # Build de production
 bun run preview    # Prévisualiser le build
+bun run pdf:generate # Générer les PDF FR/EN (nécessite Chromium via Playwright)
 ```
 
 ## Tests
@@ -68,6 +69,15 @@ Les copies servies aux agents (`public/cv.md`, `public/about.md`, `public/en/cv.
 pnpm run content:check     # Vérifier les changements de contenu
 pnpm run content:watch     # Surveiller les changements en continu
 ```
+
+## PDF
+
+Les PDF sont générés depuis le rendu HTML du CV, avec une feuille d'impression A4 dédiée :
+
+- `public/CV-Mathieu-Drouet-FR.pdf`
+- `public/CV-Mathieu-Drouet-EN.pdf`
+
+Sur `main`, le workflow `.github/workflows/generate-pdf.yml` reconstruit automatiquement les deux versions après une modification du contenu, des composants, des styles ou de la configuration. Les anciennes URLs PDF redirigent vers la version française.
 
 ## Design System
 
@@ -115,5 +125,5 @@ La documentation complète du projet est dans `docs/` :
 
 ---
 
-**Mathieu Drouet** — Senior Product Manager, Lille  
+**Mathieu Drouet** — Chief AI, Technology & Product Officer (CATPO), Lille  
 [cv.drouet.io](https://cv.drouet.io) · [LinkedIn](https://www.linkedin.com/in/mathieudrouet/) · [mathieu@drouet.io](mailto:mathieu@drouet.io)

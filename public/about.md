@@ -1,44 +1,40 @@
 # À propos
 
-## Head of Product. Discovery terrain. IA dans les vraies mains.
+## Product. Technology. IA. Du terrain au système livré.
 
-Dix ans à construire des produits numériques B2B complexes — des plateformes DICOM en imagerie médicale aux outils métiers que personne ne photographie jamais sur LinkedIn. Le genre de produits où un bug coûte cher, où les utilisateurs sont des experts, et où la roadmap doit survivre à trois réorganisations.
+Je travaille à l'intersection de trois responsabilités souvent séparées : comprendre le problème produit, décider de l'architecture technologique et déterminer où l'IA crée réellement de la valeur. Mon parcours va de la direction technique au product leadership, avec aujourd'hui un rôle de **Chief AI, Technology & Product Officer (CATPO)**.
 
 ## Ce que je fais concrètement
 
-Je dirige des équipes produit dans des contextes où le code a dix ans, où les utilisateurs sont sur le terrain (pas en open space), et où "ajouter de l'IA" doit vouloir dire autre chose que coller un chatbot dans un coin d'écran.
+J'interviens sur des produits B2B complexes, souvent avec du legacy, des utilisateurs experts et des contraintes métier fortes.
 
-Mon quotidien ressemble à ça :
+- **Product & business** — discovery terrain, stratégie, roadmap, priorisation et go-to-market.
+- **Technology** — architecture, modernisation de systèmes, API, infrastructure et arbitrages techniques.
+- **AI** — architecture LLM, agents, MCP, sélection de modèles et intégration de fonctionnalités IA dans les produits.
+- **Delivery hands-on** — je peux passer de la décision stratégique au prototype et au produit livré sans perdre le lien avec les équipes qui construisent.
 
-- **Discovery terrain** — pas des interviews Zoom de 30 minutes, mais des journées entières avec les utilisateurs dans leur environnement réel. C'est long, c'est inconfortable, et c'est la seule chose qui marche.
-- **Modernisation de systèmes legacy** — décortiquer un monolithe PHP de 2014, comprendre pourquoi il existe, et le transformer sans casser les 200 clients qui en dépendent.
-- **Intégration IA dans des produits existants** — identifier les 3 endroits où un LLM crée une vraie valeur mesurable, et ignorer les 47 autres où il ne sert qu'à cocher une case roadmap.
+Depuis mai 2026, j'interviens en freelance comme **Chief AI, Technology & Product Officer chez Lilabs**.
 
-## AI-Augmented Delivery
+## AI-native delivery
 
-J'utilise Claude Code en production depuis son arrivée. Pas comme un gadget — comme un multiplicateur d'équipe. Specs, audits, prototypes, refactors massifs : le workflow a changé, les décisions humaines restent les mêmes. Ce site est codé comme ça. `regrets.app` aussi.
+J'utilise les outils de développement assisté par IA et les systèmes agentiques comme une couche de production, pas comme une démonstration. J'ai notamment développé Ulk, un framework multi-agents pour industrialiser le cycle idée → prototype → livraison.
 
-L'IA augmente la vélocité, pas le jugement produit. Savoir quand l'utiliser — et quand couper court — fait toute la différence entre une équipe qui livre et une équipe qui s'enferme dans ses propres outils.
+L'enjeu n'est pas d'ajouter de l'IA partout : il est de choisir le bon modèle, le bon niveau d'autonomie et la bonne architecture en fonction de la valeur, du coût, de la latence et des contraintes du produit.
 
-## Ce que je ne fais pas
+## Principes de travail
 
-- Pas de product management en chambre — sans terrain, pas de produit.
-- Pas de roadmap tirée d'un template Notion.
-- Pas de "on a mis de l'IA" pour faire plaisir au board.
-- Pas de frameworks appliqués mécaniquement (RICE, MoSCoW, Jobs-to-be-Done existent pour servir le produit, pas l'inverse).
+- Pas de product management sans contact avec le terrain.
+- Pas d'IA ajoutée pour cocher une case roadmap.
+- Les décisions produit, tech et IA doivent être arbitrées ensemble, pas séquentiellement.
 
 ## Ce que je cherche maintenant
 
-Une grande partie de ma carrière s'est passée à gérer des situations de crise. Pas des crises dramatiques avec des sirènes — plutôt le quotidien de beaucoup d'entreprises tech : un produit mal défini depuis le début, une dette technique qui a été ignorée trop longtemps, une équipe qui s'est réorganisée trois fois en deux ans, un contexte où tout le monde est épuisé et où personne ne sait vraiment vers quoi on va.
-
-Je sais faire ça. Mais à un moment tu réalises que tu passes beaucoup d'énergie à réparer des choses qui n'auraient pas dû se casser.
-
-Ce que j'aspire à maintenant c'est des organisations où la direction fait confiance au produit, où les équipes ont le droit de bien faire les choses, et où on n'est pas constamment en train de rattraper le retard. Des contextes plus fluides — pas plus simples, pas sans problèmes, mais où l'énergie va dans la bonne direction.
+Des contextes où Product, Technology et AI participent directement à la stratégie de l'entreprise, avec une relation courte avec la direction et la capacité de transformer rapidement une décision en produit réel.
 
 ## En dehors du produit
 
-Photographie documentaire sur le temps long, musique expérimentale (l'écoute, parfois la pratique), permaculture appliquée à un vrai jardin, et un intérêt de fond pour les sciences politiques — parce que les produits ne naissent jamais dans un vide.
+Photographie documentaire sur le temps long, musique expérimentale, permaculture appliquée à un vrai jardin, et un intérêt de fond pour les sciences politiques.
 
-Basé à Lille. Mobile sur Paris, la Belgique, le Canada. Ouvert aux missions de transformation produit, aux rôles de direction, et aux conversations intéressantes sans agenda commercial.
+Basé à Lille. Mobile sur Paris, la Belgique et le Canada. Ouvert aux missions de direction Product / Technology / AI et aux rôles exécutifs.
 
 [m@mdr.cool](mailto:m@mdr.cool) — [LinkedIn](https://linkedin.com/in/mathieudrouet) — [regrets.app](https://regrets.app/)

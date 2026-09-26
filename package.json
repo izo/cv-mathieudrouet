@@ -2,7 +2,7 @@
   "name": "cv-mathieudrouet-2025",
   "type": "module",
   "version": "1.0.0",
-  "description": "CV de Mathieu Drouet - Senior Product Manager",
+  "description": "CV de Mathieu Drouet — Chief AI, Technology & Product Officer (CATPO)",
   "author": "Mathieu Drouet",
   "private": true,
   "packageManager": "bun@1.4.2",
@@ -19,7 +19,8 @@
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "pdf:generate": "node scripts/generate-pdf.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -38,7 +39,8 @@
     "@vitest/coverage-v8": "^4.1.9",
     "@vitest/ui": "^4.1.9",
     "jsdom": "^30.0.0",
-    "vitest": "^4.1.9"
+    "vitest": "^4.1.9",
+    "playwright": "^1.55.0"
   },
   "resolutions": {
     "mdast-util-to-hast": ">=13.2.1",

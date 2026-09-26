@@ -1,2 +1,4 @@
 # Rétrocompatibilité : Astro 7 génère sitemap-index.xml (pas sitemap.xml)
 /sitemap.xml /sitemap-index.xml 301
+
+/cv_mathieu_drouet.pdf /CV-Mathieu-Drouet-FR.pdf 301

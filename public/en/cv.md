@@ -1,7 +1,7 @@
 ---
 name: "Mathieu Drouet"
-title: "Head of Product & Product Builder | AI-Augmented Delivery"
-description: "Product leader who designs AND ships. 10+ years in complex B2B: from field discovery to a testable prototype in days, thanks to AI. Builder as much as manager of cross-functional teams."
+title: "Chief AI, Technology & Product Officer (CATPO)"
+description: "Product, Technology & AI leadership for complex B2B digital products. Product strategy, technology architecture, agentic systems and hands-on delivery."
 iconSet: "carbon"
 theme: "lumon"
 
@@ -27,6 +27,13 @@ theme: "lumon"
 **carbon:ibm-engineering-systems-design-rhapsody** Design
 
 ## Experience
+
+### Lilabs
+**carbon:location-heart-filled** France / full remote – 2026
+**Freelance Chief AI, Technology & Product Officer (CATPO)** | May 2026 – present | [Company Link](https://lilabs.xyz/)
+
+- Research & development at the intersection of **MusicTech** and **LiveTech**
+- Product strategy, technology architecture and exploration of AI solutions for the music and live industries
 
 ### regrets.app
 **carbon:location-heart-filled** Full remote – 2025
@@ -94,51 +101,35 @@ theme: "lumon"
 
 ## Skills
 
-### Product leadership **carbon:cognitive**
-**Strategic Leadership** | **carbon:badge** Expert
+### Product & Business Leadership **carbon:cognitive**
+- Product strategy, field discovery, roadmap and go-to-market
+- Complex B2B product transformation and legacy modernisation
+- Business-impact prioritisation, OKRs and product KPIs
+- Cross-functional leadership of teams up to 12 people
 
-- Field discovery, product roadmap, go-to-market
-- OKRs, prioritisation by business impact
-- Delivery management, cross-functional teams of up to 12 people
-- Product Builder: able to prototype and ship alone, without depending on a team to validate an intuition
+### AI Strategy & Architecture **carbon:ai-generate**
+- LLM architecture and agentic systems, orchestration, Model Context Protocol (MCP)
+- Selection and integration of proprietary and open-source models
+- RAG, prototyping and integration of AI capabilities into existing products
+- [Ulk](https://izo.github.io/Ulk/) — in-house multi-agent framework
+- Evaluation of quality, latency, cost and hosting trade-offs
 
-### AI applied to product **carbon:ai-generate**
-**AI Product** | **carbon:task-star** Advanced
+### Technology & Delivery **carbon:edge-device**
+- Systems and API architecture, technical modernisation, CI/CD
+- TypeScript, React, Next.js, Astro, Tailwind CSS, Bun
+- Flutter, SwiftUI, SPIP, PHP
+- Git, Linux, macOS, cloud infrastructure
+- Hands-on delivery from prototype to shipped product
 
-- Claude Code (daily use), AI agents, Model Context Protocol (MCP)
-- Open source LLMs (Llama, Mistral, Claude), RAG, fine-tuning
-- Prototyping and integrating AI into existing products
-- [Ulk](https://izo.github.io/Ulk/) — an in-house agent framework
+### Product Analytics & Design **carbon:analytics**
+- PostHog, Hotjar, behavioural analysis, feedback loops
+- Figma, UX/UI, Adobe Creative Suite, art direction
 
-### Analytics **carbon:analytics**
-**Data-Driven** | **carbon:task-star** Advanced
-
-- PostHog, Hotjar, behavioural analysis
-- Feedback loops, product KPIs
-
-### Development & infrastructure **carbon:edge-device**
-**Full-Stack Development** | **carbon:task-star** Advanced
-
-- Next.js, Astro, React, TypeScript, Tailwind CSS, Bun
-- Flutter, SwiftUI, SPIP, PHP, API architecture
-- CI/CD, Git, Linux, advanced macOS
-- Xcode (development, App Store / TestFlight distribution)
-
-### Design & creative **carbon:ibm-engineering-systems-design-rhapsody**
-**Creative Direction** | **carbon:task-star** Advanced
-
-- Figma, Adobe Creative Suite (Lightroom, Photoshop, InDesign — professional use)
-- Art direction
-
-### Product tooling **carbon:branch**
-**Digital Workflow** | **carbon:badge** Expert
-
+### Tooling **carbon:branch**
 - Linear, Notion, Obsidian, Jira, Confluence
-- Vercel, Cursor, Git, CI/CD, VS Code, Claude Code
+- Git, VS Code, Claude Code, Xcode
 
 ### Languages **carbon:ibm-watson-language-translator**
-**International Communication** | **carbon:task-star** Advanced
-
 - French: native
 - English: full professional proficiency
 - Spanish: conversational

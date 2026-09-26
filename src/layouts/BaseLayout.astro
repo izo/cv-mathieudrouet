@@ -62,6 +62,8 @@ const switchHref = page === 'other' ? routes.cv[switchLocale] : routes[page][swi
 // Les outils WebMCP servent la langue de la page où ils sont enregistrés.
 const cvMarkdownHref = markdownRoutes.cv[lang];
 const aboutMarkdownHref = markdownRoutes.about[lang];
+const pdfHref = lang === 'fr' ? '/CV-Mathieu-Drouet-FR.pdf' : '/CV-Mathieu-Drouet-EN.pdf';
+const pdfDownloadName = lang === 'fr' ? 'CV-Mathieu-Drouet-FR.pdf' : 'CV-Mathieu-Drouet-EN.pdf';
 ---
 
 <!doctype html>
@@ -80,7 +82,7 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
     {markdownHref && (
       <link rel="alternate" type="text/markdown" href={markdownHref} title="Markdown version" />
     )}
-    <link rel="alternate" type="application/pdf" href="/cv_mathieu_drouet.pdf" title="CV (PDF)" />
+    <link rel="alternate" type="application/pdf" href={pdfHref} title="CV (PDF)" />
 
     <!-- Versions linguistiques (hreflang) — mêmes URL que les canoniques -->
     {alternates.map(({ locale, path }) => (
@@ -121,6 +123,7 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Person",
+      "@id": new URL("/#mathieu-drouet", siteConfig.url).href,
       "name": siteConfig.author.name,
       "jobTitle": siteConfig.author.jobTitle,
       "url": siteConfig.url,
@@ -151,11 +154,22 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
         }
       ],
       "knowsAbout": [
+        "Product Strategy",
         "Product Management",
+        "Technology Strategy",
+        "Software Architecture",
+        "Artificial Intelligence",
+        "AI Architecture",
+        "Large Language Models",
+        "Agentic AI",
+        "AI Agents",
+        "Model Context Protocol",
+        "Retrieval-Augmented Generation",
+        "MusicTech",
+        "LiveTech",
         "Digital Transformation",
-        "UX Strategy",
-        "Agile Methodologies",
-        "Product Strategy"
+        "B2B Software",
+        "UX Strategy"
       ]
     })} />
 
@@ -216,8 +230,8 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
                     <Fragment set:html={renderIconSVG('carbon:user-profile', { width: 16, height: 16, class: 'inline-block' })} />
                   </a>
                   <a 
-                    href="/cv_mathieu_drouet.pdf"
-                    download="CV-Mathieu-Drouet.pdf"
+                    href={pdfHref}
+                    download={pdfDownloadName}
                     class="text-cv-muted hover:text-cv-accent transition-colors focus:outline-none focus:ring-2 focus:ring-cv-accent focus:rounded p-1" 
                     aria-label={t.footer.downloadPdf}
                   >
@@ -263,7 +277,7 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
     </script>
 
     <!-- WebMCP: expose site tools to AI agents (https://webmachinelearning.github.io/webmcp/) -->
-    <script is:inline define:vars={{ cvMarkdownHref, aboutMarkdownHref }}>
+    <script is:inline define:vars={{ cvMarkdownHref, aboutMarkdownHref, pdfHref, pdfDownloadName }}>
       (function registerWebMCPTools() {
         if (typeof navigator === 'undefined') return;
         var mc = navigator.modelContext;
@@ -274,7 +288,7 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
             tools: [
               {
                 name: 'get_cv_markdown',
-                description: "Fetch Mathieu Drouet's full CV (Head of Product, Lille, France) as Markdown.",
+                description: "Fetch Mathieu Drouet's full CV (Chief AI, Technology & Product Officer — Product, Technology & AI, Lille, France) as Markdown.",
                 inputSchema: { type: 'object', properties: {}, additionalProperties: false },
                 execute: async function () {
                   var res = await fetch(cvMarkdownHref, { headers: { 'Accept': 'text/markdown' } });
@@ -285,7 +299,7 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
               },
               {
                 name: 'get_about_markdown',
-                description: "Fetch Mathieu Drouet's long-form about page (AI-Augmented Delivery, what he does and looks for) as Markdown.",
+                description: "Fetch Mathieu Drouet's long-form about page covering Product, Technology, AI architecture, agentic systems and hands-on delivery as Markdown.",
                 inputSchema: { type: 'object', properties: {}, additionalProperties: false },
                 execute: async function () {
                   var res = await fetch(aboutMarkdownHref, { headers: { 'Accept': 'text/markdown' } });
@@ -300,8 +314,8 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
                 inputSchema: { type: 'object', properties: {}, additionalProperties: false },
                 execute: async function () {
                   var a = document.createElement('a');
-                  a.href = '/cv_mathieu_drouet.pdf';
-                  a.download = 'CV-Mathieu-Drouet.pdf';
+                  a.href = pdfHref;
+                  a.download = pdfDownloadName;
                   document.body.appendChild(a);
                   a.click();
                   a.remove();

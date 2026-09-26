@@ -67,6 +67,8 @@ export interface UIStrings {
     meta: { title: string; description: string };
     eyebrow: string;
     education: string;
+    educationSubtitle: string;
+    autodidact: string;
     contact: string;
     interests: string;
     experience: string;
@@ -121,7 +123,7 @@ export const ui: Record<Locale, UIStrings> = {
     ogLocale: 'fr_FR',
     localeName: 'Français',
     skipToContent: 'Aller au contenu principal',
-    languageSwitch: { label: 'EN', ariaLabel: 'Read this page in English' },
+    languageSwitch: { label: 'EN', ariaLabel: 'Lire cette page en anglais' },
     footer: {
       about: 'À propos',
       downloadPdf: 'Télécharger le CV en PDF',
@@ -133,17 +135,19 @@ export const ui: Record<Locale, UIStrings> = {
     cv: {
       meta: { title: siteConfig.title, description: siteConfig.description },
       eyebrow: 'CV · Lille, France',
-      education: 'Education',
+      education: 'Formation',
+      educationSubtitle: 'Parcours',
+      autodidact: 'Parcours principalement autodidacte en technologie, produit et intelligence artificielle.',
       contact: 'Coordonnées',
       interests: "Centres d'intérêt",
       experience: 'Expériences',
-      experienceSubtitle: '10+ ans',
+      experienceSubtitle: 'Product · Technology · AI',
       skills: 'Compétences',
       skillsSubtitle: 'Expertise professionnelle',
     },
     about: {
       meta: { title: `À propos — ${siteConfig.title}`, description: siteConfig.description },
-      eyebrow: 'À propos · Head of Product',
+      eyebrow: 'À propos · CATPO',
       tagline: 'Au-delà du CV',
       description:
         "Ce que le CV ne raconte pas : l'approche, les convictions, et comment je travaille en 2026.",
@@ -190,7 +194,7 @@ export const ui: Record<Locale, UIStrings> = {
     ogLocale: 'en_US',
     localeName: 'English',
     skipToContent: 'Skip to main content',
-    languageSwitch: { label: 'FR', ariaLabel: 'Lire cette page en français' },
+    languageSwitch: { label: 'FR', ariaLabel: 'Read this page in French' },
     footer: {
       about: 'About',
       downloadPdf: 'Download the CV as PDF',
@@ -201,26 +205,28 @@ export const ui: Record<Locale, UIStrings> = {
     },
     cv: {
       meta: {
-        title: 'Mathieu Drouet — Head of Product & Product Builder | AI-Augmented Delivery',
+        title: 'Mathieu Drouet — Chief AI, Technology & Product Officer (CATPO)',
         description:
-          'Head of Product & Product Builder, 10+ years on complex B2B products. Designs AND ships: field discovery, legacy modernisation, AI agents in production. Founder of regrets.app.',
+          'Chief AI, Technology & Product Officer for complex B2B products: product strategy, technology architecture, agentic systems and hands-on delivery.',
       },
       eyebrow: 'CV · Lille, France',
       education: 'Education',
+      educationSubtitle: 'Background',
+      autodidact: 'Primarily self-taught across technology, product and artificial intelligence.',
       contact: 'Contact',
       interests: 'Interests',
       experience: 'Experience',
-      experienceSubtitle: '10+ years',
+      experienceSubtitle: 'Product · Technology · AI',
       skills: 'Skills',
       skillsSubtitle: 'Professional expertise',
     },
     about: {
       meta: {
-        title: 'About — Mathieu Drouet, Head of Product & Product Builder',
+        title: 'About — Mathieu Drouet, Chief AI, Technology & Product Officer',
         description:
-          'Beyond the CV: how I work in 2026 — field discovery, legacy modernisation, and AI-Augmented Delivery in production.',
+          'Product, technology and AI leadership in practice: field discovery, systems architecture, agentic AI and hands-on delivery.',
       },
-      eyebrow: 'About · Head of Product',
+      eyebrow: 'About · CATPO',
       tagline: 'Beyond the CV',
       description:
         "What a CV leaves out: the approach, the convictions, and how I actually work in 2026.",

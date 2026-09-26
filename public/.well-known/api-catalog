@@ -41,9 +41,16 @@
       ],
       "alternate": [
         {
-          "href": "https://cv.drouet.io/cv_mathieu_drouet.pdf",
+          "href": "https://cv.drouet.io/CV-Mathieu-Drouet-FR.pdf",
           "type": "application/pdf",
-          "title": "CV in PDF format"
+          "title": "CV en PDF",
+          "hreflang": "fr"
+        },
+        {
+          "href": "https://cv.drouet.io/CV-Mathieu-Drouet-EN.pdf",
+          "type": "application/pdf",
+          "title": "CV in PDF",
+          "hreflang": "en"
         },
         {
           "href": "https://cv.drouet.io/en/",
