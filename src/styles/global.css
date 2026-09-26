@@ -293,7 +293,8 @@
     --cv-muted: var(--color-neutral-700);
     --cv-light: var(--color-neutral-400);
     --cv-card: var(--color-green-50);
-    --cv-accent: var(--color-accent-green);
+    --cv-accent: var(--color-green-700);
+    --cv-accent-decorative: var(--color-accent-green);
     --cv-badge: var(--color-accent-green-alt);
     --cv-section: var(--color-green-100);
     --cv-border: var(--color-light-blue);
@@ -460,7 +461,7 @@
     content: '';
     width: 4px;
     height: 1.5rem;
-    background: var(--cv-accent);
+    background: var(--cv-accent-decorative);
     border-radius: var(--radius-sm);
   }
   
@@ -776,7 +777,7 @@
   .hero-rule {
     width: 2.5rem;
     height: 3px;
-    background: var(--cv-accent);
+    background: var(--cv-accent-decorative);
     margin-bottom: 1.25rem;
   }
 
