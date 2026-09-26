@@ -67,6 +67,8 @@ export interface UIStrings {
     meta: { title: string; description: string };
     eyebrow: string;
     education: string;
+    educationSubtitle: string;
+    autodidact: string;
     contact: string;
     interests: string;
     experience: string;
@@ -133,7 +135,9 @@ export const ui: Record<Locale, UIStrings> = {
     cv: {
       meta: { title: siteConfig.title, description: siteConfig.description },
       eyebrow: 'CV · Lille, France',
-      education: 'Education',
+      education: 'Formation',
+      educationSubtitle: 'Parcours',
+      autodidact: 'Parcours principalement autodidacte en technologie, produit et intelligence artificielle.',
       contact: 'Coordonnées',
       interests: "Centres d'intérêt",
       experience: 'Expériences',
@@ -207,6 +211,8 @@ export const ui: Record<Locale, UIStrings> = {
       },
       eyebrow: 'CV · Lille, France',
       education: 'Education',
+      educationSubtitle: 'Background',
+      autodidact: 'Primarily self-taught across technology, product and artificial intelligence.',
       contact: 'Contact',
       interests: 'Interests',
       experience: 'Experience',
