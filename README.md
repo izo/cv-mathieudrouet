@@ -47,6 +47,7 @@ bun install
 bun run dev        # localhost:4321
 bun run build      # Build de production
 bun run preview    # Prévisualiser le build
+bun run pdf:generate # Générer les PDF FR/EN (nécessite Chromium via Playwright)
 ```
 
 ## Tests
@@ -68,6 +69,15 @@ Les copies servies aux agents (`public/cv.md`, `public/about.md`, `public/en/cv.
 pnpm run content:check     # Vérifier les changements de contenu
 pnpm run content:watch     # Surveiller les changements en continu
 ```
+
+## PDF
+
+Les PDF sont générés depuis le rendu HTML du CV, avec une feuille d'impression A4 dédiée :
+
+- `public/CV-Mathieu-Drouet-FR.pdf`
+- `public/CV-Mathieu-Drouet-EN.pdf`
+
+Sur `main`, le workflow `.github/workflows/generate-pdf.yml` reconstruit automatiquement les deux versions après une modification du contenu, des composants, des styles ou de la configuration. Les anciennes URLs PDF redirigent vers la version française.
 
 ## Design System
 
