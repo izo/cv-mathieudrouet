@@ -508,7 +508,7 @@ export function parseCVContent(content: string, frontmatterData?: any): CVData {
       const items = itemLines.map(line => replaceFlexibleIcons(line.replace(/^\s*-\s*/, '').trim(), defaultIconSet));
 
       if (title && items.length > 0) {
-        skills.push({ title, subtitle, level, items, icon, levelIcon });
+        skills.push({ title, subtitle, level, current: cleanTitle.startsWith('Product Management'), items, icon, levelIcon });
       }
     });
   }
