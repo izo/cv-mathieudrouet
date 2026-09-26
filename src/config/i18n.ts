@@ -137,13 +137,13 @@ export const ui: Record<Locale, UIStrings> = {
       contact: 'Coordonnées',
       interests: "Centres d'intérêt",
       experience: 'Expériences',
-      experienceSubtitle: '10+ ans',
+      experienceSubtitle: 'Product · Technology · AI',
       skills: 'Compétences',
       skillsSubtitle: 'Expertise professionnelle',
     },
     about: {
       meta: { title: `À propos — ${siteConfig.title}`, description: siteConfig.description },
-      eyebrow: 'À propos · Head of Product',
+      eyebrow: 'À propos · CATPO',
       tagline: 'Au-delà du CV',
       description:
         "Ce que le CV ne raconte pas : l'approche, les convictions, et comment je travaille en 2026.",
@@ -201,26 +201,26 @@ export const ui: Record<Locale, UIStrings> = {
     },
     cv: {
       meta: {
-        title: 'Mathieu Drouet — Head of Product & Product Builder | AI-Augmented Delivery',
+        title: 'Mathieu Drouet — Chief AI, Technology & Product Officer (CATPO)',
         description:
-          'Head of Product & Product Builder, 10+ years on complex B2B products. Designs AND ships: field discovery, legacy modernisation, AI agents in production. Founder of regrets.app.',
+          'Chief AI, Technology & Product Officer for complex B2B products: product strategy, technology architecture, agentic systems and hands-on delivery.',
       },
       eyebrow: 'CV · Lille, France',
       education: 'Education',
       contact: 'Contact',
       interests: 'Interests',
       experience: 'Experience',
-      experienceSubtitle: '10+ years',
+      experienceSubtitle: 'Product · Technology · AI',
       skills: 'Skills',
       skillsSubtitle: 'Professional expertise',
     },
     about: {
       meta: {
-        title: 'About — Mathieu Drouet, Head of Product & Product Builder',
+        title: 'About — Mathieu Drouet, Chief AI, Technology & Product Officer',
         description:
-          'Beyond the CV: how I work in 2026 — field discovery, legacy modernisation, and AI-Augmented Delivery in production.',
+          'Product, technology and AI leadership in practice: field discovery, systems architecture, agentic AI and hands-on delivery.',
       },
-      eyebrow: 'About · Head of Product',
+      eyebrow: 'About · CATPO',
       tagline: 'Beyond the CV',
       description:
         "What a CV leaves out: the approach, the convictions, and how I actually work in 2026.",
