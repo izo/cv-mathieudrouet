@@ -398,9 +398,17 @@ const t = ui[lang].contactModal;
     const submitLoading = document.getElementById('submit-loading') as HTMLElement;
     const successMessage = document.getElementById('success-message') as HTMLElement;
     const errorMessage = document.getElementById('error-message') as HTMLElement;
+    let returnFocusTo: HTMLElement | null = null;
+
+    const getFocusable = () => modal
+      ? Array.from(modal.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )).filter((el) => !el.closest('.hidden'))
+      : [];
 
     // Declare global function for opening modal
     (window as any).openContactModal = function() {
+      returnFocusTo = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       modal?.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
 
@@ -425,6 +433,8 @@ const t = ui[lang].contactModal;
       successMessage?.classList.add('hidden');
       errorMessage?.classList.add('hidden');
       form?.classList.remove('hidden');
+      returnFocusTo?.focus();
+      returnFocusTo = null;
     }
 
     // Event listeners for closing modal
@@ -440,8 +450,29 @@ const t = ui[lang].contactModal;
 
     // Close on Escape key
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+      if (!modal || modal.classList.contains('hidden')) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
         closeModal();
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const focusable = getFocusable();
+        if (focusable.length === 0) {
+          e.preventDefault();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     });
 
