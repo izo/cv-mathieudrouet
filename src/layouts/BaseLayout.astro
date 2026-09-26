@@ -121,6 +121,7 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Person",
+      "@id": new URL("/#mathieu-drouet", siteConfig.url).href,
       "name": siteConfig.author.name,
       "jobTitle": siteConfig.author.jobTitle,
       "url": siteConfig.url,
@@ -151,11 +152,22 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
         }
       ],
       "knowsAbout": [
+        "Product Strategy",
         "Product Management",
+        "Technology Strategy",
+        "Software Architecture",
+        "Artificial Intelligence",
+        "AI Architecture",
+        "Large Language Models",
+        "Agentic AI",
+        "AI Agents",
+        "Model Context Protocol",
+        "Retrieval-Augmented Generation",
+        "MusicTech",
+        "LiveTech",
         "Digital Transformation",
-        "UX Strategy",
-        "Agile Methodologies",
-        "Product Strategy"
+        "B2B Software",
+        "UX Strategy"
       ]
     })} />
 
@@ -274,7 +286,7 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
             tools: [
               {
                 name: 'get_cv_markdown',
-                description: "Fetch Mathieu Drouet's full CV (Head of Product, Lille, France) as Markdown.",
+                description: "Fetch Mathieu Drouet's full CV (Chief AI, Technology & Product Officer — Product, Technology & AI, Lille, France) as Markdown.",
                 inputSchema: { type: 'object', properties: {}, additionalProperties: false },
                 execute: async function () {
                   var res = await fetch(cvMarkdownHref, { headers: { 'Accept': 'text/markdown' } });
@@ -285,7 +297,7 @@ const aboutMarkdownHref = markdownRoutes.about[lang];
               },
               {
                 name: 'get_about_markdown',
-                description: "Fetch Mathieu Drouet's long-form about page (AI-Augmented Delivery, what he does and looks for) as Markdown.",
+                description: "Fetch Mathieu Drouet's long-form about page covering Product, Technology, AI architecture, agentic systems and hands-on delivery as Markdown.",
                 inputSchema: { type: 'object', properties: {}, additionalProperties: false },
                 execute: async function () {
                   var res = await fetch(aboutMarkdownHref, { headers: { 'Accept': 'text/markdown' } });
