@@ -318,10 +318,10 @@ export function parseCVContent(content: string, frontmatterData?: any): CVData {
       // New format: Institution, City – Years (e.g., "Simplon.co, Lille – 2022–2023")
       else if (line.trim() && currentEducation.title && !currentEducation.institution && !line.startsWith('**') && !line.startsWith('###')) {
         // Parse format: "Institution, City – Years"
-        const match = line.match(/^(.+?)\s*[,–-]\s*(.+?)\s*[–-]\s*(.+)$/);
+        const match = line.match(/^(.+?)\s+[–-]\s+(\d{4}(?:\s*[–-]\s*\d{4})?)$/);
         if (match) {
-          const [, institution, location, period] = match;
-          currentEducation.institution = `${institution.trim()}, ${location.trim()}`;
+          const [, institutionAndLocation, period] = match;
+          currentEducation.institution = institutionAndLocation.trim();
           currentEducation.period = period.trim();
         } else {
           // Fallback: if no match, treat the whole line as institution
