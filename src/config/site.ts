@@ -6,8 +6,8 @@
 export const siteConfig = {
   // Site Information
   name: "CV Mathieu Drouet",
-  title: "Mathieu Drouet — Head of Product & Product Builder | AI-Augmented Delivery",
-  description: "Head of Product & Product Builder, 10+ ans en produits B2B complexes. Conçoit ET livre le produit : discovery terrain, modernisation de systèmes legacy, intégration d'agents IA. Fondateur de regrets.app.",
+  title: "Mathieu Drouet — Chief AI, Technology & Product Officer (CATPO)",
+  description: "Chief AI, Technology & Product Officer. Stratégie produit, architecture technologique, systèmes agentiques et delivery hands-on pour produits B2B complexes.",
   url: "https://cv.drouet.io",
 
   // Personal Information
@@ -16,7 +16,7 @@ export const siteConfig = {
     email: "m@mdr.cool",
     phone: "+33767144874",
     location: "Lille, France",
-    jobTitle: "Head of Product & Product Builder | AI-Augmented Delivery",
+    jobTitle: "Chief AI, Technology & Product Officer (CATPO)",
     image: "/profile.jpg"
   },
   
@@ -39,10 +39,15 @@ export const siteConfig = {
   // SEO Configuration
   seo: {
     keywords: [
-      "Head of Product",
+      "Chief AI Officer",
+      "Chief Technology Officer",
+      "Chief Product Officer",
+      "CATPO",
+      "AI Architecture",
+      "Agentic Systems",
+      "LLM",
       "Product Builder",
       "Product Manager",
-      "AI Product",
       "Mathieu Drouet",
       "Lille",
       "France",
