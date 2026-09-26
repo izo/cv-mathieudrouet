@@ -1,45 +1,21 @@
-# Mathieu Drouet — Head of Product & Product Builder
+# Mathieu Drouet
 
-> CV en ligne de Mathieu Drouet, Head of Product & Product Builder basé à Lille (France). 10+ ans sur des produits numériques B2B complexes. Conçoit ET livre le produit : discovery terrain, modernisation de systèmes legacy, intégration d'agents IA en production. Fondateur de regrets.app.
+> Chief AI, Technology & Product Officer (CATPO) based in Lille, France. Product strategy, technology architecture, AI architecture, agentic systems and hands-on delivery for complex B2B products.
 
-Site : https://cv.drouet.io
+Mathieu Drouet works across Product, Technology and AI. Since May 2026, he has worked freelance as Chief AI, Technology & Product Officer at Lilabs, focused on research and development at the intersection of MusicTech and LiveTech.
 
-## Resources
+## CV
 
-- [CV (Markdown)](https://cv.drouet.io/cv.md): CV complet en Markdown, mis à jour à chaque build.
-- [About (Markdown)](https://cv.drouet.io/about.md): Présentation longue : approche produit, AI-Augmented Delivery, ce que je cherche.
-- [CV (Markdown, English)](https://cv.drouet.io/en/cv.md): Same CV, English version.
-- [About (Markdown, English)](https://cv.drouet.io/en/about.md): Same long-form positioning, English version.
-- [CV (PDF)](https://cv.drouet.io/cv_mathieu_drouet.pdf): Version PDF imprimable du CV.
-- [API Catalog](https://cv.drouet.io/.well-known/api-catalog): Index machine-lisible des ressources publiées (RFC 9727).
-- [Agent Skills Index](https://cv.drouet.io/.well-known/agent-skills/index.json): Skills exposées pour les agents IA.
+- [CV — Français](https://cv.drouet.io/cv.md): Full French CV, experience, skills and education.
+- [CV — English](https://cv.drouet.io/en/cv.md): Full English CV, experience, skills and education.
 
-## Langues / Languages
+## About
 
-Le site est publié en deux langues, depuis deux sources Markdown distinctes.
-The site is published in two languages, from two separate Markdown sources.
+- [À propos — Français](https://cv.drouet.io/about.md): Working approach across Product, Technology and AI.
+- [About — English](https://cv.drouet.io/en/about.md): Working approach across Product, Technology and AI.
 
-- Français (par défaut) : https://cv.drouet.io/ et https://cv.drouet.io/about/
-- English: https://cv.drouet.io/en/ and https://cv.drouet.io/en/about/
+## Profiles
 
-Les deux versions décrivent le même profil. En cas d'écart, la version
-française fait foi. Both describe the same profile; the French version prevails.
-
-## Profils externes
-
-- [LinkedIn](https://www.linkedin.com/in/mathieudrouet/)
-- [GitHub](https://github.com/izo)
-- [Portfolio](https://mathieu-drouet.com)
-- [regrets.app](https://regrets.app/)
-
-## Contact
-
-- Email : m@mdr.cool
-- Téléphone : +33 7 67 14 48 74
-- Localisation : Lille, France (mobile sur Paris, Belgique, Canada)
-
-## Préférences d'usage IA (Content Signals)
-
-- search=yes — indexation pour la recherche autorisée
-- ai-train=no — pas d'usage pour entraîner des modèles
-- ai-input=yes — utilisation comme contexte (grounding) autorisée
+- [LinkedIn](https://www.linkedin.com/in/mathieudrouet/): Professional profile.
+- [GitHub](https://github.com/izo): Open-source work and software projects.
+- [regrets.app](https://regrets.app/): Independent product studio.
