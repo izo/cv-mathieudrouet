@@ -1,7 +1,7 @@
 ---
 name: "Mathieu Drouet"
-title: "Head of Product & Product Builder | AI-Augmented Delivery"
-description: "Product leader qui conçoit ET livre le produit. 10+ ans en B2B complexe : de la discovery terrain au prototype testable en quelques jours grâce à l'IA. Builder autant que manager d'équipes cross-fonctionnelles."
+title: "Chief AI, Technology & Product Officer (CATPO)"
+description: "Direction Product, Technology & AI pour produits numériques B2B complexes. Stratégie produit, architecture technologique, systèmes agentiques et delivery hands-on."
 iconSet: "carbon"
 theme: "lumon"
 
@@ -27,6 +27,10 @@ theme: "lumon"
 **carbon:ibm-engineering-systems-design-rhapsody** Design
 
 ## Expériences
+
+### Lilabs
+**carbon:location-heart-filled** France / full remote – 2026
+**Freelance Chief AI, Technology & Product Officer (CATPO)** | Mai 2026 – en cours | [Company Link](https://lilabs.xyz/)
 
 ### regrets.app
 **carbon:location-heart-filled** Full remote – 2025
@@ -94,51 +98,35 @@ theme: "lumon"
 
 ## Compétences
 
-### Product leadership **carbon:cognitive**
-**Strategic Leadership** | **carbon:badge** Expert
+### Product & Business Leadership **carbon:cognitive**
+- Stratégie produit, discovery terrain, roadmap et go-to-market
+- Transformation de produits B2B complexes et modernisation de systèmes legacy
+- Priorisation par impact business, OKR et KPI produit
+- Leadership d'équipes cross-fonctionnelles jusqu'à 12 personnes
 
-- Discovery terrain, roadmap produit, go-to-market
-- OKR, priorisation par impact business
-- Delivery management, équipes cross-fonctionnelles jusqu'à 12 personnes
-- Product Builder : capable de prototyper et livrer soi-même, sans dépendre d'une équipe pour valider une intuition
+### AI Strategy & Architecture **carbon:ai-generate**
+- Architecture LLM et systèmes agentiques, orchestration, Model Context Protocol (MCP)
+- Sélection et intégration de modèles propriétaires et open source
+- RAG, prototypage et intégration de fonctionnalités IA dans des produits existants
+- [Ulk](https://izo.github.io/Ulk/) — framework multi-agents développé en propre
+- Évaluation des compromis qualité, latence, coût et hébergement
 
-### IA appliquée au produit **carbon:ai-generate**
-**AI Product** | **carbon:task-star** Avancé
+### Technology & Delivery **carbon:edge-device**
+- Architecture systèmes et API, modernisation technique, CI/CD
+- TypeScript, React, Next.js, Astro, Tailwind CSS, Bun
+- Flutter, SwiftUI, SPIP, PHP
+- Git, Linux, macOS, infrastructure cloud
+- Delivery hands-on : du prototype au produit publié
 
-- Claude Code (usage quotidien), agents IA, Model Context Protocol (MCP)
-- LLM open source (Llama, Mistral, Claude), RAG, fine-tuning
-- Prototypage et intégration IA dans produits existants
-- [Ulk](https://izo.github.io/Ulk/) — framework d'agents développé en propre
+### Product Analytics & Design **carbon:analytics**
+- PostHog, Hotjar, analyse comportementale, feedback loops
+- Figma, UX/UI, Adobe Creative Suite, direction artistique
 
-### Analytics **carbon:analytics**
-**Data-Driven** | **carbon:task-star** Avancé
-
-- PostHog, Hotjar, analyse comportementale
-- Feedback loops, KPI produit
-
-### Développement & infrastructure **carbon:edge-device**
-**Full-Stack Development** | **carbon:task-star** Avancé
-
-- Next.js, Astro, React, TypeScript, Tailwind CSS, Bun
-- Flutter, SwiftUI, SPIP, PHP, architecture API
-- CI/CD, Git, Linux, macOS avancé
-- Xcode (développement, distribution App Store / TestFlight)
-
-### Design & création **carbon:ibm-engineering-systems-design-rhapsody**
-**Creative Direction** | **carbon:task-star** Avancé
-
-- Figma, Adobe Creative Suite (Lightroom, Photoshop, InDesign — usage professionnel)
-- Direction artistique
-
-### Outils produit **carbon:branch**
-**Digital Workflow** | **carbon:badge** Expert
-
+### Outils **carbon:branch**
 - Linear, Notion, Obsidian, Jira, Confluence
-- Vercel, Cursor, Git, CI/CD, VS Code, Claude Code
+- Git, VS Code, Claude Code, Xcode
 
 ### Langues **carbon:ibm-watson-language-translator**
-**International Communication** | **carbon:task-star** Avancé
-
 - Français : langue maternelle
 - Anglais : professionnel courant
 - Espagnol : conversationnel
