@@ -5,8 +5,8 @@ import { ui, DEFAULT_LOCALE, type Locale } from '../config/i18n.ts';
 export interface Props {
   company: string;
   companyUrl?: string;
-  role: string;
-  period: string;
+  role?: string;
+  period?: string;
   current?: boolean;
   logo?: string;
   description?: string[];
@@ -79,7 +79,7 @@ const levelIconSVG = levelIcon
               <span set:html={company}></span>
             )}
           </h3>
-          <p class="text-sm sm:text-base font-semibold text-cv-muted" set:html={role}></p>
+          {role && <p class="text-sm sm:text-base font-semibold text-cv-muted" set:html={role}></p>}
         </div>
         
         <!-- Level Badge -->
@@ -87,12 +87,14 @@ const levelIconSVG = levelIcon
           {current && (
             <span class="badge-current">{t.currentBadge}</span>
           )}
-          <span class="badge-lumon">
-            {levelIcon && levelIconSVG ? (
-              <div class="flex items-center justify-center w-5 h-5" set:html={levelIconSVG} />
-            ) : null}
-            <span class="font-ibm-plex-mono" set:html={period}></span>
-          </span>
+          {period && (
+            <span class="badge-lumon">
+              {levelIcon && levelIconSVG ? (
+                <div class="flex items-center justify-center w-5 h-5" set:html={levelIconSVG} />
+              ) : null}
+              <span class="font-ibm-plex-mono" set:html={period}></span>
+            </span>
+          )}
         </div>
       </div>
       
