@@ -19,3 +19,9 @@ Mathieu Drouet works across Product, Technology and AI. Since May 2026, he has w
 - [LinkedIn](https://www.linkedin.com/in/mathieudrouet/): Professional profile.
 - [GitHub](https://github.com/izo): Open-source work and software projects.
 - [regrets.app](https://regrets.app/): Independent product studio.
+
+
+## PDF
+
+- [CV PDF — Français](https://cv.drouet.io/CV-Mathieu-Drouet-FR.pdf): Generated French PDF.
+- [CV PDF — English](https://cv.drouet.io/CV-Mathieu-Drouet-EN.pdf): Generated English PDF.
