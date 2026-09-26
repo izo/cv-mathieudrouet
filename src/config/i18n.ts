@@ -123,7 +123,7 @@ export const ui: Record<Locale, UIStrings> = {
     ogLocale: 'fr_FR',
     localeName: 'Français',
     skipToContent: 'Aller au contenu principal',
-    languageSwitch: { label: 'EN', ariaLabel: 'Read this page in English' },
+    languageSwitch: { label: 'EN', ariaLabel: 'Lire cette page en anglais' },
     footer: {
       about: 'À propos',
       downloadPdf: 'Télécharger le CV en PDF',
@@ -194,7 +194,7 @@ export const ui: Record<Locale, UIStrings> = {
     ogLocale: 'en_US',
     localeName: 'English',
     skipToContent: 'Skip to main content',
-    languageSwitch: { label: 'FR', ariaLabel: 'Lire cette page en français' },
+    languageSwitch: { label: 'FR', ariaLabel: 'Read this page in French' },
     footer: {
       about: 'About',
       downloadPdf: 'Download the CV as PDF',
