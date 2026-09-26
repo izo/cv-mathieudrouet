@@ -4,7 +4,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue)](https://www.typescriptlang.org/)
 [![Astro](https://img.shields.io/badge/Astro-6.1.9+-orange)](https://astro.build/)
 
-> **Senior Product Manager** avec 10+ ans d'expérience en transformation digitale et gestion de produits numériques. Spécialisé dans l'architecture produit, l'UX/UI, et le leadership d'équipes techniques.
+> **Chief AI, Technology & Product Officer (CATPO)** — stratégie produit, architecture technologique, systèmes agentiques et delivery hands-on pour produits numériques B2B complexes.
 
 ## Stack technique
 
@@ -115,5 +115,5 @@ La documentation complète du projet est dans `docs/` :
 
 ---
 
-**Mathieu Drouet** — Senior Product Manager, Lille  
+**Mathieu Drouet** — Chief AI, Technology & Product Officer (CATPO), Lille  
 [cv.drouet.io](https://cv.drouet.io) · [LinkedIn](https://www.linkedin.com/in/mathieudrouet/) · [mathieu@drouet.io](mailto:mathieu@drouet.io)
